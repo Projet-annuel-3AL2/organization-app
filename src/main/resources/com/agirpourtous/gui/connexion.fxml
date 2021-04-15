@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.agirpourtous.gui.ConnexionController">
+    <VBox alignment="CENTER" layoutX="300.0" layoutY="192.0" prefHeight="217.0" prefWidth="200.0" spacing="15.0">
+        <VBox alignment="CENTER" prefHeight="24.0" prefWidth="200.0" spacing="10.0">
+            <Label text="Username"/>
+            <TextField/>
+        </VBox>
+        <VBox alignment="CENTER" prefHeight="38.0" prefWidth="200.0" spacing="10.0">
+            <Label text="Password"/>
+            <PasswordField/>
+        </VBox>
+        <Button mnemonicParsing="false" text="Connect"/>
+    </VBox>
+</AnchorPane>

@@ -3,7 +3,7 @@ module com.agirpourtous {
     requires javafx.fxml;
     requires commons.cli;
 
-    opens com.agirpourtous to javafx.fxml;
-    exports com.agirpourtous;
+    opens com.agirpourtous.gui to javafx.fxml;
     exports com.agirpourtous.gui to javafx.graphics;
+    exports com.agirpourtous;
 }

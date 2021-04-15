@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agirpourtous.gui.ProjectController">
+    <HBox layoutY="30.0" spacing="5.0">
+        <VBox alignment="TOP_CENTER">
+            <Label text="To do" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+            </ScrollPane>
+        </VBox>
+        <VBox alignment="TOP_CENTER">
+            <Label text="Open" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+            </ScrollPane>
+        </VBox>
+        <VBox alignment="TOP_CENTER">
+            <Label text="Closed" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+            </ScrollPane>
+        </VBox>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+        </padding>
+    </HBox>
+    <Label alignment="CENTER" layoutX="275.0" layoutY="6.0" text="Project name" wrapText="true" />
+   <Button layoutX="14.0" layoutY="2.0" mnemonicParsing="false" text="Main menu" />
+</AnchorPane>

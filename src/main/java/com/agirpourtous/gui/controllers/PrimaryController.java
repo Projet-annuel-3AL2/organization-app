@@ -1,4 +1,4 @@
-package com.agirpourtous;
+package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.gui.GUILauncher;
 import javafx.fxml.FXML;

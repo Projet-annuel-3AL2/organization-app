@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="com.agirpourtous.gui.TicketDetailsController">
+    <VBox alignment="TOP_CENTER" layoutX="4.0" layoutY="14.0" maxHeight="1.7976931348623157E308"
+          maxWidth="1.7976931348623157E308" spacing="2.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Title"
+               textAlignment="CENTER" wrapText="true"/>
+        <Separator maxWidth="1.7976931348623157E308"/>
+        <HBox alignment="CENTER" layoutX="10.0" layoutY="34.0" maxWidth="1.7976931348623157E308" spacing="10.0">
+                <Label text="CreationDate" wrapText="true"/>
+                <Label alignment="CENTER_RIGHT" text="priority" textAlignment="RIGHT" wrapText="true"/>
+        </HBox>
+        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+            <Label text="Assignee" wrapText="true"/>
+            <Label alignment="CENTER_RIGHT" text="Creator" textAlignment="RIGHT" wrapText="true"/>
+        </HBox>
+        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+               text="description" textAlignment="CENTER" wrapText="true"/>
+        <Separator prefWidth="200.0"/>
+        <Label text="Comments"/>
+        <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"/>
+        </ScrollPane>
+    </VBox>
+    <TextField/>
+    <Button mnemonicParsing="false" text="Add comment"/>
+    <Separator prefWidth="200.0"/>
+    <Button contentDisplay="CENTER" layoutX="48.0" layoutY="331.0" mnemonicParsing="false" text="Close"/>
+</VBox>

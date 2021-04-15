@@ -15,5 +15,6 @@ public class Ticket {
     private Date creationDate;
     private Date endDate;
     private float estimatedDuration;
+    private int priority;
 
 }

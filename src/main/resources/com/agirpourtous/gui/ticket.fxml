@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="CENTER" maxWidth="1.7976931348623157E308"
+      xmlns="http://javafx.com/javafx/11.0.1">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="6.0" maxWidth="1.7976931348623157E308"
+           text="title" textAlignment="CENTER" wrapText="true"/>
+    <Separator layoutY="23.0" maxWidth="1.7976931348623157E308"/>
+    <Label alignment="TOP_LEFT" layoutX="5.0" layoutY="23.0" maxWidth="1.7976931348623157E308" text="description"
+           wrapText="true"/>
+    <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
+        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="priority" textAlignment="CENTER"/>
+        <Label alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" text="assignee" textAlignment="RIGHT"/>
+    </HBox>
+</VBox>
