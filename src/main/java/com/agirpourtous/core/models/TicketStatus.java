@@ -1,4 +1,4 @@
-package com.agirpourtous.models;
+package com.agirpourtous.core.models;
 
 public enum TicketStatus {
     TODO, ONGOING, CLOSED

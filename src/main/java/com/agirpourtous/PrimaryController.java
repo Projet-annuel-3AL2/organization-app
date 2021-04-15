@@ -1,12 +1,14 @@
 package com.agirpourtous;
 
-import java.io.IOException;
+import com.agirpourtous.gui.GUILauncher;
 import javafx.fxml.FXML;
+
+import java.io.IOException;
 
 public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+        GUILauncher.setRoot("secondary");
     }
 }

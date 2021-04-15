@@ -1,4 +1,4 @@
-package com.agirpourtous.models;
+package com.agirpourtous.core.models;
 
 import java.util.ArrayList;
 
