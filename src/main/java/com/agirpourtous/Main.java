@@ -1,5 +1,6 @@
 package com.agirpourtous;
 
+import com.agirpourtous.core.api.APIConnexion;
 import com.agirpourtous.gui.GUILauncher;
 import org.apache.commons.cli.*;
 

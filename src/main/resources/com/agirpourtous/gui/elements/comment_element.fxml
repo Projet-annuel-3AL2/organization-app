@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agirpourtous.gui.controllers.elements.CommentElementController">
+    <Label contentDisplay="CENTER" layoutX="-2.0" layoutY="6.0" maxWidth="1.7976931348623157E308" text="author" textAlignment="CENTER" wrapText="true" />
+    <Separator layoutY="23.0" maxWidth="1.7976931348623157E308" />
+    <Label alignment="CENTER" layoutX="5.0" layoutY="23.0" maxHeight="1.7976931348623157E308" style="-fx-wrap-text: break-word;" text="comment text" textAlignment="CENTER" wrapText="true" />
+</VBox>

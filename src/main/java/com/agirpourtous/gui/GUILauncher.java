@@ -14,9 +14,11 @@ public class GUILauncher extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("project_details"), 640, 480);
         stage.setScene(scene);
         stage.show();
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -27,7 +29,7 @@ public class GUILauncher extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 }
