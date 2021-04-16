@@ -1,35 +1,22 @@
 package com.agirpourtous.gui;
 
-import com.agirpourtous.Main;
+import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.gui.controllers.ConnexionController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class GUILauncher extends Application {
-    private static Scene scene;
+    private APIClient client;
 
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("project_details"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-        stage.setMinHeight(600);
-        stage.setMinWidth(800);
+    public void start(Stage stage) {
+        System.out.println("Start in GUI mode");
+        new ConnexionController(client);
     }
 
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-    public static void run(){
+    public void init(APIClient client) {
+        this.client = client;
         launch();
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
-        return fxmlLoader.load();
     }
 }

@@ -24,6 +24,7 @@ public class APIConnexion {
     public void connect(String username, String password) throws IOException {
         String json = "{username:'"+username+"', password:'"+password+"'}";
         token = postData(json, new URL("http://localhost/auth/login"));
+        if(token != null)connected = true;
     }
 
     public String postData(String data, URL url) throws IOException {

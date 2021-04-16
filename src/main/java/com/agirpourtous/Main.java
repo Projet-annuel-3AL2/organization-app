@@ -1,5 +1,6 @@
 package com.agirpourtous;
 
+import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.APIConnexion;
 import com.agirpourtous.gui.GUILauncher;
 import org.apache.commons.cli.*;
@@ -12,18 +13,18 @@ public class Main {
         Options options = generateCLIOptions();
         try {
             CommandLine line = parser.parse(options, args);
-            APIConnexion connexion = new APIConnexion();
+            APIClient client = new APIClient();
             if(line.hasOption("help")){
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("help", options);
                 System.exit(0);
             }
             if(line.hasOption("username") && line.hasOption("password")) {
-                connexion.connect(line.getOptionValue("username"), line.getOptionValue("password"));
+                client.getConnexion().connect(line.getOptionValue("username"), line.getOptionValue("password"));
             }
             if (!line.hasOption("console")) {
-                System.out.println("Start in GUI mode");
-                GUILauncher.run();
+                GUILauncher launcher = new GUILauncher();
+                launcher.init(client);
             } else {
                 System.out.println("Start in CLI mode");
             }
