@@ -3,11 +3,18 @@ package com.agirpourtous.core.models;
 import java.util.ArrayList;
 
 public class Project {
-    private ArrayList<User> admins;
-    private ArrayList<Ticket> tickets;
-    private ArrayList<User> members;
+    private final ArrayList<User> admins;
+    private final ArrayList<Ticket> tickets;
+    private final ArrayList<User> members;
     private String id;
     private String name;
+
+    public Project() {
+        super();
+        this.admins = new ArrayList<>();
+        this.tickets = new ArrayList<>();
+        this.members = new ArrayList<>();
+    }
 
     public ArrayList<User> getAdmins() {
         return admins;

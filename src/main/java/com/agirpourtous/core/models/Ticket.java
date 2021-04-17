@@ -7,7 +7,7 @@ public class Ticket {
     private Project project;
     private User creator;
     private User assignee;
-    private ArrayList<Comment> comments;
+    private final ArrayList<Comment> comments;
     private String id;
     private String title;
     private String description;
@@ -16,6 +16,11 @@ public class Ticket {
     private Date endDate;
     private float estimatedDuration;
     private int priority;
+
+    public Ticket() {
+        super();
+        this.comments = new ArrayList<>();
+    }
 
     public Project getProject() {
         return project;

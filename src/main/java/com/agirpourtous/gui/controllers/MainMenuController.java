@@ -32,7 +32,11 @@ public class MainMenuController extends Controller {
         super("main_menu", client, stage);
         if (client.getConnexion().getUser() != null)
             this.usernameLabel.setText(client.getConnexion().getUser().getUsername());
-        addProject(null);
+        addProject(new Project());
+        client.getProjects().forEach(this::addProject);
+        /*if(client.getConnexion().getUser().isAdmin()){
+            adminPane.setVisible(true);
+        }*/
     }
 
     private void addProject(Project project) {

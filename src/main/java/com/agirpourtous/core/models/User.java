@@ -3,15 +3,22 @@ package com.agirpourtous.core.models;
 import java.util.ArrayList;
 
 public class User {
-    private ArrayList<Ticket> createdTickets;
-    private ArrayList<Ticket> assignedTickets;
-    private ArrayList<Comment> comments;
+    private final ArrayList<Ticket> createdTickets;
+    private final ArrayList<Ticket> assignedTickets;
+    private final ArrayList<Comment> comments;
     private String id;
     private boolean admin;
     private String username;
     private String lastname;
     private String firstname;
     private String mail;
+
+    public User() {
+        super();
+        this.comments = new ArrayList<>();
+        this.createdTickets = new ArrayList<>();
+        this.assignedTickets = new ArrayList<>();
+    }
 
     public ArrayList<Ticket> getCreatedTickets() {
         return createdTickets;

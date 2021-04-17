@@ -8,10 +8,10 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public abstract class Element {
+    protected final Pane parent;
     protected Controller controller;
-    private final Pane parent;
 
-    public Element(String fxml, Controller controller, Pane parent) throws IOException {
+    Element(String fxml, Controller controller, Pane parent) throws IOException {
         this.controller = controller;
         this.parent = parent;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
