@@ -1,21 +1,11 @@
 package com.agirpourtous.gui.controllers;
 
-import com.agirpourtous.Main;
 import com.agirpourtous.core.api.APIClient;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class ConnexionController extends Controller {
-
     @FXML
     public Label usernameLabel;
     @FXML
@@ -33,6 +23,10 @@ public class ConnexionController extends Controller {
 
     public ConnexionController(APIClient client) {
         super("connexion", client);
+    }
+
+    public ConnexionController(APIClient client, Stage stage) {
+        super("connexion", client, stage);
     }
 
     @FXML
@@ -57,11 +51,12 @@ public class ConnexionController extends Controller {
             }
         });
         new Thread(task).start();*/
-        MainMenuController mainMenuController = new MainMenuController(client, stage);
-        connectButton.setDisable(false);
+
+        new MainMenuController(client, stage);
     }
 
     @FXML
     public void onForgotPasswordClick() {
     }
+
 }

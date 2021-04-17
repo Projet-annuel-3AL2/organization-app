@@ -10,8 +10,7 @@ public class APIClient {
     private final ArrayList<User> users;
     private final ArrayList<Project> projects;
 
-
-    public APIClient(){
+    public APIClient() {
         this.connexion = new APIConnexion();
         this.users = new ArrayList<>();
         this.projects = new ArrayList<>();

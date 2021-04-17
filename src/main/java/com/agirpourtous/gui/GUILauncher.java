@@ -7,16 +7,15 @@ import javafx.stage.Stage;
 
 
 public class GUILauncher extends Application {
-    private APIClient client;
+    private static APIClient client;
+
+    public static void setClient(APIClient client) {
+        GUILauncher.client = client;
+    }
 
     @Override
     public void start(Stage stage) {
         System.out.println("Start in GUI mode");
         new ConnexionController(client);
-    }
-
-    public void init(APIClient client) {
-        this.client = client;
-        launch();
     }
 }

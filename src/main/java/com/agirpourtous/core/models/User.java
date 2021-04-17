@@ -13,4 +13,39 @@ public class User {
     private String firstname;
     private String mail;
 
+    public ArrayList<Ticket> getCreatedTickets() {
+        return createdTickets;
+    }
+
+    public ArrayList<Ticket> getAssignedTickets() {
+        return assignedTickets;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getMail() {
+        return mail;
+    }
 }

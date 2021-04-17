@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<VBox alignment="TOP_CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agirpourtous.gui.controllers.ProjectDetailsController">
-        <ToolBar maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="800.0">
-            <Button fx:id="mainMenuButton" mnemonicParsing="false" text="Main menu" />
-            <Button fx:id="addTicketButton" mnemonicParsing="false" text="Add ticket" />
-            <Button fx:id="addUserButton" mnemonicParsing="false" text="Add User" />
-        </ToolBar>
-        <Label alignment="CENTER" text="Project name" wrapText="true" />
-        <HBox fx:id="ticketsListsHBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="524.0" prefWidth="800.0" spacing="10.0">
-            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                <Label text="To do" />
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
-                    <VBox fx:id="todoTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" />
-                </ScrollPane>
-            </VBox>
-            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                <Label text="Open" />
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0">
-                    <VBox fx:id="openTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" />
-                </ScrollPane>
-            </VBox>
-            <VBox alignment="TOP_CENTER">
-                <Label text="Closed" />
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="200.0">
-                    <VBox fx:id="closedTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-                </ScrollPane>
-            </VBox>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" />
-            </padding>
-      <VBox.margin>
-         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-      </VBox.margin>
-        </HBox>
-    </VBox>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0"
+      spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="com.agirpourtous.gui.controllers.ProjectDetailsController">
+    <ToolBar maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="800.0">
+        <Button fx:id="mainMenuButton" mnemonicParsing="false" text="Main menu"/>
+        <Button fx:id="addTicketButton" mnemonicParsing="false" text="Add ticket"/>
+        <Button fx:id="addUserButton" mnemonicParsing="false" text="Add User"/>
+    </ToolBar>
+    <Label alignment="CENTER" text="Project name" wrapText="true"/>
+    <HBox fx:id="ticketsListsHBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308"
+          maxWidth="1.7976931348623157E308" prefHeight="524.0" prefWidth="800.0" spacing="10.0">
+        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <Label text="To do"/>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                <VBox fx:id="todoTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                      prefHeight="500.0"/>
+            </ScrollPane>
+        </VBox>
+        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <Label text="Open"/>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" prefWidth="200.0">
+                <VBox fx:id="openTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                      prefHeight="500.0"/>
+            </ScrollPane>
+        </VBox>
+        <VBox alignment="TOP_CENTER">
+            <Label text="Closed"/>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
+                        maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="200.0">
+                <VBox fx:id="closedTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"/>
+            </ScrollPane>
+        </VBox>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0"/>
+        </padding>
+        <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </VBox.margin>
+    </HBox>
+</VBox>

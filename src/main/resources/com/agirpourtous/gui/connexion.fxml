@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0"
+      spacing="15" xmlns="http://javafx.com/javafx/11.0.1">
 
-<VBox alignment="CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" spacing="15" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-
-        <VBox alignment="CENTER" fillWidth="false" prefHeight="24.0" prefWidth="200.0" spacing="5.0">
-            <Label fx:id="usernameLabel" text="Username" />
-            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="157.0" />
-        </VBox>
-        <VBox alignment="CENTER" fillWidth="false" prefHeight="38.0" prefWidth="200.0" spacing="5.0">
-            <Label fx:id="passwordLabel" text="Password" />
-            <PasswordField fx:id="passwordField" />
-         <Hyperlink fx:id="forgotPasswordLink" onAction="#onForgotPasswordClick" text="Forgot password" />
-        </VBox>
-      <CheckBox fx:id="keepConnectionCheckBox" mnemonicParsing="false" text="Keep connection" />
-        <Button fx:id="connectButton" mnemonicParsing="false" onAction="#onConnectClick" text="Connect" />
+    <VBox alignment="CENTER" fillWidth="false" prefHeight="24.0" prefWidth="200.0" spacing="5.0">
+        <Label fx:id="usernameLabel" text="Username"/>
+        <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="157.0"/>
+    </VBox>
+    <VBox alignment="CENTER" fillWidth="false" prefHeight="38.0" prefWidth="200.0" spacing="5.0">
+        <Label fx:id="passwordLabel" text="Password"/>
+        <PasswordField fx:id="passwordField"/>
+        <Hyperlink fx:id="forgotPasswordLink" onAction="#onForgotPasswordClick" text="Forgot password"/>
+    </VBox>
+    <CheckBox fx:id="keepConnectionCheckBox" mnemonicParsing="false" text="Keep connection"/>
+    <Button fx:id="connectButton" mnemonicParsing="false" onAction="#onConnectClick" text="Connect"/>
 
 </VBox>
