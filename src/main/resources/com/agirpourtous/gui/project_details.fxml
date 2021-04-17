@@ -4,11 +4,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0"
-      spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1"
-      fx:controller="com.agirpourtous.gui.controllers.ProjectDetailsController">
+      spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1">
     <ToolBar maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="800.0">
-        <Button fx:id="mainMenuButton" mnemonicParsing="false" text="Main menu"/>
-        <Button fx:id="addTicketButton" mnemonicParsing="false" text="Add ticket"/>
+        <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onMainMenuButtonClick" text="Main menu"/>
+        <Button fx:id="addTicketButton" mnemonicParsing="false" onAction="#onAddTicketClick" text="Add ticket"/>
         <Button fx:id="addUserButton" mnemonicParsing="false" text="Add User"/>
     </ToolBar>
     <Label alignment="CENTER" text="Project name" wrapText="true"/>

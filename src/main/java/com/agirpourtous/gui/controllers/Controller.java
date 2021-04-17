@@ -15,12 +15,13 @@ public abstract class Controller {
     Controller(String fxml, APIClient client) {
         this.client = client;
         this.stage = new Stage();
-        this.stage.setResizable(false);
+        this.stage.setMinWidth(800);
+        this.stage.setMinHeight(600);
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
             loader.setController(this);
             stage.setScene(new Scene(loader.load()));
-            stage.setTitle("Organization app - Main menu");
+            stage.setTitle("Organization app");
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,15 +32,20 @@ public abstract class Controller {
     Controller(String fxml, APIClient client, Stage stage) {
         this.client = client;
         this.stage = stage;
-        this.stage.setResizable(false);
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
             loader.setController(this);
             stage.setScene(new Scene(loader.load()));
-            stage.setTitle("Organization app - Main menu");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public APIClient getClient() {
+        return client;
+    }
 }

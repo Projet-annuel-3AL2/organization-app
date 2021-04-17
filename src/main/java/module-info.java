@@ -8,5 +8,6 @@ module com.agirpourtous {
     exports com.agirpourtous.core.api;
     exports com.agirpourtous.gui;
     exports com.agirpourtous.gui.controllers;
+    exports com.agirpourtous.gui.controllers.elements;
     exports com.agirpourtous;
 }

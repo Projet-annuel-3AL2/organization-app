@@ -13,21 +13,22 @@
     <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
         <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="15.0">
             <Label fx:id="usernameLabel" text="Username"/>
-            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                  spacing="15.0">
+            <VBox fx:id="adminPane" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                  maxWidth="1.7976931348623157E308" spacing="15.0">
                 <Button fx:id="createUserButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                         mnemonicParsing="false" onAction="#onCreateUserClick" text="Create user"/>
-                <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#onProjectUserClick"
+                <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#onCreateProjectClick"
                         text="Create Project"/>
             </VBox>
             <Button fx:id="disconnectButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                     mnemonicParsing="false" onAction="#onDisconnectClick" text="Disconnect"/>
         </VBox>
     </HBox>
-    <VBox prefHeight="200.0" prefWidth="100.0">
+    <VBox alignment="CENTER">
         <Label fx:id="projectLabel" text="Your projects"/>
-        <ScrollPane fx:id="projectsHBox" fitToHeight="true" prefHeight="200.0" prefWidth="780.0" vbarPolicy="NEVER">
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"/>
+        <ScrollPane fitToHeight="true" prefHeight="150.0" prefWidth="780.0" vbarPolicy="NEVER">
+            <HBox fx:id="projectsHBox" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                  maxWidth="1.7976931348623157E308"/>
         </ScrollPane>
     </VBox>
 </VBox>
