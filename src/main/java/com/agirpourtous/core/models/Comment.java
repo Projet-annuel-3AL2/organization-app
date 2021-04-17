@@ -9,4 +9,23 @@ public class Comment {
     private Date creationDate;
     private String text;
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public String getText() {
+        return text;
+    }
 }
