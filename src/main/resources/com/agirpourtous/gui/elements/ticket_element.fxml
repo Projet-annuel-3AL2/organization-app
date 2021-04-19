@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<VBox fx:id="ticketElement" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#onTicketElementClick" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="6.0" maxWidth="1.7976931348623157E308" text="title" textAlignment="CENTER" wrapText="true" />
-    <Separator layoutY="23.0" maxWidth="1.7976931348623157E308" />
-    <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="5.0" layoutY="23.0" maxWidth="1.7976931348623157E308" text="description" wrapText="true" />
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="ticketElement" alignment="CENTER" maxWidth="1.7976931348623157E308"
+      onMouseClicked="#onTicketElementClick" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1">
+    <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="6.0"
+           maxWidth="1.7976931348623157E308" text="title" textAlignment="CENTER" wrapText="true"/>
+    <Separator layoutY="23.0" maxWidth="1.7976931348623157E308"/>
+    <Label fx:id="descriptionLabel" alignment="TOP_LEFT" layoutX="5.0" layoutY="23.0" maxWidth="1.7976931348623157E308"
+           text="description" wrapText="true"/>
     <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
-        <Label fx:id="priorityLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="113.0" text="priority" />
-        <Label fx:id="assigneeLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="110.0" text="assignee" textAlignment="RIGHT" />
+        <Label fx:id="priorityLabel" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="113.0"
+               text="priority"/>
+        <Label fx:id="assigneeLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="17.0"
+               prefWidth="110.0" text="assignee" textAlignment="RIGHT"/>
     </HBox>
-   <padding>
-      <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-   </padding>
+    <padding>
+        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+    </padding>
 </VBox>

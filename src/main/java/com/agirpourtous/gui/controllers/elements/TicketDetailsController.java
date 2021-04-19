@@ -1,5 +1,6 @@
 package com.agirpourtous.gui.controllers.elements;
 
+import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.gui.controllers.Controller;
 import javafx.scene.control.Button;
@@ -27,6 +28,15 @@ public class TicketDetailsController extends Element {
     public TicketDetailsController(Controller controller, Pane parent, Ticket ticket) throws IOException {
         super("elements/ticket_details", controller, parent);
         this.ticket = ticket;
+        ticket.getComments().forEach(this::addComment);
+    }
+
+    public void addComment(Comment comment) {
+        try {
+            new CommentElementController(controller, commentsVBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onAddCommentClick() {

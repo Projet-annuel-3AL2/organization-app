@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Ticket {
+    private final ArrayList<Comment> comments;
     private Project project;
     private User creator;
     private User assignee;
-    private final ArrayList<Comment> comments;
     private String id;
     private String title;
     private String description;
