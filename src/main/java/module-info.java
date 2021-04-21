@@ -2,6 +2,7 @@ module com.agirpourtous {
     requires javafx.controls;
     requires javafx.fxml;
     requires commons.cli;
+    requires com.google.gson;
 
     opens com.agirpourtous.gui;
     exports com.agirpourtous.core.models;
