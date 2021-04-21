@@ -13,6 +13,7 @@ public class Ticket {
     private String description;
     private TicketStatus status;
     private Date creationDate;
+    private Date updateDate;
     private Date endDate;
     private float estimatedDuration;
     private int priority;

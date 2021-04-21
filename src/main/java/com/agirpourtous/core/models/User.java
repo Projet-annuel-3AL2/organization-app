@@ -7,7 +7,7 @@ public class User {
     private final ArrayList<Ticket> assignedTickets;
     private final ArrayList<Comment> comments;
     private String id;
-    private boolean admin;
+    private boolean isAdmin;
     private String username;
     private String lastname;
     private String firstname;
@@ -37,7 +37,7 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return admin;
+        return isAdmin;
     }
 
     public String getUsername() {

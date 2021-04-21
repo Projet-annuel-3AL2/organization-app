@@ -6,8 +6,8 @@ public class Comment {
     private Ticket ticket;
     private User user;
     private String id;
-    private Date creationDate;
     private String text;
+    private Date creationDate;
 
     public Ticket getTicket() {
         return ticket;
