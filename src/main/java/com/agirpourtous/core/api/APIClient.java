@@ -1,44 +1,32 @@
 package com.agirpourtous.core.api;
 
-import com.agirpourtous.core.models.Project;
-import com.agirpourtous.core.models.User;
 
-import java.util.ArrayList;
+import com.agirpourtous.core.api.services.CRUDService;
+import com.agirpourtous.core.models.User;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.WebClient;
 
 public class APIClient {
-    private final APIConnexion connexion;
-    private final ArrayList<User> users;
-    private final ArrayList<Project> projects;
+    private final WebClient client;
+    MultiValueMap<String, String> savedCookies = new LinkedMultiValueMap<>();
+    private final CRUDService<User> userCRUDService;
+
 
     public APIClient() {
-        this.connexion = new APIConnexion();
-        this.users = new ArrayList<>();
-        this.projects = new ArrayList<>();
+         client = WebClient.create("http://localhost:3000/");
+         userCRUDService = new CRUDService<>(this,"/user/", User.class);
     }
 
-    public APIClient(APIConnexion connexion) {
-        this.connexion = connexion;
-        this.users = new ArrayList<>();
-        this.projects = new ArrayList<>();
+    public void connect(String username, String password) {
+        String json = "{username:'" + username + "', password:'" + password + "'}";
     }
 
-    public APIConnexion getConnexion() {
-        return connexion;
+    public WebClient getClient() {
+        return client;
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void addUsers(User user) {
-        this.users.add(user);
-    }
-
-    public ArrayList<Project> getProjects() {
-        return projects;
-    }
-
-    public void addProjects(Project project) {
-        this.projects.add(project);
+    public MultiValueMap<String, String> getCookies() {
+        return savedCookies;
     }
 }

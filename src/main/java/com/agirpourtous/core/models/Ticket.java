@@ -3,12 +3,11 @@ package com.agirpourtous.core.models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Ticket {
+public class Ticket  extends Entity {
     private final ArrayList<Comment> comments;
     private Project project;
     private User creator;
     private User assignee;
-    private String id;
     private String title;
     private String description;
     private TicketStatus status;
@@ -37,10 +36,6 @@ public class Ticket {
 
     public ArrayList<Comment> getComments() {
         return comments;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getTitle() {

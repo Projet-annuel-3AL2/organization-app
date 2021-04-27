@@ -2,7 +2,11 @@ module com.agirpourtous {
     requires javafx.controls;
     requires javafx.fxml;
     requires commons.cli;
-    requires com.google.gson;
+    requires spring.webflux;
+    requires spring.core;
+    requires spring.web;
+    requires reactor.core;
+    requires org.reactivestreams;
 
     opens com.agirpourtous.gui;
     exports com.agirpourtous.core.models;

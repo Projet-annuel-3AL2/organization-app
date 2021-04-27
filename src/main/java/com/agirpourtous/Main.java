@@ -19,7 +19,7 @@ public class Main {
                 System.exit(0);
             }
             if (line.hasOption("username") && line.hasOption("password")) {
-                client.getConnexion().connect(line.getOptionValue("username"), line.getOptionValue("password"));
+                client.connect(line.getOptionValue("username"), line.getOptionValue("password"));
             }
             if (!line.hasOption("console")) {
                 GUILauncher.setClient(client);
@@ -27,7 +27,7 @@ public class Main {
             } else {
                 System.out.println("Start in CLI mode");
             }
-        } catch (ParseException | IOException exp) {
+        } catch (ParseException exp) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(exp.getMessage(), options);
         }

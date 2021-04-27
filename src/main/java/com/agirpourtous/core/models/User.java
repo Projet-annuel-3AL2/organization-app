@@ -2,11 +2,10 @@ package com.agirpourtous.core.models;
 
 import java.util.ArrayList;
 
-public class User {
+public class User extends Entity {
     private final ArrayList<Ticket> createdTickets;
     private final ArrayList<Ticket> assignedTickets;
     private final ArrayList<Comment> comments;
-    private String id;
     private boolean isAdmin;
     private String username;
     private String lastname;
@@ -30,10 +29,6 @@ public class User {
 
     public ArrayList<Comment> getComments() {
         return comments;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public boolean isAdmin() {

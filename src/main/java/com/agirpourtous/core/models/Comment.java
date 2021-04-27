@@ -1,11 +1,12 @@
 package com.agirpourtous.core.models;
 
+
 import java.util.Date;
 
-public class Comment {
+
+public class Comment{
     private Ticket ticket;
     private User user;
-    private String id;
     private String text;
     private Date creationDate;
 
@@ -15,10 +16,6 @@ public class Comment {
 
     public User getUser() {
         return user;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public Date getCreationDate() {
