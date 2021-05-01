@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 @JsonAutoDetect
-public class Comment{
+public class Comment {
     private Ticket ticket;
     private User user;
     private String text;

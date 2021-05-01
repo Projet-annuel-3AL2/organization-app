@@ -30,12 +30,11 @@ public class MainMenuController extends Controller {
 
     public MainMenuController(APIClient client, Stage stage) {
         super("main_menu", client, stage);
-        /*if (client.getConnexion().getUser() != null)
-            this.usernameLabel.setText(client.getConnexion().getUser().getUsername());
-        client.getProjects().forEach(this::addProject);
-        if(client.getConnexion().getUser().isAdmin()){
+        this.usernameLabel.setText(client.getUser().getUsername());
+        //client.getProjects().forEach(this::addProject);
+        if (client.getUser().isAdmin()) {
             adminPane.setVisible(true);
-        }*/
+        }
     }
 
     private void addProject(Project project) {

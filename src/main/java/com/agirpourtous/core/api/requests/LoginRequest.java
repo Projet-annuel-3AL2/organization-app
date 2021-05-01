@@ -11,7 +11,8 @@ public class LoginRequest {
         this.username = username;
         this.password = password;
     }
-    public LoginRequest(){
+
+    public LoginRequest() {
 
     }
 

@@ -11,13 +11,13 @@ import reactor.core.publisher.Mono;
 import java.util.function.Function;
 
 
-public class UserService extends Service<User>{
+public class UserService extends Service<User> {
 
     public UserService(APIClient client) {
-        super(client,"/user/", User.class);
+        super(client, "/user/", User.class);
     }
 
-    public Flux<User> findAll(Function<ClientResponse, Mono<? extends Throwable>> function){
+    public Flux<User> findAll(Function<ClientResponse, Mono<? extends Throwable>> function) {
         return client.getClient().get()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
@@ -27,7 +27,7 @@ public class UserService extends Service<User>{
                 .bodyToFlux(type);
     }
 
-    public Mono<User> findById(String id,  Function<ClientResponse, Mono<? extends Throwable>> function){
+    public Mono<User> findById(String id, Function<ClientResponse, Mono<? extends Throwable>> function) {
         return client.getClient().get()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
@@ -37,7 +37,7 @@ public class UserService extends Service<User>{
                 .bodyToMono(type);
     }
 
-    public Mono<User> create(User e, Function<ClientResponse, Mono<? extends Throwable>> function){
+    public Mono<User> create(User e, Function<ClientResponse, Mono<? extends Throwable>> function) {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
@@ -48,7 +48,7 @@ public class UserService extends Service<User>{
                 .bodyToMono(type);
     }
 
-    public Mono<User> update(User user,  Function<ClientResponse, Mono<? extends Throwable>> function){
+    public Mono<User> update(User user, Function<ClientResponse, Mono<? extends Throwable>> function) {
         return client.getClient().put()
                 .uri(baseRoute + user.getId())
                 .accept(MediaType.APPLICATION_JSON)
@@ -59,9 +59,9 @@ public class UserService extends Service<User>{
                 .bodyToMono(type);
     }
 
-    public Mono<Void> delete(String id,  Function<ClientResponse, Mono<? extends Throwable>> function){
+    public Mono<Void> delete(String id, Function<ClientResponse, Mono<? extends Throwable>> function) {
         return client.getClient().delete()
-                .uri(baseRoute +id)
+                .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()

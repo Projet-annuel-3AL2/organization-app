@@ -2,7 +2,6 @@ package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.LoginRequest;
-import com.agirpourtous.core.models.User;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -40,20 +39,19 @@ public class ConnexionController extends Controller {
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                User user = client.connect(loginRequest).block();
-                if (user != null) {
+                if (client.connect(loginRequest)) {
                     this.succeeded();
-                }else{
+                } else {
                     this.failed();
                 }
                 return null;
             }
         };
         task.stateProperty().addListener((observable, oldValue, newState) -> {
-            if(newState== Worker.State.SUCCEEDED){
+            if (newState == Worker.State.SUCCEEDED) {
                 new MainMenuController(client, stage);
             }
-            if(newState== Worker.State.FAILED){
+            if (newState == Worker.State.FAILED) {
                 connectButton.setDisable(false);
             }
         });

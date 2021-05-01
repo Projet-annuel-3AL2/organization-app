@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.ArrayList;
 
 @JsonAutoDetect
-public class Project extends Entity  {
+public class Project extends Entity {
     private final ArrayList<User> admins;
     private final ArrayList<Ticket> tickets;
     private final ArrayList<User> members;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @JsonAutoDetect
-public class Ticket  extends Entity {
+public class Ticket extends Entity {
     private final ArrayList<Comment> comments;
     private Project project;
     private User creator;
