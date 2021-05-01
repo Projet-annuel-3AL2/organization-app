@@ -24,12 +24,13 @@ public class ConnexionController extends Controller {
     @FXML
     public Button connectButton;
 
-    public ConnexionController() {
-        super("connexion", new APIClient());
+    public ConnexionController(APIClient client) {
+        super("connexion", client);
     }
 
     public ConnexionController(APIClient client, Stage stage) {
         super("connexion", client, stage);
+        client.logout();
     }
 
     @FXML
@@ -40,6 +41,7 @@ public class ConnexionController extends Controller {
             @Override
             protected Void call() {
                 if (client.connect(loginRequest)) {
+                    System.out.println("aaaaaaaa");
                     this.succeeded();
                 } else {
                     this.failed();

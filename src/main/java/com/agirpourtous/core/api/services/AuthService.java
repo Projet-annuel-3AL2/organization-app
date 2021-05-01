@@ -31,11 +31,10 @@ public class AuthService extends Service<User> {
                 .bodyToMono(User.class);
     }
 
-    public void logout() {
-        client.getClient().post()
+    public Mono<Void> logout() {
+        return client.getClient().delete()
                 .uri("/auth/logout")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .onStatus(HttpStatus::is2xxSuccessful, r -> {
@@ -43,7 +42,7 @@ public class AuthService extends Service<User> {
                         client.getCookies().put(key, Collections.singletonList(r.cookies().get(key).get(0).getValue()));
                     }
                     return Mono.empty();
-                });
+                })
+                .bodyToMono(Void.class);
     }
-
 }

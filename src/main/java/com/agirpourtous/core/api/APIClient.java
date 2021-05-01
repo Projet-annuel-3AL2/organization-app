@@ -21,11 +21,21 @@ public class APIClient {
         client = WebClient.create("http://localhost:4500/org-app");
         userService = new UserService(this);
         authService = new AuthService(this);
+        user = null;
     }
 
     public boolean connect(LoginRequest loginRequest) {
         this.user = authService.login(loginRequest).block();
         return this.user != null;
+    }
+
+    public void logout() {
+        authService.logout().block();
+        this.user = null;
+    }
+
+    public void close() {
+        logout();
     }
 
     public WebClient getClient() {
