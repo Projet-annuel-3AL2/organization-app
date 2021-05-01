@@ -1,8 +1,11 @@
 package com.agirpourtous.core.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@JsonAutoDetect
 public class Ticket  extends Entity {
     private final ArrayList<Comment> comments;
     private Project project;

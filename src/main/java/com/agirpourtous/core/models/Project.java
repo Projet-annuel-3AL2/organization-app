@@ -1,7 +1,10 @@
 package com.agirpourtous.core.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.util.ArrayList;
 
+@JsonAutoDetect
 public class Project extends Entity  {
     private final ArrayList<User> admins;
     private final ArrayList<Ticket> tickets;

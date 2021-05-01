@@ -1,9 +1,12 @@
 package com.agirpourtous.core.models;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.util.Date;
 
 
+@JsonAutoDetect
 public class Comment{
     private Ticket ticket;
     private User user;
