@@ -10,6 +10,8 @@ module com.agirpourtous {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
 
+    opens com.agirpourtous.core.models;
+    opens com.agirpourtous.core.api.requests;
     opens com.agirpourtous.gui;
     exports com.agirpourtous.core.models;
     exports com.agirpourtous.core.api;

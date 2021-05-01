@@ -1,6 +1,10 @@
 package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.LoginRequest;
+import com.agirpourtous.core.models.User;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -21,8 +25,8 @@ public class ConnexionController extends Controller {
     @FXML
     public Button connectButton;
 
-    public ConnexionController(APIClient client) {
-        super("connexion", client);
+    public ConnexionController() {
+        super("connexion", new APIClient());
     }
 
     public ConnexionController(APIClient client, Stage stage) {
@@ -31,28 +35,29 @@ public class ConnexionController extends Controller {
 
     @FXML
     public void onConnectClick() {
-        /*connectButton.setDisable(true);
-        Task<Boolean> task = new Task<>() {
+        connectButton.setDisable(true);
+        LoginRequest loginRequest = new LoginRequest(usernameField.getText(), passwordField.getText());
+        Task<Void> task = new Task<>() {
             @Override
-            protected Boolean call() {
-                try {
-                    client.getConnexion().connect(usernameField.getText(), passwordField.getText());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return false;
+            protected Void call() {
+                User user = client.connect(loginRequest).block();
+                if (user != null) {
+                    this.succeeded();
+                }else{
+                    this.failed();
                 }
-                return true;
+                return null;
             }
         };
         task.stateProperty().addListener((observable, oldValue, newState) -> {
-            if(newState==Worker.State.SUCCEEDED){
-                MainMenuController mainMenuController = new MainMenuController(client);
-                mainMenuController.showStage();
+            if(newState== Worker.State.SUCCEEDED){
+                new MainMenuController(client, stage);
+            }
+            if(newState== Worker.State.FAILED){
+                connectButton.setDisable(false);
             }
         });
-        new Thread(task).start();*/
-
-        new MainMenuController(client, stage);
+        new Thread(task).start();
     }
 
     @FXML
