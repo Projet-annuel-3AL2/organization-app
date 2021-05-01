@@ -30,8 +30,10 @@ public class APIClient {
     }
 
     public void logout() {
-        authService.logout().block();
-        this.user = null;
+        if(this.user != null) {
+            authService.logout().block();
+            this.user = null;
+        }
     }
 
     public void close() {
