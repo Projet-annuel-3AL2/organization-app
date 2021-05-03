@@ -13,6 +13,7 @@ public class APIClient {
     private final MultiValueMap<String, String> savedCookies;
     private final UserService userService;
     private final AuthService authService;
+    private boolean stayConnected;
     private User user;
 
 
@@ -37,7 +38,9 @@ public class APIClient {
     }
 
     public void close() {
-        logout();
+        if(!stayConnected) {
+            logout();
+        }
     }
 
     public WebClient getClient() {
@@ -54,5 +57,25 @@ public class APIClient {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public MultiValueMap<String, String> getSavedCookies() {
+        return savedCookies;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public AuthService getAuthService() {
+        return authService;
+    }
+
+    public boolean isStayConnected() {
+        return stayConnected;
+    }
+
+    public void setStayConnected(boolean stayConnected) {
+        this.stayConnected = stayConnected;
     }
 }

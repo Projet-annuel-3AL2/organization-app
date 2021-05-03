@@ -41,7 +41,6 @@ public class ConnexionController extends Controller {
             @Override
             protected Void call() {
                 if (client.connect(loginRequest)) {
-                    System.out.println("aaaaaaaa");
                     this.succeeded();
                 } else {
                     this.failed();
@@ -51,6 +50,7 @@ public class ConnexionController extends Controller {
         };
         task.stateProperty().addListener((observable, oldValue, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
+                client.setStayConnected(keepConnectionCheckBox.isSelected());
                 new MainMenuController(client, stage);
             }
             if (newState == Worker.State.FAILED) {

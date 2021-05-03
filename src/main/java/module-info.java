@@ -16,6 +16,7 @@ module com.agirpourtous {
     exports com.agirpourtous.core.models;
     exports com.agirpourtous.core.api;
     exports com.agirpourtous.core.api.requests;
+    exports com.agirpourtous.core.api.services;
     exports com.agirpourtous.gui;
     exports com.agirpourtous.gui.controllers;
     exports com.agirpourtous.gui.controllers.elements;
