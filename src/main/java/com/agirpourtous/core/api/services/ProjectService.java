@@ -13,12 +13,12 @@ public class ProjectService extends Service<Project> {
         super(client, "/project/", Project.class);
     }
 
-    public Mono<Project> create(User e) {
+    public Mono<Project> create(Project project) {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(e), type)
+                .body(Mono.just(project), type)
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -102,5 +102,15 @@ public class ProjectService extends Service<Project> {
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(Ticket.class);
+    }
+
+    public Mono<Ticket> addTicket(String id, Ticket ticket) {
+        return client.getClient().post()
+                .uri(baseRoute+"/{id}/ticket", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .cookies(cookies -> cookies.addAll(client.getCookies()))
+                .body(Mono.just(ticket), type)
+                .retrieve()
+                .bodyToMono(Ticket.class);
     }
 }
