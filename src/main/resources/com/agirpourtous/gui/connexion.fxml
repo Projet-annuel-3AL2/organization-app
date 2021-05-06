@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minHeight="600.0" minWidth="800.0" prefHeight="600.0"
       prefWidth="800.0"
-      spacing="15" xmlns="http://javafx.com/javafx/11.0.1">
+      spacing="15" xmlns="http://javafx.com/javafx/11.0.1" stylesheets="@style/main.css">
 
     <VBox alignment="CENTER" fillWidth="false" prefHeight="24.0" prefWidth="200.0" spacing="5.0">
         <Label fx:id="usernameLabel" text="Username"/>

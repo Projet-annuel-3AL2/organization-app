@@ -1,8 +1,7 @@
 package com.agirpourtous.core.api;
 
 import com.agirpourtous.core.api.requests.LoginRequest;
-import com.agirpourtous.core.api.services.AuthService;
-import com.agirpourtous.core.api.services.UserService;
+import com.agirpourtous.core.api.services.*;
 import com.agirpourtous.core.models.User;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -13,6 +12,9 @@ public class APIClient {
     private final MultiValueMap<String, String> savedCookies;
     private final UserService userService;
     private final AuthService authService;
+    private final ProjectService projectService;
+    private final TicketService ticketService;
+    private final CommentService commentService;
     private boolean stayConnected;
     private User user;
 
@@ -22,6 +24,9 @@ public class APIClient {
         client = WebClient.create("http://localhost:4500/org-app");
         userService = new UserService(this);
         authService = new AuthService(this);
+        projectService = new ProjectService(this);
+        ticketService = new TicketService(this);
+        commentService = new CommentService(this);
         user = null;
     }
 
@@ -69,6 +74,18 @@ public class APIClient {
 
     public AuthService getAuthService() {
         return authService;
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
+    }
+
+    public TicketService getTicketService() {
+        return ticketService;
+    }
+
+    public CommentService getCommentService() {
+        return commentService;
     }
 
     public boolean isStayConnected() {
