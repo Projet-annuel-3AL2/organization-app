@@ -9,6 +9,8 @@ module com.agirpourtous {
     requires org.reactivestreams;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
+    requires reactor.extra;
+    requires reactor.netty.http;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;

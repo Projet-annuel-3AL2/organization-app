@@ -3,9 +3,11 @@ package com.agirpourtous.core.api;
 import com.agirpourtous.core.api.requests.LoginRequest;
 import com.agirpourtous.core.api.services.*;
 import com.agirpourtous.core.models.User;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
 
 public class APIClient {
     private final WebClient client;
@@ -21,7 +23,10 @@ public class APIClient {
 
     public APIClient() {
         savedCookies = new LinkedMultiValueMap<>();
-        client = WebClient.create("http://localhost:4500/org-app");
+        client = WebClient.builder()
+                .baseUrl("http://localhost:4500/org-app")
+                .clientConnector(new ReactorClientHttpConnector(HttpClient.newConnection().compress(true)))
+                .build();
         userService = new UserService(this);
         authService = new AuthService(this);
         projectService = new ProjectService(this);

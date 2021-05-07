@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public class ProjectElementController extends Element {
-    private final Project project;
+    private Project project;
 
     @FXML
     public Label titleLabel;
@@ -25,10 +25,14 @@ public class ProjectElementController extends Element {
         titleLabel.setText(project.getName());
         membersCountLabel.setText("Members: " + project.getMembers().size());
         activeTicketsCountLabel.setText("Tickets: " + project.getTickets().size());
+
     }
 
     @FXML
     public void onProjectSelect() {
         new ProjectDetailsController(controller.getClient(), controller.getStage(), project);
+    }
+    public void updateProject(Project project) {
+        this.project = project;
     }
 }
