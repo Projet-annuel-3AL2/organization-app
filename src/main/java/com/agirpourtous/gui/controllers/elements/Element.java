@@ -17,7 +17,7 @@ public abstract class Element {
         this.parent = parent;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
         loader.setController(this);
-        Pane root = loader.load();
+        root = loader.load();
         parent.getChildren().add(root);
     }
 

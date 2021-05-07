@@ -45,8 +45,7 @@ public class MainMenuController extends Controller {
                 .findAll()
                 .collect(Collectors.toList())
                 .repeatWhen(Repeat.onlyIf(repeatContext -> true)
-                        .fixedBackoff(Duration.ofSeconds(10))
-                        .timeout(Duration.ofSeconds(30)))
+                        .fixedBackoff(Duration.ofSeconds(10)))
                 .subscribe(projects -> Platform.runLater(() -> setProjects(projects)));
         if (client.getUser().isAdmin()) {
             adminPane.setVisible(true);
@@ -85,7 +84,7 @@ public class MainMenuController extends Controller {
         projects.remove(id);
     }
 
-    private void removeDeletedProjects(List<Project> projectList){
+    private void removeDeletedProjects(List<Project> projectList) {
         List<String> receivedIds = projectList.stream().map(Project::getId).collect(Collectors.toList());
         List<String> elementsDeleted = new ArrayList<>(projects.keySet());
         elementsDeleted.removeAll(receivedIds);
