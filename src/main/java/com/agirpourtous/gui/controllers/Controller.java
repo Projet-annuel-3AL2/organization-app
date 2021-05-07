@@ -11,8 +11,10 @@ import java.io.IOException;
 public abstract class Controller {
     protected final Stage stage;
     protected final APIClient client;
+    protected boolean isActive;
 
     Controller(String fxml, APIClient client) {
+        this.isActive = true;
         this.client = client;
         this.stage = new Stage();
         this.stage.setMinWidth(800);
@@ -28,9 +30,9 @@ public abstract class Controller {
         }
     }
 
-    Controller(String fxml, APIClient client, Stage stage) {
-        this.client = client;
-        this.stage = stage;
+    Controller(String fxml, Controller previousController) {
+        this.client = previousController.getClient();
+        this.stage = previousController.getStage();
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
             loader.setController(this);
@@ -46,5 +48,13 @@ public abstract class Controller {
 
     public APIClient getClient() {
         return client;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

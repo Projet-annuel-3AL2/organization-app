@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import reactor.retry.Repeat;
 
 import java.io.IOException;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 
 public class MainMenuController extends Controller {
     private final HashMap<String, ProjectElementController> projects;
-
     @FXML
     public Label usernameLabel;
     @FXML
@@ -37,14 +35,14 @@ public class MainMenuController extends Controller {
     @FXML
     public VBox adminPane;
 
-    public MainMenuController(APIClient client, Stage stage) {
-        super("main_menu", client, stage);
+    public MainMenuController(APIClient client, Controller controller) {
+        super("main_menu", controller);
         this.usernameLabel.setText(client.getUser().getUsername());
-        projects = new HashMap<>();
+        this.projects = new HashMap<>();
         client.getProjectService()
                 .findAll()
                 .collect(Collectors.toList())
-                .repeatWhen(Repeat.onlyIf(repeatContext -> true)
+                .repeatWhen(Repeat.onlyIf(repeatContext -> isActive)
                         .fixedBackoff(Duration.ofSeconds(10)))
                 .subscribe(projects -> Platform.runLater(() -> setProjects(projects)));
         if (client.getUser().isAdmin()) {
@@ -64,7 +62,7 @@ public class MainMenuController extends Controller {
 
     @FXML
     public void onDisconnectClick() {
-        new ConnexionController(client, stage);
+        new ConnexionController(client, this);
     }
 
     private void addProject(Project project) {

@@ -28,8 +28,8 @@ public class ConnexionController extends Controller {
         super("connexion", client);
     }
 
-    public ConnexionController(APIClient client, Stage stage) {
-        super("connexion", client, stage);
+    public ConnexionController(APIClient client, Controller previous) {
+        super("connexion", previous);
         client.logout();
     }
 
@@ -51,7 +51,8 @@ public class ConnexionController extends Controller {
         task.stateProperty().addListener((observable, oldValue, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 client.setStayConnected(keepConnectionCheckBox.isSelected());
-                new MainMenuController(client, stage);
+                isActive = false;
+                new MainMenuController(client, this);
             }
             if (newState == Worker.State.FAILED) {
                 connectButton.setDisable(false);

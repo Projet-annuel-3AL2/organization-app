@@ -5,21 +5,27 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.gui.controllers.elements.TicketDetailsController;
 import com.agirpourtous.gui.controllers.elements.TicketElementController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import reactor.retry.Repeat;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProjectDetailsController extends Controller {
+    private final HashMap<String, TicketElementController> tickets;
+
     private final Project project;
     @FXML
     public Button mainMenuButton;
@@ -39,37 +45,71 @@ public class ProjectDetailsController extends Controller {
     private TicketDetailsController ticketDetails;
 
 
-    public ProjectDetailsController(APIClient client, Stage stage, Project project) {
-        super("project_details", client, stage);
+    public ProjectDetailsController(APIClient client, Controller previous, Project project) {
+        super("project_details", previous);
+        this.tickets = new HashMap<>();
         this.project = project;
         project.getTickets().forEach(this::addTicket);
+        client.getTicketService()
+                .findAll()
+                .collect(Collectors.toList())
+                .repeatWhen(Repeat.onlyIf(repeatContext -> isActive)
+                        .fixedBackoff(Duration.ofSeconds(10)))
+                .subscribe(tickets -> Platform.runLater(() -> setTickets(tickets)));
+    }
+
+    private void setTickets(List<Ticket> ticketsList) {
+        removeDeletedTickets(ticketsList);
+
+        ticketsList.forEach(this::addTicket);
+    }
+
+    private void removeDeletedTickets(List<Ticket> ticketsList) {
+        List<String> receivedIds = ticketsList.stream().map(Ticket::getId).collect(Collectors.toList());
+        List<String> elementsDeleted = new ArrayList<>(tickets.keySet());
+        elementsDeleted.removeAll(receivedIds);
+        elementsDeleted.forEach(this::removeTicket);
+    }
+
+    private void removeTicket(String id) {
+        tickets.get(id).remove();
+        tickets.remove(id);
     }
 
     public void onMainMenuButtonClick() {
-        new MainMenuController(client, stage);
+        isActive = false;
+        new MainMenuController(client, this);
     }
 
     public void onAddTicketClick() {
     }
 
     public void addTicket(Ticket ticket) {
-        try {
-            Pane ticketList = (Pane) ((ScrollPane) ((Pane) ticketsListsHBox.getChildren().get(ticket.getStatus().ordinal())).getChildren().get(1)).getContent();
-            Pane ticketElement = new TicketElementController(this, ticketList, ticket).ticketElement;
-            ticketElement.setOnDragDetected(e -> {
-                Dragboard db = ticketElement.startDragAndDrop(TransferMode.MOVE);
-                db.setDragView(ticketElement.snapshot(null, null));
-                ClipboardContent content = new ClipboardContent();
-                content.putString("Ticket");
-                db.setContent(content);
-                draggingTicket = ticketElement;
-                e.consume();
-            });
-            ticketElement.setOnMouseDragged(e -> e.setDragDetect(true));
-            ticketElement.setOnDragDone(e -> draggingTicket = null);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!tickets.containsKey(ticket.getId())) {
+            try {
+                Pane ticketList = (Pane) ((ScrollPane) ((Pane) ticketsListsHBox.getChildren().get(ticket.getStatus().ordinal())).getChildren().get(1)).getContent();
+                TicketElementController ticketElementController = new TicketElementController(this, ticketList, ticket);
+                Pane ticketElement = ticketElementController.ticketElement;
+                ticketElement.setOnDragDetected(e -> setOnDragDetected(e, ticketElement));
+                ticketElement.setOnMouseDragged(e -> e.setDragDetect(true));
+                ticketElement.setOnDragDone(e -> draggingTicket = null);
+                tickets.put(ticket.getId(), ticketElementController);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            tickets.get(ticket.getId()).updateTicket(ticket);
         }
+    }
+
+    public void setOnDragDetected(MouseEvent event, Pane ticketElement) {
+        Dragboard db = ticketElement.startDragAndDrop(TransferMode.MOVE);
+        db.setDragView(ticketElement.snapshot(null, null));
+        ClipboardContent content = new ClipboardContent();
+        content.putString("Ticket");
+        db.setContent(content);
+        draggingTicket = ticketElement;
+        event.consume();
     }
 
     @FXML

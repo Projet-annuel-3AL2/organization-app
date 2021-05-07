@@ -30,7 +30,8 @@ public class ProjectElementController extends Element {
 
     @FXML
     public void onProjectSelect() {
-        new ProjectDetailsController(controller.getClient(), controller.getStage(), project);
+        controller.setActive(false);
+        new ProjectDetailsController(controller.getClient(), controller, project);
     }
     public void updateProject(Project project) {
         this.project = project;
