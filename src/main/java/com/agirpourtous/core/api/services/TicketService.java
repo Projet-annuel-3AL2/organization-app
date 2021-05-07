@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 public class TicketService extends Service<Ticket> {
     public TicketService(APIClient client) {
-        super(client, "ticket", Ticket.class);
+        super(client, "/ticket/", Ticket.class);
     }
 
     public Flux<Ticket> findAll() {
