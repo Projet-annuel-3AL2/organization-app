@@ -1,6 +1,7 @@
 package com.agirpourtous.gui.controllers.elements;
 
 import com.agirpourtous.Main;
+import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.gui.controllers.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
@@ -8,6 +9,7 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public abstract class Element {
+    protected boolean isActive;
     protected final Pane parent;
     protected Pane root;
     protected Controller controller;
@@ -19,6 +21,7 @@ public abstract class Element {
         loader.setController(this);
         root = loader.load();
         parent.getChildren().add(root);
+        isActive = true;
     }
 
     public void remove(){

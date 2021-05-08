@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class ProjectElementController extends Element {
     private Project project;
-
     @FXML
     public Label titleLabel;
     @FXML
@@ -25,7 +24,6 @@ public class ProjectElementController extends Element {
         titleLabel.setText(project.getName());
         membersCountLabel.setText("Members: " + project.getMembers().size());
         activeTicketsCountLabel.setText("Tickets: " + project.getTickets().size());
-
     }
 
     @FXML
