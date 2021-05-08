@@ -30,16 +30,6 @@ public class CommentService extends Service<Comment>{
                 .bodyToMono(type);
     }
 
-    public Mono<Comment> create(User user) {
-        return client.getClient().post()
-                .uri(baseRoute)
-                .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(user), type)
-                .retrieve()
-                .bodyToMono(type);
-    }
-
     public Mono<Comment> update(String id, User user) {
         return client.getClient().put()
                 .uri(baseRoute + id)
@@ -48,5 +38,14 @@ public class CommentService extends Service<Comment>{
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
+    }
+
+    public Mono<Void> delete(String id) {
+        return client.getClient().delete()
+                .uri(baseRoute + id)
+                .accept(MediaType.APPLICATION_JSON)
+                .cookies(cookies -> cookies.addAll(client.getCookies()))
+                .retrieve()
+                .bodyToMono(Void.class);
     }
 }
