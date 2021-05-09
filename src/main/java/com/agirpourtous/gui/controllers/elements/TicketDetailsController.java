@@ -2,6 +2,7 @@ package com.agirpourtous.gui.controllers.elements;
 
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
+import com.agirpourtous.core.models.User;
 import com.agirpourtous.gui.controllers.Controller;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -52,6 +53,20 @@ public class TicketDetailsController extends Element {
         creationDateLabel.setText(ticket.getCreationDate().toString());
         priorityLabel.setText(String.valueOf(ticket.getPriority()));
         descriptionLabel.setText(ticket.getDescription());
+        User assignee = controller.getClient()
+                .getUserService()
+                .findById(ticket.getAssigneeId())
+                .block();
+        if (assignee != null) {
+            assigneeLabel.setText(assignee.getUsername());
+        }
+        User creator = controller.getClient()
+                .getUserService()
+                .findById(ticket.getCreatorId())
+                .block();
+        if (creator != null) {
+            creatorLabel.setText(creator.getUsername());
+        }
     }
 
     public void addComment(Comment comment) {
