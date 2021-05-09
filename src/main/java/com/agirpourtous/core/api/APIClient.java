@@ -41,14 +41,14 @@ public class APIClient {
     }
 
     public void logout() {
-        if(this.user != null) {
+        if (this.user != null) {
             authService.logout().block();
             this.user = null;
         }
     }
 
     public void close() {
-        if(!stayConnected) {
+        if (!stayConnected) {
             logout();
         }
     }

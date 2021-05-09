@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class CommentService extends Service<Comment>{
+public class CommentService extends Service<Comment> {
     public CommentService(APIClient client) {
         super(client, "/comment/", Comment.class);
     }

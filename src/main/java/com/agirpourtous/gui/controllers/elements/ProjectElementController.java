@@ -10,13 +10,13 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public class ProjectElementController extends Element {
-    private Project project;
     @FXML
     public Label titleLabel;
     @FXML
     public Label membersCountLabel;
     @FXML
     public Label activeTicketsCountLabel;
+    private Project project;
 
     public ProjectElementController(Controller controller, Pane parent, Project project) throws IOException {
         super("elements/project_element", controller, parent);
@@ -31,6 +31,7 @@ public class ProjectElementController extends Element {
         controller.setActive(false);
         new ProjectDetailsController(controller.getClient(), controller, project);
     }
+
     public void updateProject(Project project) {
         this.project = project;
     }

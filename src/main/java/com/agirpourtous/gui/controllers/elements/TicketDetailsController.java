@@ -37,12 +37,21 @@ public class TicketDetailsController extends Element {
         super("elements/ticket_details", controller, parent);
         this.ticket = ticket;
         this.comments = new HashMap<>();
-        controller.getClient().getCommentService()
-                .findAll()
+        setLabels();
+        controller.getClient().getTicketService()
+                .getComment(ticket.getId())
                 .collect(Collectors.toList())
                 .repeatWhen(Repeat.onlyIf(repeatContext -> isActive)
                         .fixedBackoff(Duration.ofSeconds(10)))
                 .subscribe(comments -> Platform.runLater(() -> setProjects(comments)));
+    }
+
+
+    private void setLabels() {
+        titleLabel.setText(ticket.getTitle());
+        creationDateLabel.setText(ticket.getCreationDate().toString());
+        priorityLabel.setText(String.valueOf(ticket.getPriority()));
+        descriptionLabel.setText(ticket.getDescription());
     }
 
     public void addComment(Comment comment) {
