@@ -8,8 +8,11 @@ import java.util.Date;
 @JsonAutoDetect
 public class Ticket extends Entity {
     private final ArrayList<Comment> comments;
+    private String projectId;
     private Project project;
+    private String creatorId;
     private User creator;
+    private String assigneeId;
     private User assignee;
     private String title;
     private String description;
@@ -67,5 +70,21 @@ public class Ticket extends Entity {
 
     public int getPriority() {
         return priority;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public String getAssigneeId() {
+        return assigneeId;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
     }
 }

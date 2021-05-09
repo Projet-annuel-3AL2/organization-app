@@ -8,7 +8,9 @@ import java.util.Date;
 
 @JsonAutoDetect
 public class Comment extends Entity {
+    private String ticketId;
     private Ticket ticket;
+    private String userId;
     private User user;
     private String text;
     private Date creationDate;
@@ -27,5 +29,13 @@ public class Comment extends Entity {
 
     public String getText() {
         return text;
+    }
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }
