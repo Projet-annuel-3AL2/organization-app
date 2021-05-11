@@ -1,12 +1,14 @@
 package com.agirpourtous.core.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.util.ArrayList;
 
-public class Project {
+@JsonAutoDetect
+public class Project extends Entity {
     private final ArrayList<User> admins;
     private final ArrayList<Ticket> tickets;
     private final ArrayList<User> members;
-    private String id;
     private String name;
 
     public Project() {
@@ -28,9 +30,6 @@ public class Project {
         return members;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public String getName() {
         return name;

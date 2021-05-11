@@ -1,9 +1,11 @@
 package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.LoginRequest;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 public class ConnexionController extends Controller {
     @FXML
@@ -25,34 +27,37 @@ public class ConnexionController extends Controller {
         super("connexion", client);
     }
 
-    public ConnexionController(APIClient client, Stage stage) {
-        super("connexion", client, stage);
+    public ConnexionController(APIClient client, Controller previous) {
+        super("connexion", previous);
+        client.logout();
     }
 
     @FXML
     public void onConnectClick() {
-        /*connectButton.setDisable(true);
-        Task<Boolean> task = new Task<>() {
+        connectButton.setDisable(true);
+        LoginRequest loginRequest = new LoginRequest(usernameField.getText(), passwordField.getText());
+        Task<Void> task = new Task<>() {
             @Override
-            protected Boolean call() {
-                try {
-                    client.getConnexion().connect(usernameField.getText(), passwordField.getText());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return false;
+            protected Void call() {
+                if (client.connect(loginRequest)) {
+                    this.succeeded();
+                } else {
+                    this.failed();
                 }
-                return true;
+                return null;
             }
         };
         task.stateProperty().addListener((observable, oldValue, newState) -> {
-            if(newState==Worker.State.SUCCEEDED){
-                MainMenuController mainMenuController = new MainMenuController(client);
-                mainMenuController.showStage();
+            if (newState == Worker.State.SUCCEEDED) {
+                client.setStayConnected(keepConnectionCheckBox.isSelected());
+                isActive = false;
+                new MainMenuController(client, this);
+            }
+            if (newState == Worker.State.FAILED) {
+                connectButton.setDisable(false);
             }
         });
-        new Thread(task).start();*/
-
-        new MainMenuController(client, stage);
+        new Thread(task).start();
     }
 
     @FXML

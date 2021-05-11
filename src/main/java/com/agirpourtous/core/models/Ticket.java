@@ -1,14 +1,19 @@
 package com.agirpourtous.core.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Ticket {
+@JsonAutoDetect
+public class Ticket extends Entity {
     private final ArrayList<Comment> comments;
+    private String projectId;
     private Project project;
+    private String creatorId;
     private User creator;
+    private String assigneeId;
     private User assignee;
-    private String id;
     private String title;
     private String description;
     private TicketStatus status;
@@ -39,10 +44,6 @@ public class Ticket {
         return comments;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -69,5 +70,21 @@ public class Ticket {
 
     public int getPriority() {
         return priority;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public String getAssigneeId() {
+        return assigneeId;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
     }
 }

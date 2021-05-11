@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" onMouseClicked="#onProjectSelect" prefHeight="100.0" prefWidth="150.0"
-      xmlns="http://javafx.com/javafx/11.0.1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity"
+      minHeight="100.0" minWidth="-Infinity" onMouseClicked="#onProjectSelect" prefWidth="150.0"
+      styleClass="project" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/11.0.1">
     <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity"
            maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="75.0" prefWidth="34.0" text="Title"
            textAlignment="CENTER" wrapText="true">
