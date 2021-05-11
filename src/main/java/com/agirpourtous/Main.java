@@ -1,10 +1,8 @@
 package com.agirpourtous;
 
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.gui.GUILauncher;
 import org.apache.commons.cli.*;
 
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,22 +10,17 @@ public class Main {
         Options options = generateCLIOptions();
         try {
             CommandLine line = parser.parse(options, args);
-            APIClient client = new APIClient();
             if (line.hasOption("help")) {
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("help", options);
                 System.exit(0);
             }
-            if (line.hasOption("username") && line.hasOption("password")) {
-                client.getConnexion().connect(line.getOptionValue("username"), line.getOptionValue("password"));
-            }
             if (!line.hasOption("console")) {
-                GUILauncher.setClient(client);
                 GUILauncher.launch(GUILauncher.class);
             } else {
                 System.out.println("Start in CLI mode");
             }
-        } catch (ParseException | IOException exp) {
+        } catch (ParseException exp) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp(exp.getMessage(), options);
         }

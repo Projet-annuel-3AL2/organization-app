@@ -1,0 +1,9 @@
+.ticket {
+    -fx-border-color: #555555;
+    -fx-border-radius: 3;
+}
+
+.project {
+    -fx-border-color: #555555;
+    -fx-border-radius: 3;
+}

@@ -1,44 +1,103 @@
 package com.agirpourtous.core.api;
 
-import com.agirpourtous.core.models.Project;
+import com.agirpourtous.core.api.requests.LoginRequest;
+import com.agirpourtous.core.api.services.*;
 import com.agirpourtous.core.models.User;
-
-import java.util.ArrayList;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
 
 public class APIClient {
-    private final APIConnexion connexion;
-    private final ArrayList<User> users;
-    private final ArrayList<Project> projects;
+    private final WebClient client;
+    private final MultiValueMap<String, String> savedCookies;
+    private final UserService userService;
+    private final AuthService authService;
+    private final ProjectService projectService;
+    private final TicketService ticketService;
+    private final CommentService commentService;
+    private boolean stayConnected;
+    private User user;
+
 
     public APIClient() {
-        this.connexion = new APIConnexion();
-        this.users = new ArrayList<>();
-        this.projects = new ArrayList<>();
+        savedCookies = new LinkedMultiValueMap<>();
+        client = WebClient.builder()
+                .baseUrl("http://localhost:4500/org-app")
+                .clientConnector(new ReactorClientHttpConnector(HttpClient.newConnection().compress(true)))
+                .build();
+        userService = new UserService(this);
+        authService = new AuthService(this);
+        projectService = new ProjectService(this);
+        ticketService = new TicketService(this);
+        commentService = new CommentService(this);
+        user = null;
     }
 
-    public APIClient(APIConnexion connexion) {
-        this.connexion = connexion;
-        this.users = new ArrayList<>();
-        this.projects = new ArrayList<>();
+    public boolean connect(LoginRequest loginRequest) {
+        this.user = authService.login(loginRequest).block();
+        return this.user != null;
     }
 
-    public APIConnexion getConnexion() {
-        return connexion;
+    public void logout() {
+        if (this.user != null) {
+            authService.logout().block();
+            this.user = null;
+        }
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
+    public void close() {
+        if (!stayConnected) {
+            logout();
+        }
     }
 
-    public void addUsers(User user) {
-        this.users.add(user);
+    public WebClient getClient() {
+        return client;
     }
 
-    public ArrayList<Project> getProjects() {
-        return projects;
+    public MultiValueMap<String, String> getCookies() {
+        return savedCookies;
     }
 
-    public void addProjects(Project project) {
-        this.projects.add(project);
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public MultiValueMap<String, String> getSavedCookies() {
+        return savedCookies;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public AuthService getAuthService() {
+        return authService;
+    }
+
+    public ProjectService getProjectService() {
+        return projectService;
+    }
+
+    public TicketService getTicketService() {
+        return ticketService;
+    }
+
+    public CommentService getCommentService() {
+        return commentService;
+    }
+
+    public boolean isStayConnected() {
+        return stayConnected;
+    }
+
+    public void setStayConnected(boolean stayConnected) {
+        this.stayConnected = stayConnected;
     }
 }

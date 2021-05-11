@@ -9,6 +9,8 @@ import java.io.IOException;
 
 public abstract class Element {
     protected final Pane parent;
+    protected boolean isActive;
+    protected Pane root;
     protected Controller controller;
 
     Element(String fxml, Controller controller, Pane parent) throws IOException {
@@ -16,7 +18,12 @@ public abstract class Element {
         this.parent = parent;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
         loader.setController(this);
-        Pane rootPane = loader.load();
-        parent.getChildren().add(rootPane);
+        root = loader.load();
+        parent.getChildren().add(root);
+        isActive = true;
+    }
+
+    public void remove() {
+        parent.getChildren().remove(root);
     }
 }
