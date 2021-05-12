@@ -223,7 +223,7 @@ public class ProjectController {
 
     // TODO : Finir Inserer un ticket dans un projet
     public void addTicketWithIdTicketAndIdProject(APIClient client) {
-        
+
         String idProject = null;
         // TODO : Fonction pour récupérer le creatorId de l'user Actuel
         String creatorId = "1";
