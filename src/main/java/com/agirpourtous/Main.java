@@ -1,5 +1,7 @@
 package com.agirpourtous;
 
+import com.agirpourtous.cli.CLILauncher;
+import com.agirpourtous.cli.menus.MainMenu;
 import com.agirpourtous.gui.GUILauncher;
 import org.apache.commons.cli.*;
 
@@ -18,7 +20,8 @@ public class Main {
             if (!line.hasOption("console")) {
                 GUILauncher.launch(GUILauncher.class);
             } else {
-                System.out.println("Start in CLI mode");
+                CLILauncher cliLauncher = new CLILauncher();
+                cliLauncher.start();
             }
         } catch (ParseException exp) {
             HelpFormatter formatter = new HelpFormatter();
