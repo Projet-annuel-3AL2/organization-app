@@ -2,12 +2,15 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
 public class UserService extends Service<User> {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class.getName());
 
     public UserService(APIClient client) {
         super(client, "/user/", User.class);

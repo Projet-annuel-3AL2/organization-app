@@ -4,11 +4,15 @@ import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class ProjectService extends Service<Project> {
+    private static final Logger logger = LoggerFactory.getLogger(ProjectService.class.getName());
+
     public ProjectService(APIClient client) {
         super(client, "/project/", Project.class);
     }
