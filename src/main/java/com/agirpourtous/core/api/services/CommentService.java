@@ -30,11 +30,11 @@ public class CommentService extends Service<Comment> {
                 .bodyToMono(type);
     }
 
-    public Mono<Comment> update(String id, User user) {
+    public Mono<Comment> update(String id, Comment comment) {
         return client.getClient().put()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(user), type)
+                .body(Mono.just(comment), type)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
