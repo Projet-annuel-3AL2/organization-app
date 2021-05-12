@@ -1,6 +1,7 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddUserRequest;
 import com.agirpourtous.core.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,12 +35,12 @@ public class UserService extends Service<User> {
                 .bodyToMono(type);
     }
 
-    public Mono<User> create(User user) {
+    public Mono<User> create(AddUserRequest addUserRequest) {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(user), type)
+                .body(Mono.just(addUserRequest), type)
                 .retrieve()
                 .bodyToMono(type);
     }

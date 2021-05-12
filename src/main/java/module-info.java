@@ -23,5 +23,6 @@ module com.agirpourtous {
     exports com.agirpourtous.gui;
     exports com.agirpourtous.gui.controllers;
     exports com.agirpourtous.gui.controllers.elements;
+    exports com.agirpourtous.gui.controllers.popups;
     exports com.agirpourtous;
 }
