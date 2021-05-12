@@ -41,7 +41,7 @@ public class UserMenu  extends Menu{
         addAction(new Action("update an User") {
             @Override
             public void execute() {
-                userController.updateNewUser(client);
+                userController.updateUser(client);
             }
         });
 
