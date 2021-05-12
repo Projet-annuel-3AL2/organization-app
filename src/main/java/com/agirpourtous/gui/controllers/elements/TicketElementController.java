@@ -19,7 +19,7 @@ public class TicketElementController extends Element {
     private Ticket ticket;
 
     public TicketElementController(Controller controller, Pane parent, Ticket ticket) throws IOException {
-        super("elements/ticket_element", controller, parent);
+        super("ticket_element", controller, parent);
         this.ticket = ticket;
         setLabels();
     }

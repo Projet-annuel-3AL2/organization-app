@@ -19,7 +19,7 @@ public class ProjectElementController extends Element {
     private Project project;
 
     public ProjectElementController(Controller controller, Pane parent, Project project) throws IOException {
-        super("elements/project_element", controller, parent);
+        super("project_element", controller, parent);
         this.project = project;
         titleLabel.setText(project.getName());
         membersCountLabel.setText("Members: " + project.getMembers().size());

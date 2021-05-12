@@ -35,7 +35,7 @@ public class TicketDetailsController extends Element {
     public Button closeButton;
 
     public TicketDetailsController(Controller controller, Pane parent, Ticket ticket) throws IOException {
-        super("elements/ticket_details", controller, parent);
+        super("ticket_details", controller, parent);
         this.ticket = ticket;
         this.comments = new HashMap<>();
         setLabels();
