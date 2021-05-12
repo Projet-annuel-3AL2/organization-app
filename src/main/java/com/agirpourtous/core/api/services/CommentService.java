@@ -2,12 +2,15 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Comment;
-import com.agirpourtous.core.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class CommentService extends Service<Comment> {
+    private static final Logger logger = LoggerFactory.getLogger(CommentService.class.getName());
+
     public CommentService(APIClient client) {
         super(client, "/comment/", Comment.class);
     }
