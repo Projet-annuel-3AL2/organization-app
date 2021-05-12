@@ -130,9 +130,8 @@ public class UserController {
         System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
         isAdmin = SCANNER.nextBoolean();
 
-        // create User object with given var
+        // TODO : create User object with given var
         User newUser = new User();
-
 
         try {
             client.getUserService().create(newUser);
