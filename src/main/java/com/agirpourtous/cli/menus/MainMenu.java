@@ -18,5 +18,14 @@ public class MainMenu extends Menu {
             }
         });
 
+        // TODO: A supprimer
+        addAction(new Action("HomePage") {
+            @Override
+            public void execute() {
+                new HomePageMenu(client);
+            }
+        });
+
+        start();
     }
 }

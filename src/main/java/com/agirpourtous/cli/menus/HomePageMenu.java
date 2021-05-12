@@ -34,5 +34,13 @@ public class HomePageMenu extends Menu{
                 new CommentMenu(client);
             }
         });
+
+        addAction(new Action("Disconnect") {
+            @Override
+            public void execute() {
+                client.close();
+            }
+        });
+        start();
     }
 }

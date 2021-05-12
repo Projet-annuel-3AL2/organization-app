@@ -17,8 +17,9 @@ public abstract class Menu {
         StringBuilder display = new StringBuilder();
         display.append(menuName + ":\n");
         for (int i = 0; i < actions.size(); i++) {
-            display.append(i).append(". ").append(actions.get(i).getDisplayAction());
+            display.append(i).append(". ").append(actions.get(i).getDisplayAction()).append("\n");
         }
+        display.append("->");
         System.out.println(display);
     }
 

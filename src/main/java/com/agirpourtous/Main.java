@@ -20,6 +20,7 @@ public class Main {
             if (!line.hasOption("console")) {
                 GUILauncher.launch(GUILauncher.class);
             } else {
+
                 CLILauncher cliLauncher = new CLILauncher();
                 cliLauncher.start();
             }
