@@ -79,8 +79,6 @@ public class ProjectController {
 
         try {
             client.getProjectService().delete(idProject);
-
-
         }catch (Error error){
             System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
         }
@@ -260,13 +258,13 @@ public class ProjectController {
 
         System.out.println("Insert estimate duration : ");
 
-        while (estimatedDuration > 0) {
+        while (estimatedDuration < 0) {
             estimatedDuration = SCANNER.nextFloat();
         }
 
         System.out.println("Insert priority (number) : ");
 
-        while (priority > 0) {
+        while (priority < 0) {
             priority = SCANNER.nextFloat();
         }
 
