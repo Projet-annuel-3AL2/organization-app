@@ -52,7 +52,7 @@ public class UserService extends Service<User> {
 
     public Flux<User> getProjects(User user) {
         return client.getClient().put()
-                .uri(baseRoute + "/set-admin/" + user.getId())
+                .uri(baseRoute + "/{id}/projects", user.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
