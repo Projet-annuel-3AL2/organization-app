@@ -3,12 +3,12 @@ package com.agirpourtous.cli.menus;
 import com.agirpourtous.cli.controller.ConnectionController;
 import com.agirpourtous.core.api.APIClient;
 
-public class MainMenu extends Menu {
+public class AuthMenu extends Menu {
 
-    public MainMenu(APIClient client) {
+    public AuthMenu(APIClient client) {
         super("Main Menu");
 
-        addAction(new Action("Connect") {
+        addAction(new Action("AuthMenu") {
             @Override
             public void execute() {
                 ConnectionController connectionController = new ConnectionController();

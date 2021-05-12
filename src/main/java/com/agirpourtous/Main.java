@@ -1,7 +1,6 @@
 package com.agirpourtous;
 
 import com.agirpourtous.cli.CLILauncher;
-import com.agirpourtous.cli.menus.MainMenu;
 import com.agirpourtous.gui.GUILauncher;
 import org.apache.commons.cli.*;
 
