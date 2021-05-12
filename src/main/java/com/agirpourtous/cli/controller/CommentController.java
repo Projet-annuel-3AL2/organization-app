@@ -11,7 +11,7 @@ public class CommentController {
 
     // TODO : Afficher les comments
     public void getAllComment(APIClient client) {
-
+        System.out.println("List of all Comments :");
         try {
             client.getCommentService().findAll();
         }catch (Error error){
