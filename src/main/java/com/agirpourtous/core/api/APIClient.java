@@ -3,6 +3,8 @@ package com.agirpourtous.core.api;
 import com.agirpourtous.core.api.requests.LoginRequest;
 import com.agirpourtous.core.api.services.*;
 import com.agirpourtous.core.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -10,6 +12,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 
 public class APIClient {
+    private static final Logger logger = LoggerFactory.getLogger(APIClient.class.getName());
+
     private final WebClient client;
     private final MultiValueMap<String, String> savedCookies;
     private final UserService userService;

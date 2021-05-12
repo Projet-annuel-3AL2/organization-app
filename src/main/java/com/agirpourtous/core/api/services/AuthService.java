@@ -3,6 +3,8 @@ package com.agirpourtous.core.api.services;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.LoginRequest;
 import com.agirpourtous.core.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Mono;
@@ -10,6 +12,8 @@ import reactor.core.publisher.Mono;
 import java.util.Collections;
 
 public class AuthService extends Service<User> {
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class.getName());
+
     public AuthService(APIClient client) {
         super(client, "/auth/", User.class);
     }
