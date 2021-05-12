@@ -1,4 +1,4 @@
-package com.agirpourtous.cli.menus;
+package com.agirpourtous.cli.controller;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.LoginRequest;
@@ -6,11 +6,11 @@ import com.agirpourtous.core.api.services.AuthService;
 
 import java.util.Scanner;
 
-public class ConnectionMenu {
+public class ConnectionController {
     private LoginRequest loginRequest;
     private final static Scanner SCANNER = new Scanner(System.in);
 
-    public void start(APIClient client) {
+    public boolean start(APIClient client) {
         boolean loopBreak = false;
         do {
             System.out.println("Insert your Username : ");
@@ -36,8 +36,8 @@ public class ConnectionMenu {
             }
         }while (!loopBreak );
 
-        System.out.println("Je suis connecté");
-
+        System.out.println("You are connected ");
+        return true;
     }
 
 
