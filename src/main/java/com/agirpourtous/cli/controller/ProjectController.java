@@ -5,7 +5,6 @@ import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
-import com.agirpourtous.cli.controller.Show;
 
 import java.util.List;
 import java.util.Scanner;
@@ -260,7 +259,7 @@ public class ProjectController {
         }
 
         System.out.println("------ List of all ticket for project id " + idProject + " :");
-        client.getProjectService().getTickets(idProject).subscribe(show::showTickets);
+        client.getProjectService().getTickets(idProject).subscribe(show::showTicket);
 
         new ProjectMenu(client);
     }

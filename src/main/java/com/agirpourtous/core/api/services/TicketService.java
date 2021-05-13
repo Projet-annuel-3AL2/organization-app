@@ -58,7 +58,7 @@ public class TicketService extends Service<Ticket> {
                 .bodyToMono(type);
     }
 
-    public Flux<Comment> getComment(String id) {
+    public Flux<Comment> getComments(String id) {
         return client.getClient().get()
                 .uri(baseRoute + "{id}/comments", id)
                 .accept(MediaType.APPLICATION_JSON)

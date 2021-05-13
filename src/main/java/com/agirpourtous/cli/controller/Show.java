@@ -1,5 +1,6 @@
 package com.agirpourtous.cli.controller;
 
+import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
@@ -20,11 +21,11 @@ public class Show {
         project.getMembers().forEach(this::showUsers);
 
         System.out.println("------- Ticket of Project :");
-        project.getTickets().forEach(this::showTickets);
+        project.getTickets().forEach(this::showTicket);
 
     }
 
-    public  void showTickets(Ticket ticket) {
+    public  void showTicket(Ticket ticket) {
         if (ticket == null){
             System.out.println("------- There is no Tickets");
         }else {
@@ -42,6 +43,17 @@ public class Show {
         }else {
             System.out.println("------ name : " + user.getUsername() + "  id: " + user.getId() + "\n" +
                     "------- mail : " + user.getMail() + "\n" +
+                    "--------");
+        }
+    }
+
+    public void showComments(Comment comment) {
+        if (comment == null){
+            System.out.println("------- There is no comment");
+        }else {
+            System.out.println("------ Username : " + comment.getUser().getUsername() + "\n" +
+                    "------- Title : " + comment.getText() + "\n " +
+                    "------- creation date : " + comment.getCreationDate() + "\n" +
                     "--------");
         }
     }
