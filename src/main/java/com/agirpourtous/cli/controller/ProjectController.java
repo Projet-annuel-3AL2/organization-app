@@ -5,19 +5,20 @@ import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
+import com.agirpourtous.cli.controller.Show;
 
 import java.util.List;
 import java.util.Scanner;
 
-
 public class ProjectController {
     private final static Scanner SCANNER = new Scanner(System.in);
+    private final static Show show = new Show();
 
     public void showAllProject(APIClient client) {
         System.out.println("List of all Project : ");
 
-        client.getProjectService().findAll().subscribe(this::showProject);
-
+        client.getProjectService().findAll().subscribe(show::showProject);
+;
         new ProjectMenu(client);
     }
 
@@ -159,7 +160,7 @@ public class ProjectController {
 
         Project project = client.getProjectService().findById(idProject).block();
         if (project != null){
-            showProject(project);
+            show.showProject(project);
         }else{
             System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
         }
@@ -177,7 +178,7 @@ public class ProjectController {
         }
 
         System.out.println("------ List of user for project id " + idProject + " :");
-        client.getProjectService().getMembers(idProject).subscribe(this::showUsersOfProject);
+        client.getProjectService().getMembers(idProject).subscribe(show::showUsers);
 
         new ProjectMenu(client);
     }
@@ -192,7 +193,7 @@ public class ProjectController {
         }
 
         System.out.println("------ List of Admin of project id " + idProject + " :");
-        client.getProjectService().getAdmins(idProject).subscribe(this::showUsersOfProject);
+        client.getProjectService().getAdmins(idProject).subscribe(show::showUsers);
 
         new ProjectMenu(client);
     }
@@ -259,45 +260,10 @@ public class ProjectController {
         }
 
         System.out.println("------ List of all ticket for project id " + idProject + " :");
-        client.getProjectService().getTickets(idProject).subscribe(this::showTicketsOfProject);
+        client.getProjectService().getTickets(idProject).subscribe(show::showTickets);
 
         new ProjectMenu(client);
     }
 
-    private void showProject(Project project) {
-        System.out.println("----------\n" +
-                "----- Name of Project : " + project.getName() + "\n" +
-                "----- Id of Project : " + project.getId() + "\n" +
-                "------- Admin(s) of Project :");
-        project.getAdmins().forEach(this::showUsersOfProject);
 
-        System.out.println("------- Members of Project :");
-        project.getMembers().forEach(this::showUsersOfProject);
-
-        System.out.println("------- Ticket of Project :");
-        project.getTickets().forEach(this::showTicketsOfProject);
-
-    }
-
-    private void showTicketsOfProject(Ticket ticket) {
-        if (ticket == null){
-            System.out.println("------- There is no Ticket for this project");
-        }else {
-            System.out.println("------ Title : " + ticket.getTitle() + "  id: " + ticket.getId() + "\n" +
-                    "------- Description : " + ticket.getDescription() + "\n" +
-                    "------- Status : " + ticket.getStatus() + "  Priority :" + ticket.getPriority() + "\n" +
-                    "------- Estimated Duration : " + ticket.getEstimatedDuration() + "\n" +
-                    "--------");
-        }
-    }
-
-    private void showUsersOfProject(User user) {
-        if (user == null){
-            System.out.println("------- There is no member for this project");
-        }else {
-            System.out.println("------ name : " + user.getUsername() + "  id: " + user.getId() + "\n" +
-                    "------- mail : " + user.getMail() + "\n" +
-                    "--------");
-        }
-    }
 }

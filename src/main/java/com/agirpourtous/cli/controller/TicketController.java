@@ -15,7 +15,7 @@ public class TicketController {
     // TODO : Afficher les tickets
     public void getAllTicket(APIClient client) {
         System.out.println("List of all Tickets : ");
-        client.getTicketService().findAll();
+        client.getTicketService().findAll().subscribe();
 
         new TicketMenu(client);
     }
