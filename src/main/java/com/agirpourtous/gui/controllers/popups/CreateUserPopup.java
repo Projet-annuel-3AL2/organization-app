@@ -18,7 +18,7 @@ public class CreateUserPopup extends Popup {
     public Label errorLabel;
 
     public CreateUserPopup(Controller controller) throws IOException {
-        super("Ajout d'utilisateur", "add_user_popup", controller);
+        super("Ajout d'utilisateur", "create_user_popup", controller);
     }
 
     public void onCreateUserButton() {

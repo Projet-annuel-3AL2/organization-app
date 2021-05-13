@@ -13,7 +13,7 @@ public class CreateProjectPopup extends Popup {
     public Label errorLabel;
 
     public CreateProjectPopup(Controller controller) throws IOException {
-        super("Création de projet", "add_project_popup", controller);
+        super("Création de projet", "create_project_popup", controller);
     }
 
     public void onCreateProjectButton() {

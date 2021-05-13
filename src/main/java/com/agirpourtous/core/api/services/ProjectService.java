@@ -2,6 +2,7 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddProjectRequest;
+import com.agirpourtous.core.api.requests.UsersManagementRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 public class ProjectService extends Service<Project> {
     private static final Logger logger = LoggerFactory.getLogger(ProjectService.class.getName());
@@ -95,6 +98,24 @@ public class ProjectService extends Service<Project> {
     public Mono<Void> removeMember(String projectId, String userId) {
         return client.getClient().delete()
                 .uri(baseRoute + "/{projectId}/member/{userId}", projectId, userId)
+                .accept(MediaType.APPLICATION_JSON)
+                .cookies(cookies -> cookies.addAll(client.getCookies()))
+                .retrieve()
+                .bodyToMono(Void.class);
+    }
+
+    public Mono<Void> addMembers(String projectId, UsersManagementRequest usersManagementRequest) {
+        return client.getClient().put()
+                .uri(baseRoute + "/{projectId}/member/{userId}", projectId, usersManagementRequest)
+                .accept(MediaType.APPLICATION_JSON)
+                .cookies(cookies -> cookies.addAll(client.getCookies()))
+                .retrieve()
+                .bodyToMono(Void.class);
+    }
+
+    public Mono<Void> removeMembers(String projectId, UsersManagementRequest usersManagementRequest) {
+        return client.getClient().delete()
+                .uri(baseRoute + "/{projectId}/member/{userId}", projectId, usersManagementRequest)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
