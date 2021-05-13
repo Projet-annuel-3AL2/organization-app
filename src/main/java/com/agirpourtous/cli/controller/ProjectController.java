@@ -1,6 +1,5 @@
 package com.agirpourtous.cli.controller;
 
-import com.agirpourtous.cli.menus.HomePageMenu;
 import com.agirpourtous.cli.menus.ProjectMenu;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
@@ -14,10 +13,10 @@ import java.util.Scanner;
 public class ProjectController {
     private final static Scanner SCANNER = new Scanner(System.in);
 
-    // TODO : Trouver comment afficher showAllProject()
     public void showAllProject(APIClient client) {
         System.out.println("List of all Project : ");
-        client.getProjectService().findAll();
+
+        client.getProjectService().findAll().subscribe(this::showProject);
 
         new ProjectMenu(client);
     }
@@ -50,176 +49,16 @@ public class ProjectController {
         new ProjectMenu(client);
     }
 
-    //TODO : askListOfAdmin
-    private List<User> askListOfAdmin(APIClient client) {
-
-        return null;
-    }
-
-    //TODO : askListOfUser
-    private List<User> askListOfUser(APIClient client) {
-        return null;
-    }
-
     //TODO : updateProject
+
     public void updateProject(APIClient client) {
 
-        new ProjectMenu(client);
-    }
 
-
-    public void deleteProject(APIClient client) {
-
-        System.out.println("Insert id of the Project you want to delete : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-
-        try {
-            client.getProjectService().delete(idProject);
-        }catch (Error error){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
-        }
 
         new ProjectMenu(client);
     }
-
-    // TODO : Trouver Comment Afficher findProjectById(APIClient client)
-    public void findProjectById(APIClient client) {
-        System.out.println("Insert Id of a project : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-        try {
-            client.getProjectService().getAdmins(idProject);
-
-            new ProjectMenu(client);
-
-        }catch (Error error){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
-        }
-
-        try {
-            client.getProjectService().findById(idProject);
-
-
-        }catch (Error error){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
-        }
-        new ProjectMenu(client);
-    }
-
-    // TODO : Trouver Comment Afficher MembersWithIdProject(APIClient client)
-    public void getMembersWithIdProject(APIClient client) {
-
-        System.out.println("Insert Id of a project : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-
-        try {
-            client.getProjectService().getMembers(idProject);
-        }catch (Error error){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
-        }
-        new ProjectMenu(client);
-    }
-
-    // TODO : Trouver Comment Afficher getAdminsWithIdProject(APIClient client)
-    public void getAdminsWithIdProject(APIClient client) {
-
-        System.out.println("Insert Id of a project : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-
-        try {
-            client.getProjectService().getAdmins(idProject);
-        }catch (Error error){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
-        }
-        new ProjectMenu(client);
-    }
-
-    public void removeMemberWithIdProjectAndIdMember(APIClient client) {
-
-        System.out.println("Insert id of the Project : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-
-        System.out.println("Insert id of the Member you want to remove : ");
-
-        String userId = null;
-        while (userId == null) {
-            userId = SCANNER.next();
-        }
-
-        try {
-            client.getProjectService().removeMember(idProject, userId);
-
-        }catch (Error error){
-            System.out.println("Error");
-        }
-
-        new ProjectMenu(client);
-    }
-
-    public void removeAdminWithIdProject(APIClient client) {
-
-        System.out.println("Insert id of the Project : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-
-        System.out.println("Insert id of the admin you want to remove : ");
-
-        String userId = null;
-        while (userId == null) {
-            userId = SCANNER.next();
-        }
-
-        try {
-            client.getProjectService().removeAdmin(idProject, userId);
-
-        }catch (Error error){
-            System.out.println("Error");
-        }
-
-        new ProjectMenu(client);
-    }
-
-    // TODO : Trouver Comment Afficher GetAllTicketWithIdProject(APIClient client)
-    public void GetAllTicketWithIdProject(APIClient client) {
-
-        System.out.println("Insert Id of a project : ");
-
-        String idProject = null;
-        while (idProject == null) {
-            idProject = SCANNER.next();
-        }
-
-        try {
-            client.getProjectService().getTickets(idProject);
-        }catch (Error error){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
-        }
-        new ProjectMenu(client);
-    }
-
     // TODO : Finir Inserer un ticket dans un projet
+
     public void addTicketWithIdTicketAndIdProject(APIClient client) {
 
         String idProject = null;
@@ -279,5 +118,186 @@ public class ProjectController {
         }
 
         new ProjectMenu(client);
+    }
+
+    //TODO : askListOfAdmin
+    private List<User> askListOfAdmin(APIClient client) {
+
+        return null;
+    }
+
+    //TODO : askListOfUser
+    private List<User> askListOfUser(APIClient client) {
+        return null;
+    }
+
+    public void deleteProject(APIClient client) {
+
+        System.out.println("Insert id of the Project you want to delete : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        try {
+            client.getProjectService().delete(idProject);
+        }catch (Error error){
+            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
+        }
+
+        new ProjectMenu(client);
+    }
+
+    public void findProjectById(APIClient client) {
+        System.out.println("Insert Id of a project : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        Project project = client.getProjectService().findById(idProject).block();
+        if (project != null){
+            showProject(project);
+        }else{
+            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
+        }
+
+        new ProjectMenu(client);
+    }
+
+    public void getMembersWithIdProject(APIClient client) {
+
+        System.out.println("Insert Id of a project : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        System.out.println("------ List of user for project id " + idProject + " :");
+        client.getProjectService().getMembers(idProject).subscribe(this::showUsersOfProject);
+
+        new ProjectMenu(client);
+    }
+
+    public void getAdminsWithIdProject(APIClient client) {
+
+        System.out.println("Insert Id of a project : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        System.out.println("------ List of Admin of project id " + idProject + " :");
+        client.getProjectService().getAdmins(idProject).subscribe(this::showUsersOfProject);
+
+        new ProjectMenu(client);
+    }
+
+    public void removeMemberWithIdProjectAndIdMember(APIClient client) {
+
+        System.out.println("Insert id of the Project : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        System.out.println("Insert id of the Member you want to remove : ");
+
+        String userId = null;
+        while (userId == null) {
+            userId = SCANNER.next();
+        }
+
+        try {
+            client.getProjectService().removeMember(idProject, userId);
+
+        }catch (Error error){
+            System.out.println("Error");
+        }
+
+        new ProjectMenu(client);
+    }
+
+    public void removeAdminWithIdProject(APIClient client) {
+
+        System.out.println("Insert id of the Project : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        System.out.println("Insert id of the admin you want to remove : ");
+
+        String userId = null;
+        while (userId == null) {
+            userId = SCANNER.next();
+        }
+
+        try {
+            client.getProjectService().removeAdmin(idProject, userId);
+
+        }catch (Error error){
+            System.out.println("Error");
+        }
+
+        new ProjectMenu(client);
+    }
+
+    public void GetAllTicketWithIdProject(APIClient client) {
+
+        System.out.println("Insert Id of a project : ");
+
+        String idProject = null;
+        while (idProject == null) {
+            idProject = SCANNER.next();
+        }
+
+        System.out.println("------ List of all ticket for project id " + idProject + " :");
+        client.getProjectService().getTickets(idProject).subscribe(this::showTicketsOfProject);
+
+        new ProjectMenu(client);
+    }
+
+    private void showProject(Project project) {
+        System.out.println("----------\n" +
+                "----- Name of Project : " + project.getName() + "\n" +
+                "----- Id of Project : " + project.getId() + "\n" +
+                "------- Admin(s) of Project :");
+        project.getAdmins().forEach(this::showUsersOfProject);
+
+        System.out.println("------- Members of Project :");
+        project.getMembers().forEach(this::showUsersOfProject);
+
+        System.out.println("------- Ticket of Project :");
+        project.getTickets().forEach(this::showTicketsOfProject);
+
+    }
+
+    private void showTicketsOfProject(Ticket ticket) {
+        if (ticket == null){
+            System.out.println("------- There is no Ticket for this project");
+        }else {
+            System.out.println("------ Title : " + ticket.getTitle() + "  id: " + ticket.getId() + "\n" +
+                    "------- Description : " + ticket.getDescription() + "\n" +
+                    "------- Status : " + ticket.getStatus() + "  Priority :" + ticket.getPriority() + "\n" +
+                    "------- Estimated Duration : " + ticket.getEstimatedDuration() + "\n" +
+                    "--------");
+        }
+    }
+
+    private void showUsersOfProject(User user) {
+        if (user == null){
+            System.out.println("------- There is no member for this project");
+        }else {
+            System.out.println("------ name : " + user.getUsername() + "  id: " + user.getId() + "\n" +
+                    "------- mail : " + user.getMail() + "\n" +
+                    "--------");
+        }
     }
 }
