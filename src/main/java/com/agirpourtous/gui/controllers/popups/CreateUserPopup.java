@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class AddUserPopup extends Popup {
+public class CreateUserPopup extends Popup {
     public TextField usernameField;
     public TextField mailField;
     public TextField firstnameField;
@@ -17,7 +17,7 @@ public class AddUserPopup extends Popup {
     public CheckBox isAdminCheckbox;
     public Label errorLabel;
 
-    public AddUserPopup(Controller controller) throws IOException {
+    public CreateUserPopup(Controller controller) throws IOException {
         super("Ajout d'utilisateur", "add_user_popup", controller);
     }
 

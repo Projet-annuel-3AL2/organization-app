@@ -81,6 +81,11 @@ public class ProjectDetailsController extends Controller {
     }
 
     public void onAddTicketClick() {
+
+    }
+
+    public void onAddUserClick() {
+
     }
 
     public void addTicket(Ticket ticket) {

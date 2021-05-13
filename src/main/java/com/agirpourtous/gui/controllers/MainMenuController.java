@@ -3,8 +3,8 @@ package com.agirpourtous.gui.controllers;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.gui.controllers.elements.ProjectElementController;
-import com.agirpourtous.gui.controllers.popups.AddProjectPopup;
-import com.agirpourtous.gui.controllers.popups.AddUserPopup;
+import com.agirpourtous.gui.controllers.popups.CreateProjectPopup;
+import com.agirpourtous.gui.controllers.popups.CreateUserPopup;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -55,7 +55,7 @@ public class MainMenuController extends Controller {
     @FXML
     public void onCreateUserClick() {
         try {
-            new AddUserPopup(this);
+            new CreateUserPopup(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class MainMenuController extends Controller {
     @FXML
     public void onCreateProjectClick() {
         try {
-            new AddProjectPopup(this);
+            new CreateProjectPopup(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

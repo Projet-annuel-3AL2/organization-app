@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="184.0" prefWidth="535.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agirpourtous.gui.controllers.popups.ProjectUsersManagementPopup">
+    <Label text="Ajout d'utilisateur" />
+    <GridPane hgap="10.0" vgap="10.0">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+        <Label fx:id="utilisateur" text="Utilisateurs non membre :" />
+        <ComboBox fx:id="usersNonMemberList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+        <Button mnemonicParsing="false" onAction="#onAddUsersClick" text="Ajouter les users" GridPane.columnIndex="2" />
+        <Button mnemonicParsing="false" onAction="#onRemoveUsersClick" text="Retirer les users" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Label text="Utilisateurs membre :" GridPane.rowIndex="1" />
+        <ComboBox fx:id="usersMemberList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    </GridPane>
+    <Button mnemonicParsing="false" onAction="#onCloseClick" text="Fermer" />
+</VBox>

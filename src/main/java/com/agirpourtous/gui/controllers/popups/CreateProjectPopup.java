@@ -8,11 +8,11 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class AddProjectPopup extends Popup {
+public class CreateProjectPopup extends Popup {
     public TextField nameField;
     public Label errorLabel;
 
-    public AddProjectPopup(Controller controller) throws IOException {
+    public CreateProjectPopup(Controller controller) throws IOException {
         super("Création de projet", "add_project_popup", controller);
     }
 
