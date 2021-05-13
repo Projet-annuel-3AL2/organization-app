@@ -42,7 +42,7 @@ public class CommentController {
         while (idComment == null) {
             idComment = SCANNER.next();
         }
-        
+
         Comment comment = client.getCommentService().findById(idComment).block();
 
         if (comment != null){
@@ -69,7 +69,7 @@ public class CommentController {
             try {
                 client.getCommentService().update(idComment, comment);
             }catch (Error error){
-                System.out.println("An Error OCcur with");
+                System.out.println("An Error occur ");
             }
         }
 

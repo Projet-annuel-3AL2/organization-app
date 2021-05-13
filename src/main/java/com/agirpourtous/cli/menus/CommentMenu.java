@@ -38,8 +38,6 @@ public class CommentMenu  extends Menu{
             }
         });
 
-
-
         start();
     }
 }

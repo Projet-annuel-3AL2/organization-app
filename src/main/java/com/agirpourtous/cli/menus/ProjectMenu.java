@@ -86,10 +86,19 @@ public class ProjectMenu extends Menu{
                 projectController.addTicketWithIdTicketAndIdProject(client);
             }
         });
+
         addAction(new Action("Return HomePage") {
             @Override
             public void execute() {
                 new HomePageMenu(client);
+            }
+        });
+
+        // TODO : A supprimer
+        addAction(new Action("get User") {
+            @Override
+            public void execute() {
+                ProjectController.getUser(client);
             }
         });
 

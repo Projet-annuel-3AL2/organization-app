@@ -6,6 +6,7 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,46 +25,36 @@ public class ProjectController {
     // TODO : Finir CreateProject
     public void createProject(APIClient client) {
 
-        boolean loopBreak = false;
-        do {
-            System.out.println("Insert a name for your project : ");
+        System.out.println("Insert a name for your project : ");
 
-            String projectName = null;
-            while (projectName == null) {
-                projectName = SCANNER.next();
-            }
+        String projectName = null;
+        while (projectName == null) {
+            projectName = SCANNER.next();
+        }
 
-            List<User> members = askListOfUser(client);
-            List<User> admin = askListOfAdmin(client);
+        List<User> members = askListOfUser(client);
+        List<User> admin = askListOfUser(client);
 
 
-            Project project = new Project();
+        Project project = new Project();
 
-//            if (client.getProjectService().create(project)){
-//                System.out.println("Project Create with success");
-//                loopBreak = true;
-//            }else{
-//                System.out.println("Problem encounter during process of create a project \n");
-//            }
-        }while (!loopBreak );
+        client.getProjectService().create(project);
+
         new ProjectMenu(client);
     }
 
     //TODO : updateProject
-
     public void updateProject(APIClient client) {
 
 
 
         new ProjectMenu(client);
     }
-    // TODO : Finir Inserer un ticket dans un projet
 
     public void addTicketWithIdTicketAndIdProject(APIClient client) {
 
         String idProject = null;
-        // TODO : Fonction pour récupérer le creatorId de l'user Actuel
-        String creatorId = "1";
+        String creatorId = client.getUser().getId();
         String assigneId = null;
         String title = null;
         String description = null;
@@ -120,15 +111,53 @@ public class ProjectController {
         new ProjectMenu(client);
     }
 
-    //TODO : askListOfAdmin
-    private List<User> askListOfAdmin(APIClient client) {
-
-        return null;
-    }
-
-    //TODO : askListOfUser
     private List<User> askListOfUser(APIClient client) {
-        return null;
+        List<User> listOfUser = new ArrayList<User>();
+        String userId = "";
+
+        while (!userId.equals("stop")){
+
+            System.out.println("------- Choose an User and input his id");
+            client.getUserService().findAll().subscribe(user -> {
+                System.out.println("------ username : " + user.getUsername() + "\n" +
+                        "------ User Id : " + user.getId() + "\n" +
+                        "--------");
+            });
+            System.out.println("------- (input 'stop' to stop choosing User)");
+
+            userId = SCANNER.next();
+
+            if (userId.equals("stop")){
+                break;
+            }
+
+            boolean isNotDuplicate = true;
+            if (listOfUser.size() > 0){
+
+                for (int i = 0; i < listOfUser.size(); i++){
+                    if (listOfUser.get(i).getId().equals(userId)) {
+                        isNotDuplicate = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isNotDuplicate){
+
+                // TODO : les erreurs sont pas gérer
+                User user = client.getUserService().findById(userId).block();
+                if(user != null){
+                    listOfUser.add(user);
+                }else{
+                    System.out.println("Id of user doesn't exist");
+                }
+
+            }else{
+                System.out.println("User already select");
+            }
+        }
+
+        return listOfUser;
     }
 
     public void deleteProject(APIClient client) {
@@ -263,6 +292,5 @@ public class ProjectController {
 
         new ProjectMenu(client);
     }
-
 
 }

@@ -41,6 +41,7 @@ public class HomePageMenu extends Menu{
                 client.close();
             }
         });
+
         start();
     }
 }

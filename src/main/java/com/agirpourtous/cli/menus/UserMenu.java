@@ -24,19 +24,6 @@ public class UserMenu  extends Menu{
             }
         });
 
-        addAction(new Action("Create User") {
-            @Override
-            public void execute() {
-                userController.createUser(client);
-            }
-        });
-
-        addAction(new Action("Set an Admin") {
-            @Override
-            public void execute() {
-                userController.setANewAdmin(client);
-            }
-        });
 
         addAction(new Action("update an User") {
             @Override
@@ -49,6 +36,30 @@ public class UserMenu  extends Menu{
             @Override
             public void execute() {
                 userController.deleteUSer(client);
+            }
+        });
+
+        if (client.getUser().isAdmin()){
+
+            addAction(new Action("Create User") {
+                @Override
+                public void execute() {
+                    userController.createUser(client);
+                }
+            });
+
+            addAction(new Action("Set an Admin") {
+                @Override
+                public void execute() {
+                    userController.setANewAdmin(client);
+                }
+            });
+        }
+
+        addAction(new Action("Return HomePage") {
+            @Override
+            public void execute() {
+                new HomePageMenu(client);
             }
         });
 

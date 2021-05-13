@@ -6,23 +6,15 @@ import com.agirpourtous.core.api.APIClient;
 public class AuthMenu extends Menu {
 
     public AuthMenu(APIClient client) {
-        super("Main Menu");
+        super("Auth Menu");
 
-        addAction(new Action("AuthMenu") {
+        addAction(new Action("Auth") {
             @Override
             public void execute() {
                 ConnectionController connectionController = new ConnectionController();
                 if (connectionController.start(client)){
                     new HomePageMenu(client);
                 }
-            }
-        });
-
-        // TODO: A supprimer
-        addAction(new Action("HomePage") {
-            @Override
-            public void execute() {
-                new HomePageMenu(client);
             }
         });
 

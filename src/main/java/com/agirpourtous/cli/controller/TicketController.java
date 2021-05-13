@@ -172,9 +172,15 @@ public class TicketController {
 
     public void addCommentToTicket(APIClient client) {
         String idTicket = null;
-        // TODO : Get user Id de la session
-        String UserId = null;
+        String userId = client.getUser().getId();
         String text = null;
+        String projectId = null;
+
+        System.out.println("Insert id of the Project : ");
+
+        while (projectId == null) {
+            projectId = SCANNER.next();
+        }
 
         System.out.println("Insert id of the ticket you want to add a comment : ");
 
