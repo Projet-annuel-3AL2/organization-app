@@ -41,9 +41,8 @@ public class MainMenuController extends Controller {
         super("main_menu", controller);
         this.usernameLabel.setText(client.getUser().getUsername());
         this.projects = new HashMap<>();
-        System.out.println(isActive);
-        client.getProjectService()
-                .findAll()
+        client.getUserService()
+                .getProjects()
                 .collect(Collectors.toList())
                 .repeatWhen(Repeat.onlyIf(repeatContext -> isActive)
                         .fixedBackoff(Duration.ofSeconds(10)))

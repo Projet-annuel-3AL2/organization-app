@@ -2,6 +2,7 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddUserRequest;
+import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,13 +55,13 @@ public class UserService extends Service<User> {
                 .bodyToMono(type);
     }
 
-    public Flux<User> getProjects(User user) {
-        return client.getClient().put()
-                .uri(baseRoute + "/{id}/projects", user.getId())
+    public Flux<Project> getProjects() {
+        return client.getClient().get()
+                .uri(baseRoute + "/{id}/projects", client.getUser().getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
-                .bodyToFlux(type);
+                .bodyToFlux(Project.class);
     }
 
     public Mono<User> update(String id, User user) {
