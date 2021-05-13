@@ -8,20 +8,15 @@ import java.util.Scanner;
 
 public class CommentController {
     private final static Scanner SCANNER = new Scanner(System.in);
+    private final static Show show = new Show();
 
-    // TODO : Afficher les comments
     public void getAllComment(APIClient client) {
         System.out.println("List of all Comments :");
-        try {
-            client.getCommentService().findAll();
-        }catch (Error error){
-            System.out.println("An Error OCcur with");
-        }
+        client.getCommentService().findAll().subscribe(show::showComment);
 
         new CommentMenu(client);
     }
 
-    // TODO : Afficher le comment
     public void findById(APIClient client) {
         System.out.println("Insert id of the Comment you want to display : ");
 
@@ -30,11 +25,8 @@ public class CommentController {
             idComment = SCANNER.next();
         }
 
-        try {
-            client.getCommentService().findById(idComment);
-        }catch (Error error){
-            System.out.println("An Error OCcur with");
-        }
+        Comment comment = client.getCommentService().findById(idComment).block();
+        show.showComment(comment);
 
         new CommentMenu(client);
     }
@@ -50,34 +42,35 @@ public class CommentController {
         while (idComment == null) {
             idComment = SCANNER.next();
         }
+        
+        Comment comment = client.getCommentService().findById(idComment).block();
 
-        // TODO : get an Comment for update with id Comment
-        client.getCommentService().findById(idComment);
-        Comment comment = new Comment();
+        if (comment != null){
 
-        System.out.println("Insert new ticket id (enter to keep " + comment.getTicketId() +" ) : ");
-        idTicket = SCANNER.next();
-        if (idTicket == null){
-            idTicket = comment.getTicketId();
-        }
+            System.out.println("Insert new ticket id (enter to keep " + comment.getTicketId() +" ) : ");
+            idTicket = SCANNER.next();
+            if (idTicket == null){
+                idTicket = comment.getTicketId();
+            }
 
-        System.out.println("Insert new User id (enter to keep " + comment.getUserId() +" ) : ");
-        UserId = SCANNER.next();
-        if (UserId == null){
-            UserId = comment.getUserId();
-        }
+            System.out.println("Insert new User id (enter to keep " + comment.getUserId() +" ) : ");
+            UserId = SCANNER.next();
+            if (UserId == null){
+                UserId = comment.getUserId();
+            }
 
-        System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
-        text = SCANNER.next();
-        if (text == null){
-            text = comment.getText();
-        }
+            System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
+            text = SCANNER.next();
+            if (text == null){
+                text = comment.getText();
+            }
 
-        //TODO : create Comment with given var
-        try {
-            client.getCommentService().update(idComment, comment);
-        }catch (Error error){
-            System.out.println("An Error OCcur with");
+            //TODO : create Comment with given var
+            try {
+                client.getCommentService().update(idComment, comment);
+            }catch (Error error){
+                System.out.println("An Error OCcur with");
+            }
         }
 
         new CommentMenu(client);

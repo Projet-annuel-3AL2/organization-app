@@ -47,7 +47,7 @@ public class Show {
         }
     }
 
-    public void showComments(Comment comment) {
+    public void showComment(Comment comment) {
         if (comment == null){
             System.out.println("------- There is no comment");
         }else {

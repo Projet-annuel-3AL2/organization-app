@@ -165,7 +165,7 @@ public class TicketController {
         }
 
         System.out.println("------- List of Comments for ticket id " + idTicket + " :");
-        client.getTicketService().getComments(idTicket).subscribe(show::showComments);
+        client.getTicketService().getComments(idTicket).subscribe(show::showComment);
 
         new TicketMenu(client);
     }
