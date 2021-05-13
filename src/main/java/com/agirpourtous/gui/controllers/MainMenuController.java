@@ -3,6 +3,7 @@ package com.agirpourtous.gui.controllers;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.gui.controllers.elements.ProjectElementController;
+import com.agirpourtous.gui.controllers.popups.AddProjectPopup;
 import com.agirpourtous.gui.controllers.popups.AddUserPopup;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -40,6 +41,7 @@ public class MainMenuController extends Controller {
         super("main_menu", controller);
         this.usernameLabel.setText(client.getUser().getUsername());
         this.projects = new HashMap<>();
+        System.out.println(isActive);
         client.getProjectService()
                 .findAll()
                 .collect(Collectors.toList())
@@ -62,7 +64,11 @@ public class MainMenuController extends Controller {
 
     @FXML
     public void onCreateProjectClick() {
-
+        try {
+            new AddProjectPopup(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddProjectRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
@@ -17,12 +18,12 @@ public class ProjectService extends Service<Project> {
         super(client, "/project/", Project.class);
     }
 
-    public Mono<Project> create(Project project) {
+    public Mono<Project> create(AddProjectRequest addProjectRequest) {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(project), type)
+                .body(Mono.just(addProjectRequest), type)
                 .retrieve()
                 .bodyToMono(type);
     }
