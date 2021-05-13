@@ -1,6 +1,5 @@
 package com.agirpourtous.cli.controller;
 
-import com.agirpourtous.cli.menus.TicketMenu;
 import com.agirpourtous.cli.menus.UserMenu;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.User;
@@ -9,13 +8,13 @@ import java.util.Scanner;
 
 public class UserController {
     private final static Scanner SCANNER = new Scanner(System.in);
+    private final static Show show = new Show();
 
-    // TODO : affcicher list of Users
+
     public void findAllUser(APIClient client) {
         System.out.println("List of all User :");
 
-        client.getUserService().findAll();
-
+        client.getUserService().findAll().subscribe(show::showUser);
         new UserMenu(client);
     }
 
@@ -27,11 +26,8 @@ public class UserController {
             userId = SCANNER.next();
         }
 
-        try {
-            client.getUserService().findById(userId);
-        }catch (Error error){
-            System.out.println("An Error Occur with");
-        }
+        User user = client.getUserService().findById(userId).block();
+        show.showUser(user);
 
         new UserMenu(client);
     }
@@ -65,7 +61,7 @@ public class UserController {
 
         System.out.println("Input boolean (true or false) or nothing for default false");
         isAdmin = SCANNER.nextBoolean();
-        if (isAdmin != true && isAdmin != false ){
+        if (!isAdmin){
             isAdmin = false;
         }
 
@@ -83,7 +79,19 @@ public class UserController {
     }
 
     public void setANewAdmin(APIClient client) {
+        String userId = null;
+        System.out.println("Input id of user you want to grant admin");
 
+        while (userId == null){
+            userId = SCANNER.next();
+        }
+
+        User user = client.getUserService().findById(userId).block();
+        if (user != null){
+            client.getUserService().setAdmin(user);
+        }else{
+            System.out.println("There is no user with id : " + userId);
+        }
     }
 
     public void updateUser(APIClient client) {
@@ -99,45 +107,44 @@ public class UserController {
             userId = SCANNER.next();
         }
 
-        // TODO : get User with id given by user
-        client.getUserService().findById(userId);
-        User user = new User();
+        User user = client.getUserService().findById(userId).block();
+        if (user != null){
 
-        System.out.println("Insert username (enter to keep " + user.getUsername() +" ) : ");
-        username = SCANNER.next();
-        if (username == null){
-            username = user.getUsername();
-        }
+            System.out.println("Insert username (enter to keep " + user.getUsername() +" ) : ");
+            username = SCANNER.next();
+            if (username == null){
+                username = user.getUsername();
+            }
 
-        System.out.println("Insert lastname (enter to keep " + user.getLastname() +" ) : ");
-        lastname = SCANNER.next();
-        if (lastname == null){
-            lastname = user.getLastname();
-        }
+            System.out.println("Insert lastname (enter to keep " + user.getLastname() +" ) : ");
+            lastname = SCANNER.next();
+            if (lastname == null){
+                lastname = user.getLastname();
+            }
 
-        System.out.println("Insert firstname (enter to keep " + user.getFirstname() +" ) : ");
-        firstname = SCANNER.next();
-        if (firstname == null){
-            firstname = user.getFirstname();
-        }
+            System.out.println("Insert firstname (enter to keep " + user.getFirstname() +" ) : ");
+            firstname = SCANNER.next();
+            if (firstname == null){
+                firstname = user.getFirstname();
+            }
 
-        System.out.println("Insert mail (enter to keep " + user.getMail() +" ) : ");
-        mail = SCANNER.next();
-        if (mail == null){
-            mail = user.getMail();
-        }
+            System.out.println("Insert mail (enter to keep " + user.getMail() +" ) : ");
+            mail = SCANNER.next();
+            if (mail == null){
+                mail = user.getMail();
+            }
 
-        System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
-        isAdmin = SCANNER.nextBoolean();
+            System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
+            isAdmin = SCANNER.nextBoolean();
 
-        // TODO : create User object with given var
-        User newUser = new User();
+            // TODO : create User object with given var
+            User newUser = new User();
 
-        try {
-            client.getUserService().create(newUser);
-
-        }catch (Error error){
-            System.out.println("Error");
+            try {
+                client.getUserService().create(newUser);
+            }catch (Error error){
+                System.out.println("Error");
+            }
         }
 
         new UserMenu(client);

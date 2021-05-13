@@ -15,10 +15,10 @@ public class Show {
                 "----- Name of Project : " + project.getName() + "\n" +
                 "----- Id of Project : " + project.getId() + "\n" +
                 "------- Admin(s) of Project :");
-        project.getAdmins().forEach(this::showUsers);
+        project.getAdmins().forEach(this::showUser);
 
         System.out.println("------- Members of Project :");
-        project.getMembers().forEach(this::showUsers);
+        project.getMembers().forEach(this::showUser);
 
         System.out.println("------- Ticket of Project :");
         project.getTickets().forEach(this::showTicket);
@@ -37,7 +37,7 @@ public class Show {
         }
     }
 
-    public void showUsers(User user) {
+    public void showUser(User user) {
         if (user == null){
             System.out.println("------- There is no member");
         }else {

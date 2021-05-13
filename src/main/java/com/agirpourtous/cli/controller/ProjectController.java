@@ -177,7 +177,7 @@ public class ProjectController {
         }
 
         System.out.println("------ List of user for project id " + idProject + " :");
-        client.getProjectService().getMembers(idProject).subscribe(show::showUsers);
+        client.getProjectService().getMembers(idProject).subscribe(show::showUser);
 
         new ProjectMenu(client);
     }
@@ -192,7 +192,7 @@ public class ProjectController {
         }
 
         System.out.println("------ List of Admin of project id " + idProject + " :");
-        client.getProjectService().getAdmins(idProject).subscribe(show::showUsers);
+        client.getProjectService().getAdmins(idProject).subscribe(show::showUser);
 
         new ProjectMenu(client);
     }
