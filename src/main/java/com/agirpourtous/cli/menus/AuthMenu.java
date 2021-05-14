@@ -14,6 +14,8 @@ public class AuthMenu extends Menu {
                 ConnectionController connectionController = new ConnectionController();
                 if (connectionController.start(client)){
                     new HomePageMenu(client);
+                }else{
+                    new AuthMenu(client);
                 }
             }
         });

@@ -22,6 +22,7 @@ public class APIClient {
 
 
     public APIClient() {
+
         savedCookies = new LinkedMultiValueMap<>();
         client = WebClient.builder()
                 .baseUrl("http://localhost:4500/org-app")

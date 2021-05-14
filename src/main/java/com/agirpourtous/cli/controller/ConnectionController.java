@@ -11,30 +11,36 @@ public class ConnectionController {
     private final static Scanner SCANNER = new Scanner(System.in);
 
     public boolean start(APIClient client) {
-        boolean loopBreak = false;
+        boolean loopBreack = false;
+
         do {
             System.out.println("Insert your Username : ");
 
             String username = null;
+            String password = null;
+
             while (username == null) {
                 username = SCANNER.next();
             }
 
             System.out.println("Insert your Password : ");
 
-            String password = null;
+
             while (password == null) {
                 password = SCANNER.next();
             }
 
             loginRequest = new LoginRequest(username, password);
 
-            if (client.connect(loginRequest)){
-                loopBreak = true;
-            }else{
+            try{
+                if (client.connect(loginRequest)){
+                    loopBreack = true;
+                }
+            }catch (Exception e){
                 System.out.println("Username/Password aren't in dataBase");
             }
-        }while (!loopBreak );
+
+        }while (!loopBreack);
 
         System.out.println("You are connected ");
         return true;
