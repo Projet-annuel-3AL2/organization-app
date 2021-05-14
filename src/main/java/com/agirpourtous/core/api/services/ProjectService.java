@@ -23,7 +23,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .body(Mono.just(addProjectRequest), type)
                 .retrieve()
                 .bodyToMono(type);
@@ -34,7 +33,6 @@ public class ProjectService extends Service<Project> {
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(project), type)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -43,7 +41,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().delete()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }
@@ -52,7 +49,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().get()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(type);
     }
@@ -61,7 +57,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().get()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -70,7 +65,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().get()
                 .uri(baseRoute + "/{id}/members/", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(User.class);
     }
@@ -79,7 +73,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().get()
                 .uri(baseRoute + "/{id}/admins/", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(User.class);
     }
@@ -88,7 +81,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().delete()
                 .uri(baseRoute + "/{projectId}/admin/{userId}", projectId, userId)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }
@@ -97,7 +89,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().delete()
                 .uri(baseRoute + "/{projectId}/member/{userId}", projectId, userId)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }
@@ -106,7 +97,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().put()
                 .uri(baseRoute + "/{projectId}/member/{userId}", projectId, usersManagementRequest)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }
@@ -115,7 +105,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().delete()
                 .uri(baseRoute + "/{projectId}/member/{userId}", projectId, usersManagementRequest)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }
@@ -124,7 +113,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().get()
                 .uri(baseRoute + "/{id}/tickets/", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(Ticket.class);
     }
@@ -133,7 +121,6 @@ public class ProjectService extends Service<Project> {
         return client.getClient().post()
                 .uri(baseRoute + "/{id}/ticket", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .body(Mono.just(ticket), type)
                 .retrieve()
                 .bodyToMono(Ticket.class);

@@ -20,7 +20,6 @@ public class TicketService extends Service<Ticket> {
         return client.getClient().get()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(type);
     }
@@ -29,7 +28,6 @@ public class TicketService extends Service<Ticket> {
         return client.getClient().get()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -38,7 +36,6 @@ public class TicketService extends Service<Ticket> {
         return client.getClient().delete()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }
@@ -48,7 +45,6 @@ public class TicketService extends Service<Ticket> {
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(ticket), type)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -57,7 +53,6 @@ public class TicketService extends Service<Ticket> {
         return client.getClient().put()
                 .uri(baseRoute + "/{ticketId}/assignee/{userId}", ticketId, userId)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -66,7 +61,6 @@ public class TicketService extends Service<Ticket> {
         return client.getClient().get()
                 .uri(baseRoute + "{id}/comments", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(Comment.class);
     }
@@ -76,7 +70,6 @@ public class TicketService extends Service<Ticket> {
                 .uri(baseRoute + "{id}/comment", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(comment), type)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Comment.class);
     }

@@ -10,6 +10,9 @@ module com.agirpourtous {
     requires reactor.extra;
     requires reactor.netty.http;
     requires slf4j.api;
+    requires org.eclipse.jetty.client;
+    requires org.reactivestreams;
+    requires com.fasterxml.jackson.core;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
