@@ -31,6 +31,7 @@ public abstract class Controller {
     }
 
     Controller(String fxml, Controller previousController) {
+        this.isActive = true;
         this.client = previousController.getClient();
         this.stage = previousController.getStage();
         try {

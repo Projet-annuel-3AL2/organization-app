@@ -13,7 +13,7 @@ public class CommentElementController extends Element {
     private Comment comment;
 
     CommentElementController(Controller controller, Pane parent, Comment comment) throws IOException {
-        super("elements/comment_element", controller, parent);
+        super("comment_element", controller, parent);
         this.comment = comment;
         updateLabels();
     }

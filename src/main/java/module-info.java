@@ -11,6 +11,7 @@ module com.agirpourtous {
     requires com.fasterxml.jackson.annotation;
     requires reactor.extra;
     requires reactor.netty.http;
+    requires slf4j.api;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
@@ -22,5 +23,6 @@ module com.agirpourtous {
     exports com.agirpourtous.gui;
     exports com.agirpourtous.gui.controllers;
     exports com.agirpourtous.gui.controllers.elements;
+    exports com.agirpourtous.gui.controllers.popups;
     exports com.agirpourtous;
 }

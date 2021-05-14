@@ -3,11 +3,15 @@ package com.agirpourtous.core.api.services;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class TicketService extends Service<Ticket> {
+    private static final Logger logger = LoggerFactory.getLogger(TicketService.class.getName());
+
     public TicketService(APIClient client) {
         super(client, "/ticket/", Ticket.class);
     }

@@ -1,13 +1,18 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddUserRequest;
+import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
 public class UserService extends Service<User> {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class.getName());
 
     public UserService(APIClient client) {
         super(client, "/user/", User.class);
@@ -31,12 +36,12 @@ public class UserService extends Service<User> {
                 .bodyToMono(type);
     }
 
-    public Mono<User> create(User user) {
+    public Mono<User> create(AddUserRequest addUserRequest) {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(user), type)
+                .body(Mono.just(addUserRequest), type)
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -50,13 +55,13 @@ public class UserService extends Service<User> {
                 .bodyToMono(type);
     }
 
-    public Flux<User> getProjects(User user) {
-        return client.getClient().put()
-                .uri(baseRoute + "/set-admin/" + user.getId())
+    public Flux<Project> getProjects() {
+        return client.getClient().get()
+                .uri(baseRoute + "/{id}/projects", client.getUser().getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
-                .bodyToFlux(type);
+                .bodyToFlux(Project.class);
     }
 
     public Mono<User> update(String id, User user) {
