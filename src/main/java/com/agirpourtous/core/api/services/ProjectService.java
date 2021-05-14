@@ -12,8 +12,6 @@ import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 public class ProjectService extends Service<Project> {
     private static final Logger logger = LoggerFactory.getLogger(ProjectService.class.getName());
 

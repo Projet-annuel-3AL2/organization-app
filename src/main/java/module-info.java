@@ -6,8 +6,6 @@ module com.agirpourtous {
     requires spring.core;
     requires spring.web;
     requires reactor.core;
-    requires org.reactivestreams;
-    requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires reactor.extra;
     requires reactor.netty.http;
