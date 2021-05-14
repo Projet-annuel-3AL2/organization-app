@@ -8,6 +8,7 @@ import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -103,9 +104,11 @@ public class ProjectService extends Service<Project> {
     }
 
     public Mono<Void> removeMembers(String projectId, UsersManagementRequest usersManagementRequest) {
-        return client.getClient().delete()
-                .uri(baseRoute + "/{projectId}/member/{userId}", projectId, usersManagementRequest)
+        return client.getClient()
+                .method(HttpMethod.DELETE)
+                .uri(baseRoute + "/{projectId}/member/", projectId)
                 .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(usersManagementRequest), UsersManagementRequest.class)
                 .retrieve()
                 .bodyToMono(Void.class);
     }

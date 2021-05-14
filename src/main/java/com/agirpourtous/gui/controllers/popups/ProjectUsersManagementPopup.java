@@ -4,6 +4,7 @@ import com.agirpourtous.core.api.requests.UsersManagementRequest;
 import com.agirpourtous.core.models.User;
 import com.agirpourtous.gui.controllers.Controller;
 import com.agirpourtous.gui.controllers.ProjectDetailsController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,18 +40,20 @@ public class ProjectUsersManagementPopup extends Popup {
                 return null;
             }
         };
-        usersMemberList.getItems().setAll(getMembers());
         usersMemberList.setConverter(stringConverter);
-
-        usersNotMemberList.getItems().setAll(getNotProjectMembers());
         usersNotMemberList.setConverter(stringConverter);
-
-        usersNotAdminList.setItems(getNotProjectAdmins());
         usersNotAdminList.setConverter(stringConverter);
-
-        usersAdminList.setItems(getAdmins());
         usersAdminList.setConverter(stringConverter);
+        this.retrieveLists();
+    }
 
+    private void retrieveLists() {
+        usersMemberList.getItems().setAll(getMembers());
+        usersMemberList.getCheckModel().clearChecks();
+        usersNotMemberList.getItems().setAll(getNotProjectMembers());
+        usersNotMemberList.getCheckModel().clearChecks();
+        usersNotAdminList.setItems(getNotProjectAdmins());
+        usersAdminList.setItems(getAdmins());
     }
 
     private ObservableList<User> getMembers() {
@@ -106,10 +109,24 @@ public class ProjectUsersManagementPopup extends Popup {
                                 .stream()
                                 .map(User::getId)
                                 .collect(Collectors.toList())))
+                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
                 .subscribe();
     }
 
     public void onRemoveUsersClick() {
+        controller.getClient()
+                .getProjectService()
+                .removeMembers(((ProjectDetailsController) controller)
+                                .getProject()
+                                .getId(),
+                        new UsersManagementRequest(usersMemberList
+                                .getCheckModel()
+                                .getCheckedItems()
+                                .stream()
+                                .map(User::getId)
+                                .collect(Collectors.toList())))
+                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                .subscribe();
     }
 
     public void onAddAdminClick() {
