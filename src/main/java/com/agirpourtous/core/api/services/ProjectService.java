@@ -95,8 +95,9 @@ public class ProjectService extends Service<Project> {
 
     public Mono<Void> addMembers(String projectId, UsersManagementRequest usersManagementRequest) {
         return client.getClient().put()
-                .uri(baseRoute + "/{projectId}/member/{userId}", projectId, usersManagementRequest)
+                .uri(baseRoute + "/{projectId}/member/", projectId)
                 .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(usersManagementRequest), UsersManagementRequest.class)
                 .retrieve()
                 .bodyToMono(Void.class);
     }

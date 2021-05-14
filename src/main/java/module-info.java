@@ -13,6 +13,7 @@ module com.agirpourtous {
     requires org.eclipse.jetty.client;
     requires org.reactivestreams;
     requires com.fasterxml.jackson.core;
+    requires org.controlsfx.controls;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
