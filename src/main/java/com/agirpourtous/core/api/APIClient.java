@@ -3,19 +3,18 @@ package com.agirpourtous.core.api;
 import com.agirpourtous.core.api.requests.LoginRequest;
 import com.agirpourtous.core.api.services.*;
 import com.agirpourtous.core.models.User;
+import org.eclipse.jetty.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.JettyClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.netty.http.client.HttpClient;
+import reactor.core.publisher.Mono;
 
 public class APIClient {
     private static final Logger logger = LoggerFactory.getLogger(APIClient.class.getName());
 
     private final WebClient client;
-    private final MultiValueMap<String, String> savedCookies;
     private final UserService userService;
     private final AuthService authService;
     private final ProjectService projectService;
@@ -26,10 +25,11 @@ public class APIClient {
 
 
     public APIClient() {
-        savedCookies = new LinkedMultiValueMap<>();
+        HttpClient httpClient = new HttpClient();
+        ClientHttpConnector connector = new JettyClientHttpConnector(httpClient);
         client = WebClient.builder()
                 .baseUrl("http://localhost:4500/org-app")
-                .clientConnector(new ReactorClientHttpConnector(HttpClient.newConnection().compress(true)))
+                .clientConnector(connector)
                 .build();
         userService = new UserService(this);
         authService = new AuthService(this);
@@ -39,13 +39,14 @@ public class APIClient {
         user = null;
     }
 
-    public boolean connect(LoginRequest loginRequest) {
-        this.user = authService.login(loginRequest).block();
-        return this.user != null;
+    public Mono<User> connect(LoginRequest loginRequest) {
+        return authService.login(loginRequest)
+                .doOnSuccess(user -> this.user = user);
     }
 
     public void logout() {
         if (this.user != null) {
+            logger.info("Logging out from the api");
             authService.logout().block();
             this.user = null;
         }
@@ -61,20 +62,12 @@ public class APIClient {
         return client;
     }
 
-    public MultiValueMap<String, String> getCookies() {
-        return savedCookies;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public MultiValueMap<String, String> getSavedCookies() {
-        return savedCookies;
     }
 
     public UserService getUserService() {
