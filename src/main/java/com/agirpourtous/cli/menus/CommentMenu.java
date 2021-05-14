@@ -38,6 +38,14 @@ public class CommentMenu  extends Menu{
             }
         });
 
+        addAction(new Action("Return HomePage") {
+            @Override
+            public void execute() {
+                new HomePageMenu(client);
+            }
+        });
+
+
         start();
     }
 }
