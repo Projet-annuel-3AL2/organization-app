@@ -36,7 +36,6 @@ public class CommentController {
         new CommentMenu(client);
     }
 
-    // TODO : updateComment ne fonctionne pas
     public void updateComment(APIClient client) {
         String idComment = null;
         String idTicket = null;
@@ -75,7 +74,7 @@ public class CommentController {
 
                 AddCommentRequest addCommentRequest = new AddCommentRequest(idTicket,userId,text);
                 try {
-                    client.getCommentService().update(idComment, addCommentRequest);
+                    client.getCommentService().update(idComment, addCommentRequest).block();
                 }catch (Exception e){
                     System.out.println("An Error occur whil updating comment ");
                 }

@@ -24,7 +24,6 @@ public class ProjectController {
         new ProjectMenu(client);
     }
 
-    // TODO : createProject Ne fonctionne pas
     public void createProject(APIClient client) {
 
         System.out.println("Insert a name for your project : ");
@@ -38,7 +37,7 @@ public class ProjectController {
 
         try {
 
-            client.getProjectService().create(addProjectRequest);
+            client.getProjectService().create(addProjectRequest).block();
         }catch (Exception e){
             System.out.println("An Error occur while creating a new Project");
         }
@@ -46,7 +45,6 @@ public class ProjectController {
         new ProjectMenu(client);
     }
 
-    // TODO: updateProject ne fonctionne pas
     public void updateProject(APIClient client) {
         System.out.println("Insert id of project you want to update : ");
 
@@ -66,7 +64,7 @@ public class ProjectController {
 
             AddProjectRequest addProjectRequest = new AddProjectRequest(name);
             try{
-                client.getProjectService().update(projectId, addProjectRequest);
+                client.getProjectService().update(projectId, addProjectRequest).block();
             }catch (Exception e){
                 System.out.println("A problem occur during process : updateProject");
             }
@@ -77,7 +75,7 @@ public class ProjectController {
         new ProjectMenu(client);
     }
 
-    // TODO : addTicketWithIdTicketAndIdProject ne fonctionne pas
+
     public void addTicketWithIdTicketAndIdProject(APIClient client) {
 
         String idProject = null;
@@ -128,7 +126,7 @@ public class ProjectController {
         AddTicketRequest addTicketRequest = new AddTicketRequest(idProject,creatorId,assigneId,title,description,estimatedDuration, priority);
 
         try {
-            client.getProjectService().addTicket(idProject, addTicketRequest);
+            client.getProjectService().addTicket(idProject, addTicketRequest).block();
 
         }catch (Exception e){
             System.out.println("An Error occur while creating a new Project");

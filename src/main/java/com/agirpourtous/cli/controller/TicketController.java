@@ -52,7 +52,6 @@ public class TicketController {
         new TicketMenu(client);
     }
 
-    // TODO : updateTicket ne fonctionne pas
     public void updateTicket(APIClient client) {
         String projectId = null;
         String creatorId = null;
@@ -127,7 +126,7 @@ public class TicketController {
 
                     AddTicketRequest addTicketRequest = new AddTicketRequest(projectId,creatorId,assigneId,title,description,estimatedDuration,priority);
                     try {
-                        client.getTicketService().update(idTicket, addTicketRequest);
+                        client.getTicketService().update(idTicket, addTicketRequest).block();
 
                     }catch (Exception e){
                         System.out.println("An error occur while update of the ticket");
@@ -187,7 +186,6 @@ public class TicketController {
         new TicketMenu(client);
     }
 
-    // TODO : addCommentToTicket ne fonctionne pas
     public void addCommentToTicket(APIClient client) {
         String idTicket = null;
         String userId = client.getUser().getId();
@@ -215,7 +213,7 @@ public class TicketController {
         Comment newComment = new Comment();
         AddCommentRequest addCommentRequest = new AddCommentRequest(idTicket,userId,text);
         try {
-            client.getTicketService().addComment(idTicket, addCommentRequest);
+            client.getTicketService().addComment(idTicket, addCommentRequest).block();
         }catch (Exception e){
             System.out.println("An Error occur while creating a new comment");
         }

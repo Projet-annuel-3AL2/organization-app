@@ -38,7 +38,6 @@ public class UserController {
         new UserMenu(client);
     }
 
-    // TODO : createUser ne fonctionne pas
     public void createUser(APIClient client) {
         String username = null;
         String lastname = null;
@@ -75,7 +74,7 @@ public class UserController {
         AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
 
         try {
-            client.getUserService().create(addUserRequest);
+            client.getUserService().create(addUserRequest).block();
         }catch (Exception e){
             System.out.println("Error while creating New User");
         }
@@ -104,7 +103,6 @@ public class UserController {
 
     }
 
-    // TODO : updateUser ne fonctionne pas
     public void updateUser(APIClient client) {
         String userId = null;
         String username = null;
@@ -152,7 +150,7 @@ public class UserController {
                 AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
 
                 try {
-                    client.getUserService().create(addUserRequest);
+                    client.getUserService().create(addUserRequest).block();
                 }catch (Exception e){
                     System.out.println("Error while creating new user");
                 }
