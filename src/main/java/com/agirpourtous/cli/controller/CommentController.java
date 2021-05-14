@@ -2,6 +2,7 @@ package com.agirpourtous.cli.controller;
 
 import com.agirpourtous.cli.menus.CommentMenu;
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
 
 import java.util.Scanner;
@@ -35,10 +36,11 @@ public class CommentController {
         new CommentMenu(client);
     }
 
+    // TODO : updateComment ne fonctionne pas
     public void updateComment(APIClient client) {
         String idComment = null;
         String idTicket = null;
-        String UserId = null;
+        String userId = null;
         String text = null;
 
         System.out.println("Insert id of the Comment you want to update : ");
@@ -60,9 +62,9 @@ public class CommentController {
                 }
 
                 System.out.println("Insert new User id (enter to keep " + comment.getUserId() +" ) : ");
-                UserId = SCANNER.next();
-                if (UserId == null){
-                    UserId = comment.getUserId();
+                userId = SCANNER.next();
+                if (userId == null){
+                    userId = comment.getUserId();
                 }
 
                 System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
@@ -71,9 +73,9 @@ public class CommentController {
                     text = comment.getText();
                 }
 
-                //TODO : create Comment with given var
+                AddCommentRequest addCommentRequest = new AddCommentRequest(idTicket,userId,text);
                 try {
-                    client.getCommentService().update(idComment, comment);
+                    client.getCommentService().update(idComment, addCommentRequest);
                 }catch (Exception e){
                     System.out.println("An Error occur whil updating comment ");
                 }

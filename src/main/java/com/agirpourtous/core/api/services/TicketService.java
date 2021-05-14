@@ -1,6 +1,8 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddCommentRequest;
+import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 import org.slf4j.Logger;
@@ -43,11 +45,11 @@ public class TicketService extends Service<Ticket> {
                 .bodyToMono(Void.class);
     }
 
-    public Mono<Ticket> update(String id, Ticket ticket) {
+    public Mono<Ticket> update(String id, AddTicketRequest addTicketRequest) {
         return client.getClient().put()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(ticket), type)
+                .body(Mono.just(addTicketRequest), type)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
@@ -71,11 +73,11 @@ public class TicketService extends Service<Ticket> {
                 .bodyToFlux(Comment.class);
     }
 
-    public Mono<Comment> addComment(String id, Comment comment) {
+    public Mono<Comment> addComment(String id, AddCommentRequest addCommentRequest) {
         return client.getClient().post()
                 .uri(baseRoute + "{id}/comment", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(comment), type)
+                .body(Mono.just(addCommentRequest), type)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Comment.class);

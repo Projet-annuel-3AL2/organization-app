@@ -1,6 +1,7 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +34,11 @@ public class CommentService extends Service<Comment> {
                 .bodyToMono(type);
     }
 
-    public Mono<Comment> update(String id, Comment comment) {
+    public Mono<Comment> update(String id, AddCommentRequest addCommentRequest) {
         return client.getClient().put()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(comment), type)
+                .body(Mono.just(addCommentRequest), type)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);

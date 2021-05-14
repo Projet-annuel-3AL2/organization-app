@@ -2,6 +2,7 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddProjectRequest;
+import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.api.requests.UsersManagementRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
@@ -31,11 +32,11 @@ public class ProjectService extends Service<Project> {
                 .bodyToMono(type);
     }
 
-    public Mono<Project> update(String id, Project project) {
+    public Mono<Project> update(String id, AddProjectRequest addProjectRequest) {
         return client.getClient().put()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(project), type)
+                .body(Mono.just(addProjectRequest), type)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
@@ -131,12 +132,12 @@ public class ProjectService extends Service<Project> {
                 .bodyToFlux(Ticket.class);
     }
 
-    public Mono<Ticket> addTicket(String id, Ticket ticket) {
+    public Mono<Ticket> addTicket(String id, AddTicketRequest addTicketRequest) {
         return client.getClient().post()
                 .uri(baseRoute + "/{id}/ticket", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(ticket), type)
+                .body(Mono.just(addTicketRequest), type)
                 .retrieve()
                 .bodyToMono(Ticket.class);
     }

@@ -2,6 +2,7 @@ package com.agirpourtous.cli.controller;
 
 import com.agirpourtous.cli.menus.UserMenu;
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddUserRequest;
 import com.agirpourtous.core.models.User;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class UserController {
         new UserMenu(client);
     }
 
+    // TODO : createUser ne fonctionne pas
     public void createUser(APIClient client) {
         String username = null;
         String lastname = null;
@@ -70,12 +72,10 @@ public class UserController {
             isAdmin = false;
         }
 
-        // TODO :  create User with var
-        User newUser = new User();
+        AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
 
         try {
-            client.getUserService().create(newUser);
-
+            client.getUserService().create(addUserRequest);
         }catch (Exception e){
             System.out.println("Error while creating New User");
         }
@@ -104,6 +104,7 @@ public class UserController {
 
     }
 
+    // TODO : updateUser ne fonctionne pas
     public void updateUser(APIClient client) {
         String userId = null;
         String username = null;
@@ -148,11 +149,10 @@ public class UserController {
                 System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
                 isAdmin = SCANNER.nextBoolean();
 
-                // TODO : create User object with given var
-                User newUser = new User();
+                AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
 
                 try {
-                    client.getUserService().create(newUser);
+                    client.getUserService().create(addUserRequest);
                 }catch (Exception e){
                     System.out.println("Error while creating new user");
                 }

@@ -3,6 +3,8 @@ package com.agirpourtous.cli.controller;
 import com.agirpourtous.cli.menus.CommentMenu;
 import com.agirpourtous.cli.menus.TicketMenu;
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddCommentRequest;
+import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 
@@ -50,6 +52,7 @@ public class TicketController {
         new TicketMenu(client);
     }
 
+    // TODO : updateTicket ne fonctionne pas
     public void updateTicket(APIClient client) {
         String projectId = null;
         String creatorId = null;
@@ -121,11 +124,10 @@ public class TicketController {
 
                 try {
                     creatorId = client.getUser().getId();
-                    // TODO : Creer le ticket avec les information récupéré
-                    Ticket ticketUpdated = new Ticket();
 
+                    AddTicketRequest addTicketRequest = new AddTicketRequest(projectId,creatorId,assigneId,title,description,estimatedDuration,priority);
                     try {
-                        client.getTicketService().update(idTicket, ticketUpdated);
+                        client.getTicketService().update(idTicket, addTicketRequest);
 
                     }catch (Exception e){
                         System.out.println("An error occur while update of the ticket");
@@ -185,6 +187,7 @@ public class TicketController {
         new TicketMenu(client);
     }
 
+    // TODO : addCommentToTicket ne fonctionne pas
     public void addCommentToTicket(APIClient client) {
         String idTicket = null;
         String userId = client.getUser().getId();
@@ -209,11 +212,10 @@ public class TicketController {
             text = SCANNER.next();
         }
 
-        //TODO : create Comment with given var
         Comment newComment = new Comment();
-
+        AddCommentRequest addCommentRequest = new AddCommentRequest(idTicket,userId,text);
         try {
-            client.getTicketService().addComment(idTicket, newComment);
+            client.getTicketService().addComment(idTicket, addCommentRequest);
         }catch (Exception e){
             System.out.println("An Error occur while creating a new comment");
         }
