@@ -52,8 +52,10 @@ public class ProjectUsersManagementPopup extends Popup {
         usersMemberList.getCheckModel().clearChecks();
         usersNotMemberList.getItems().setAll(getNotProjectMembers());
         usersNotMemberList.getCheckModel().clearChecks();
-        usersNotAdminList.setItems(getNotProjectAdmins());
         usersAdminList.setItems(getAdmins());
+        usersAdminList.getSelectionModel().clearSelection();
+        usersNotAdminList.setItems(getNotProjectAdmins());
+        usersNotAdminList.getSelectionModel().clearSelection();
     }
 
     private ObservableList<User> getMembers() {
@@ -130,8 +132,30 @@ public class ProjectUsersManagementPopup extends Popup {
     }
 
     public void onAddAdminClick() {
+        controller.getClient()
+                .getProjectService()
+                .addAdmin(((ProjectDetailsController) controller)
+                                .getProject()
+                                .getId(),
+                        usersNotAdminList
+                                .getSelectionModel()
+                                .getSelectedItem()
+                                .getId())
+                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                .subscribe();
     }
 
     public void onRemoveAdminClick() {
+        controller.getClient()
+                .getProjectService()
+                .removeAdmin(((ProjectDetailsController) controller)
+                                .getProject()
+                                .getId(),
+                        usersAdminList
+                                .getSelectionModel()
+                                .getSelectedItem()
+                                .getId())
+                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                .subscribe();
     }
 }
