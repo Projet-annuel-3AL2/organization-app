@@ -38,7 +38,12 @@ public class ProjectController {
 
         Project project = new Project();
 
-        client.getProjectService().create(project);
+        try {
+
+            client.getProjectService().create(project);
+        }catch (Exception e){
+            System.out.println("An Error occur while creating a new Project");
+        }
 
         new ProjectMenu(client);
     }
@@ -104,8 +109,8 @@ public class ProjectController {
         try {
             client.getProjectService().addTicket(idProject, ticket);
 
-        }catch (Error error){
-            System.out.println("Error");
+        }catch (Exception e){
+            System.out.println("An Error occur while creating a new Project");
         }
 
         new ProjectMenu(client);
@@ -145,10 +150,16 @@ public class ProjectController {
             if (isNotDuplicate){
 
                 // TODO : les erreurs sont pas gérer
-                User user = client.getUserService().findById(userId).block();
-                if(user != null){
-                    listOfUser.add(user);
-                }else{
+
+                try {
+
+                    User user = client.getUserService().findById(userId).block();
+                    if(user != null){
+                        listOfUser.add(user);
+                    }else{
+                        System.out.println("Id of user doesn't exist");
+                    }
+                }catch (Exception e){
                     System.out.println("Id of user doesn't exist");
                 }
 
@@ -171,7 +182,7 @@ public class ProjectController {
 
         try {
             client.getProjectService().delete(idProject);
-        }catch (Error error){
+        }catch (Exception e){
             System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
         }
 
@@ -186,10 +197,15 @@ public class ProjectController {
             idProject = SCANNER.next();
         }
 
-        Project project = client.getProjectService().findById(idProject).block();
-        if (project != null){
-            show.showProject(project);
-        }else{
+        try{
+
+            Project project = client.getProjectService().findById(idProject).block();
+            if (project != null){
+                show.showProject(project);
+            }else{
+                System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
+            }
+        }catch (Exception e){
             System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
         }
 
@@ -206,7 +222,11 @@ public class ProjectController {
         }
 
         System.out.println("------ List of user for project id " + idProject + " :");
-        client.getProjectService().getMembers(idProject).subscribe(show::showUser);
+        try {
+            client.getProjectService().getMembers(idProject).subscribe(show::showUser);
+        }catch (Exception e){
+            System.out.println("There is no project with the given id");
+        }
 
         new ProjectMenu(client);
     }
@@ -221,7 +241,12 @@ public class ProjectController {
         }
 
         System.out.println("------ List of Admin of project id " + idProject + " :");
-        client.getProjectService().getAdmins(idProject).subscribe(show::showUser);
+        try {
+
+            client.getProjectService().getAdmins(idProject).subscribe(show::showUser);
+        }catch (Exception e){
+            System.out.println("There is no project with the given id");
+        }
 
         new ProjectMenu(client);
     }
@@ -245,8 +270,8 @@ public class ProjectController {
         try {
             client.getProjectService().removeMember(idProject, userId);
 
-        }catch (Error error){
-            System.out.println("Error");
+        }catch (Exception e){
+            System.out.println("Error while removing Member");
         }
 
         new ProjectMenu(client);
@@ -271,8 +296,8 @@ public class ProjectController {
         try {
             client.getProjectService().removeAdmin(idProject, userId);
 
-        }catch (Error error){
-            System.out.println("Error");
+        }catch (Exception e){
+            System.out.println("Error while removing admin");
         }
 
         new ProjectMenu(client);
@@ -288,7 +313,11 @@ public class ProjectController {
         }
 
         System.out.println("------ List of all ticket for project id " + idProject + " :");
-        client.getProjectService().getTickets(idProject).subscribe(show::showTicket);
+        try {
+            client.getProjectService().getTickets(idProject).subscribe(show::showTicket);
+        }catch (Exception e){
+            System.out.println("There is no project with the given id");
+        }
 
         new ProjectMenu(client);
     }

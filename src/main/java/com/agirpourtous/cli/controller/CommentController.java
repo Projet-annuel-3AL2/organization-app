@@ -25,8 +25,12 @@ public class CommentController {
             idComment = SCANNER.next();
         }
 
-        Comment comment = client.getCommentService().findById(idComment).block();
-        show.showComment(comment);
+        try {
+            Comment comment = client.getCommentService().findById(idComment).block();
+            show.showComment(comment);
+        }catch (Exception e){
+            System.out.println("There is no Comment with the given id");
+        }
 
         new CommentMenu(client);
     }
@@ -43,34 +47,39 @@ public class CommentController {
             idComment = SCANNER.next();
         }
 
-        Comment comment = client.getCommentService().findById(idComment).block();
+        try {
 
-        if (comment != null){
+            Comment comment = client.getCommentService().findById(idComment).block();
 
-            System.out.println("Insert new ticket id (enter to keep " + comment.getTicketId() +" ) : ");
-            idTicket = SCANNER.next();
-            if (idTicket == null){
-                idTicket = comment.getTicketId();
+            if (comment != null){
+
+                System.out.println("Insert new ticket id (enter to keep " + comment.getTicketId() +" ) : ");
+                idTicket = SCANNER.next();
+                if (idTicket == null){
+                    idTicket = comment.getTicketId();
+                }
+
+                System.out.println("Insert new User id (enter to keep " + comment.getUserId() +" ) : ");
+                UserId = SCANNER.next();
+                if (UserId == null){
+                    UserId = comment.getUserId();
+                }
+
+                System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
+                text = SCANNER.next();
+                if (text == null){
+                    text = comment.getText();
+                }
+
+                //TODO : create Comment with given var
+                try {
+                    client.getCommentService().update(idComment, comment);
+                }catch (Exception e){
+                    System.out.println("An Error occur whil updating comment ");
+                }
             }
-
-            System.out.println("Insert new User id (enter to keep " + comment.getUserId() +" ) : ");
-            UserId = SCANNER.next();
-            if (UserId == null){
-                UserId = comment.getUserId();
-            }
-
-            System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
-            text = SCANNER.next();
-            if (text == null){
-                text = comment.getText();
-            }
-
-            //TODO : create Comment with given var
-            try {
-                client.getCommentService().update(idComment, comment);
-            }catch (Error error){
-                System.out.println("An Error occur ");
-            }
+        }catch (Exception e){
+            System.out.println("There is no comment with the given id");
         }
 
         new CommentMenu(client);
@@ -86,8 +95,8 @@ public class CommentController {
 
         try {
             client.getCommentService().delete(idComment);
-        }catch (Error error){
-            System.out.println("An Error OCcur with");
+        }catch (Exception e){
+            System.out.println("There is no comment with the given id");
         }
 
         new CommentMenu(client);

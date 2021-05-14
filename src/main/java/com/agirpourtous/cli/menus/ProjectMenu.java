@@ -94,14 +94,6 @@ public class ProjectMenu extends Menu{
             }
         });
 
-        // TODO : A supprimer
-        addAction(new Action("get User") {
-            @Override
-            public void execute() {
-                ProjectController.getUser(client);
-            }
-        });
-
         start();
     }
 }
