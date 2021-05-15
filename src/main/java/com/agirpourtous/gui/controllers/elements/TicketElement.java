@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class TicketElementController extends Element {
+public class TicketElement extends Element {
     public VBox ticketElement;
     public Label titleLabel;
     public Label descriptionLabel;
@@ -18,7 +18,7 @@ public class TicketElementController extends Element {
     public Label assigneeLabel;
     private Ticket ticket;
 
-    public TicketElementController(Controller controller, Pane parent, Ticket ticket) throws IOException {
+    public TicketElement(Controller controller, Pane parent, Ticket ticket) throws IOException {
         super("ticket_element", controller, parent);
         this.ticket = ticket;
         setLabels();

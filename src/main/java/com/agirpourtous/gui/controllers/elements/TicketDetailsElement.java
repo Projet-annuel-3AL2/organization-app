@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TicketDetailsController extends Element {
+public class TicketDetailsElement extends Element {
     private final Ticket ticket;
-    private final HashMap<String, CommentElementController> comments;
+    private final HashMap<String, CommentElement> comments;
     public VBox ticketDetails;
     public Label titleLabel;
     public Label creationDateLabel;
@@ -34,7 +34,7 @@ public class TicketDetailsController extends Element {
     public Button addCommentButton;
     public Button closeButton;
 
-    public TicketDetailsController(Controller controller, Pane parent, Ticket ticket) throws IOException {
+    public TicketDetailsElement(Controller controller, Pane parent, Ticket ticket) throws IOException {
         super("ticket_details", controller, parent);
         this.ticket = ticket;
         this.comments = new HashMap<>();
@@ -72,7 +72,7 @@ public class TicketDetailsController extends Element {
     public void addComment(Comment comment) {
         if (!comments.containsKey(comment.getId())) {
             try {
-                comments.put(comment.getId(), new CommentElementController(controller, commentsVBox, comment));
+                comments.put(comment.getId(), new CommentElement(controller, commentsVBox, comment));
             } catch (IOException e) {
                 e.printStackTrace();
             }
