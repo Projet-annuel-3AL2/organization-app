@@ -32,7 +32,7 @@ public class ProjectUsersManagementPopup extends Popup {
             public String toString(User object) {
                 if (object != null)
                     return object.getUsername();
-                return "a";
+                return "";
             }
 
             @Override
@@ -100,62 +100,70 @@ public class ProjectUsersManagementPopup extends Popup {
     }
 
     public void onAddUsersClick() {
-        controller.getClient()
-                .getProjectService()
-                .addMembers(((ProjectDetailsController) controller)
-                                .getProject()
-                                .getId(),
-                        new UsersManagementRequest(usersNotMemberList
-                                .getCheckModel()
-                                .getCheckedItems()
-                                .stream()
-                                .map(User::getId)
-                                .collect(Collectors.toList())))
-                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
-                .subscribe();
+        if (usersNotMemberList.getCheckModel().getCheckedItems().size() > 0) {
+            controller.getClient()
+                    .getProjectService()
+                    .addMembers(((ProjectDetailsController) controller)
+                                    .getProject()
+                                    .getId(),
+                            new UsersManagementRequest(usersNotMemberList
+                                    .getCheckModel()
+                                    .getCheckedItems()
+                                    .stream()
+                                    .map(User::getId)
+                                    .collect(Collectors.toList())))
+                    .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                    .subscribe();
+        }
     }
 
     public void onRemoveUsersClick() {
-        controller.getClient()
-                .getProjectService()
-                .removeMembers(((ProjectDetailsController) controller)
-                                .getProject()
-                                .getId(),
-                        new UsersManagementRequest(usersMemberList
-                                .getCheckModel()
-                                .getCheckedItems()
-                                .stream()
-                                .map(User::getId)
-                                .collect(Collectors.toList())))
-                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
-                .subscribe();
+        if (usersMemberList.getCheckModel().getCheckedItems().size() > 0) {
+            controller.getClient()
+                    .getProjectService()
+                    .removeMembers(((ProjectDetailsController) controller)
+                                    .getProject()
+                                    .getId(),
+                            new UsersManagementRequest(usersMemberList
+                                    .getCheckModel()
+                                    .getCheckedItems()
+                                    .stream()
+                                    .map(User::getId)
+                                    .collect(Collectors.toList())))
+                    .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                    .subscribe();
+        }
     }
 
     public void onAddAdminClick() {
-        controller.getClient()
-                .getProjectService()
-                .addAdmin(((ProjectDetailsController) controller)
-                                .getProject()
-                                .getId(),
-                        usersNotAdminList
-                                .getSelectionModel()
-                                .getSelectedItem()
-                                .getId())
-                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
-                .subscribe();
+        if (usersNotAdminList.getSelectionModel().getSelectedItem() != null) {
+            controller.getClient()
+                    .getProjectService()
+                    .addAdmin(((ProjectDetailsController) controller)
+                                    .getProject()
+                                    .getId(),
+                            usersNotAdminList
+                                    .getSelectionModel()
+                                    .getSelectedItem()
+                                    .getId())
+                    .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                    .subscribe();
+        }
     }
 
     public void onRemoveAdminClick() {
-        controller.getClient()
-                .getProjectService()
-                .removeAdmin(((ProjectDetailsController) controller)
-                                .getProject()
-                                .getId(),
-                        usersAdminList
-                                .getSelectionModel()
-                                .getSelectedItem()
-                                .getId())
-                .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
-                .subscribe();
+        if (usersAdminList.getSelectionModel().getSelectedItem() != null) {
+            controller.getClient()
+                    .getProjectService()
+                    .removeAdmin(((ProjectDetailsController) controller)
+                                    .getProject()
+                                    .getId(),
+                            usersAdminList
+                                    .getSelectionModel()
+                                    .getSelectedItem()
+                                    .getId())
+                    .doOnSuccess(response -> Platform.runLater(this::retrieveLists))
+                    .subscribe();
+        }
     }
 }
