@@ -56,6 +56,7 @@ public class APIClient {
         if (!stayConnected) {
             logout();
         }
+        System.exit(0);
     }
 
     public WebClient getClient() {
