@@ -3,8 +3,8 @@ package com.agirpourtous.gui.controllers;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
-import com.agirpourtous.gui.controllers.elements.TicketDetailsController;
-import com.agirpourtous.gui.controllers.elements.TicketElementController;
+import com.agirpourtous.gui.controllers.elements.TicketDetailsElement;
+import com.agirpourtous.gui.controllers.elements.TicketElement;
 import com.agirpourtous.gui.controllers.popups.ProjectUsersManagementPopup;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectDetailsController extends Controller {
-    private final HashMap<String, TicketElementController> tickets;
+    private final HashMap<String, TicketElement> tickets;
 
     private final Project project;
     @FXML
@@ -42,7 +42,7 @@ public class ProjectDetailsController extends Controller {
     @FXML
     public VBox closedTicketsVBox;
     private Pane draggingTicket;
-    private TicketDetailsController ticketDetails;
+    private TicketDetailsElement ticketDetails;
 
 
     public ProjectDetailsController(APIClient client, Controller previous, Project project) {
@@ -93,7 +93,7 @@ public class ProjectDetailsController extends Controller {
         if (!tickets.containsKey(ticket.getId())) {
             try {
                 Pane ticketList = (Pane) ((ScrollPane) ((Pane) ticketsListsHBox.getChildren().get(ticket.getStatus().ordinal())).getChildren().get(1)).getContent();
-                TicketElementController ticketElementController = new TicketElementController(this, ticketList, ticket);
+                TicketElement ticketElementController = new TicketElement(this, ticketList, ticket);
                 Pane ticketElement = ticketElementController.ticketElement;
                 ticketElement.setOnDragDetected(e -> setOnDragDetected(e, ticketElement));
                 ticketElement.setOnMouseDragged(e -> e.setDragDetect(true));
@@ -141,7 +141,7 @@ public class ProjectDetailsController extends Controller {
             ticketDetails.close();
         }
         try {
-            this.ticketDetails = new TicketDetailsController(this, ticketsListsHBox, ticket);
+            this.ticketDetails = new TicketDetailsElement(this, ticketsListsHBox, ticket);
         } catch (IOException e) {
             e.printStackTrace();
         }

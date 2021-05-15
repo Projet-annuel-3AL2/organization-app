@@ -2,7 +2,7 @@ package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
-import com.agirpourtous.gui.controllers.elements.ProjectElementController;
+import com.agirpourtous.gui.controllers.elements.ProjectElement;
 import com.agirpourtous.gui.controllers.popups.CreateProjectPopup;
 import com.agirpourtous.gui.controllers.popups.CreateUserPopup;
 import javafx.application.Platform;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MainMenuController extends Controller {
-    private final HashMap<String, ProjectElementController> projects;
+    private final HashMap<String, ProjectElement> projects;
     @FXML
     public Label usernameLabel;
     @FXML
@@ -78,7 +78,7 @@ public class MainMenuController extends Controller {
     private void addProject(Project project) {
         if (!projects.containsKey(project.getId())) {
             try {
-                projects.put(project.getId(), new ProjectElementController(this, projectsHBox, project));
+                projects.put(project.getId(), new ProjectElement(this, projectsHBox, project));
             } catch (IOException e) {
                 e.printStackTrace();
             }
