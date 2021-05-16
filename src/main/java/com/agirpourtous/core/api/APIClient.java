@@ -37,6 +37,7 @@ public class APIClient {
         ticketService = new TicketService(this);
         commentService = new CommentService(this);
         user = null;
+
     }
 
     public Mono<User> connect(LoginRequest loginRequest) {

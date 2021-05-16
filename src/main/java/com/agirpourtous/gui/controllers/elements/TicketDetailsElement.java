@@ -44,7 +44,7 @@ public class TicketDetailsElement extends Element {
         this.comments = new HashMap<>();
         setLabels();
         controller.getClient().getTicketService()
-                .getComment(ticket.getId())
+                .getComments(ticket.getId())
                 .collect(Collectors.toList())
                 .repeatWhen(Repeat.onlyIf(repeatContext -> isActive)
                         .fixedBackoff(Duration.ofSeconds(10)))
