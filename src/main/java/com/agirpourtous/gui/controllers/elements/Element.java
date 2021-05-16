@@ -24,6 +24,7 @@ public abstract class Element {
     }
 
     public void remove() {
+        isActive = false;
         parent.getChildren().remove(root);
     }
 }

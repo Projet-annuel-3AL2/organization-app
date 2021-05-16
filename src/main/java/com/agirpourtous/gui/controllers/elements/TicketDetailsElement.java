@@ -1,5 +1,6 @@
 package com.agirpourtous.gui.controllers.elements;
 
+import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
@@ -7,6 +8,7 @@ import com.agirpourtous.gui.controllers.Controller;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -32,7 +34,7 @@ public class TicketDetailsElement extends Element {
     public Label creatorLabel;
     public Label descriptionLabel;
     public VBox commentsVBox;
-    public TextField commentTextField;
+    public TextArea commentTextArea;
     public Button addCommentButton;
     public Button closeButton;
 
@@ -103,9 +105,10 @@ public class TicketDetailsElement extends Element {
     }
 
     public void onAddCommentClick() {
-        /*controller.getClient()
+        controller.getClient()
                 .getTicketService()
-                .addComment(ticket.getId(),);*/
+                .addComment(ticket.getId(), new AddCommentRequest(commentTextArea.getText()))
+                .subscribe();
     }
 
     public void onCloseClick() {
@@ -114,6 +117,7 @@ public class TicketDetailsElement extends Element {
 
     public void close() {
         parent.getChildren().remove(ticketDetails);
+        isActive = false;
     }
 
     public Ticket getTicket() {

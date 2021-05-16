@@ -1,6 +1,7 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.api.requests.UpdateTicketRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
@@ -66,11 +67,11 @@ public class TicketService extends Service<Ticket> {
                 .bodyToFlux(Comment.class);
     }
 
-    public Mono<Comment> addComment(String id, Comment comment) {
+    public Mono<Comment> addComment(String id, AddCommentRequest addCommentRequest) {
         return client.getClient().post()
                 .uri(baseRoute + "{id}/comment", id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(comment), type)
+                .body(Mono.just(addCommentRequest), AddCommentRequest.class)
                 .retrieve()
                 .bodyToMono(Comment.class);
     }
