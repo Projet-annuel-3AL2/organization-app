@@ -17,19 +17,21 @@ public class AuthService extends Service<User> {
 
     public Mono<User> login(LoginRequest loginRequest) {
         return client.getClient().post()
-                .uri("/auth/login")
+                .uri(baseRoute + "/login")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(loginRequest), LoginRequest.class)
                 .retrieve()
-                .bodyToMono(User.class);
+                .bodyToMono(User.class)
+                .log();
     }
 
     public Mono<Void> logout() {
         return client.getClient().delete()
-                .uri("/auth/logout")
+                .uri(baseRoute + "/logout")
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(Void.class);
+                .bodyToMono(Void.class)
+                .log();
     }
 }
