@@ -5,7 +5,6 @@ import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddProjectRequest;
 import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Project;
-import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.TicketStatus;
 import com.agirpourtous.core.models.User;
 
@@ -38,7 +37,12 @@ public class ProjectController {
 
         try {
 
-            client.getProjectService().create(addProjectRequest).block();
+            Project project = client.getProjectService().create(addProjectRequest).block();
+            if (project != null){
+                client.getProjectService().addAdmin(project.getId(),client.getUser().getId());
+            }else{
+                System.out.println("An Error occur while creating a new Project");
+            }
         }catch (Exception e){
             System.out.println("An Error occur while creating a new Project");
         }
@@ -56,18 +60,25 @@ public class ProjectController {
 
         try {
             Project project = client.getProjectService().findById(projectId).block();
+            if (project != null){
 
-            System.out.println("Insert name (enter to keep " + project.getName() +" ) : ");
-             String name = SCANNER.next();
-            if (name == null){
-                name = project.getName();
-            }
+                if (isAdminProject(client, project)){
 
-            AddProjectRequest addProjectRequest = new AddProjectRequest(name);
-            try{
-                client.getProjectService().update(projectId, addProjectRequest).block();
-            }catch (Exception e){
-                System.out.println("A problem occur during process : updateProject");
+                    System.out.println("Insert name (enter to keep " + project.getName() +" ) : ");
+                    String name = SCANNER.next();
+                    if (name == null){
+                        name = project.getName();
+                    }
+
+                    AddProjectRequest addProjectRequest = new AddProjectRequest(name);
+                    try{
+                        client.getProjectService().update(projectId, addProjectRequest).block();
+                    }catch (Exception e){
+                        System.out.println("A problem occur during process : updateProject");
+                    }
+                }else{
+                    System.out.println("You don't have permission to update the project");
+                }
             }
         }catch (Exception e){
             System.out.println("There is no project with this id : ");
@@ -93,44 +104,54 @@ public class ProjectController {
             idProject = SCANNER.next();
         }
 
+        Project project = client.getProjectService().findById(idProject).block();
+        if (project != null){
 
-        System.out.println("Insert id of the user you want to assign ticket : ");
+            if (isAdminProject(client, project) || isMemberProject(client, project)){
 
-        while (assigneId == null) {
-            assigneId = SCANNER.next();
-        }
+                System.out.println("Insert id of the user you want to assign ticket : ");
 
-        System.out.println("Insert the title of your ticket : ");
+                while (assigneId == null) {
+                    assigneId = SCANNER.next();
+                }
 
-        while (title == null) {
-            title = SCANNER.next();
-        }
+                System.out.println("Insert the title of your ticket : ");
 
-        System.out.println("Insert description : ");
+                while (title == null) {
+                    title = SCANNER.next();
+                }
 
-        while (description == null) {
-            description = SCANNER.next();
-        }
+                System.out.println("Insert description : ");
 
-        System.out.println("Insert estimate duration : ");
+                while (description == null) {
+                    description = SCANNER.next();
+                }
 
-        while (estimatedDuration < 0) {
-            estimatedDuration = SCANNER.nextFloat();
-        }
+                System.out.println("Insert estimate duration : ");
 
-        System.out.println("Insert priority (number) : ");
+                while (estimatedDuration < 0) {
+                    estimatedDuration = SCANNER.nextFloat();
+                }
 
-        while (priority < 0) {
-            priority = SCANNER.nextInt();
-        }
+                System.out.println("Insert priority (number) : ");
 
-        AddTicketRequest addTicketRequest = new AddTicketRequest(idProject,creatorId,assigneId,title,description,estimatedDuration, priority, TicketStatus.OPEN);
+                while (priority < 0) {
+                    priority = SCANNER.nextInt();
+                }
 
-        try {
-            client.getProjectService().addTicket(idProject, addTicketRequest).block();
+                AddTicketRequest addTicketRequest = new AddTicketRequest(idProject,creatorId,assigneId,title,description,estimatedDuration, priority, TicketStatus.OPEN);
 
-        }catch (Exception e){
-            System.out.println("An Error occur while creating a new Project");
+                try {
+                    client.getProjectService().addTicket(idProject, addTicketRequest).block();
+
+                }catch (Exception e){
+                    System.out.println("An Error occur while creating a new Project");
+                }
+            }else{
+                System.out.println("You can't add ticket to this project");
+            }
+        }else{
+            System.out.println("There is no project with this id");
         }
 
         new ProjectMenu(client);
@@ -338,5 +359,25 @@ public class ProjectController {
         }
 
         return listOfUser;
+    }
+
+    private boolean isAdminProject(APIClient client, Project project) {
+        final boolean[] isGranted = new boolean[1];
+        client.getProjectService().getAdmins(project.getId()).subscribe(user -> {
+            if(user.getId().equals(client.getUser().getId())){
+                isGranted[0] = true;
+            }
+        });
+        return isGranted[0] ;
+    }
+
+    private boolean isMemberProject(APIClient client, Project project) {
+        final boolean[] isGranted = new boolean[1];
+        client.getProjectService().getMembers(project.getId()).subscribe(user -> {
+            if(user.getId().equals(client.getUser().getId())){
+                isGranted[0] = true;
+            }
+        });
+        return isGranted[0] ;
     }
 }
