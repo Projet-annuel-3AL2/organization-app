@@ -23,7 +23,6 @@ public class APIClient {
     private boolean stayConnected;
     private User user;
 
-
     public APIClient() {
         HttpClient httpClient = new HttpClient();
         ClientHttpConnector connector = new JettyClientHttpConnector(httpClient);
@@ -40,6 +39,7 @@ public class APIClient {
     }
 
     public Mono<User> connect(LoginRequest loginRequest) {
+        logger.info("Logging in to the api");
         return authService.login(loginRequest)
                 .doOnSuccess(user -> this.user = user);
     }
