@@ -12,9 +12,9 @@ public class AuthMenu extends Menu {
             @Override
             public void execute() {
                 ConnectionController connectionController = new ConnectionController();
-                if (connectionController.start(client)){
+                if (connectionController.start(client)) {
                     new HomePageMenu(client);
-                }else{
+                } else {
                     new AuthMenu(client);
                 }
             }

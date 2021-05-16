@@ -13,7 +13,7 @@ public class AddTicketRequest {
     private float estimatedDuration;
     private int priority;
 
-    public AddTicketRequest( String assigneeId, String title, String description, float estimatedDuration, int priority, TicketStatus status) {
+    public AddTicketRequest(String assigneeId, String title, String description, float estimatedDuration, int priority, TicketStatus status) {
         this.assigneeId = assigneeId;
         this.title = title;
         this.description = description;

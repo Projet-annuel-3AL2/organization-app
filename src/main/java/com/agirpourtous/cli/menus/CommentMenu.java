@@ -3,9 +3,9 @@ package com.agirpourtous.cli.menus;
 import com.agirpourtous.cli.controller.CommentController;
 import com.agirpourtous.core.api.APIClient;
 
-public class CommentMenu  extends Menu{
+public class CommentMenu extends Menu {
 
-    private CommentController commentController = new CommentController();
+    private final CommentController commentController = new CommentController();
 
     public CommentMenu(APIClient client) {
         super("Comment Menu");

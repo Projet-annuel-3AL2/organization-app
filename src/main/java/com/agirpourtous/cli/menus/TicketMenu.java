@@ -3,9 +3,9 @@ package com.agirpourtous.cli.menus;
 import com.agirpourtous.cli.controller.TicketController;
 import com.agirpourtous.core.api.APIClient;
 
-public class TicketMenu  extends Menu{
+public class TicketMenu extends Menu {
 
-    private TicketController ticketController = new TicketController();
+    private final TicketController ticketController = new TicketController();
 
     public TicketMenu(APIClient client) {
         super("Ticket Menu");

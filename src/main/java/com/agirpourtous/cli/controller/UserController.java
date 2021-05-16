@@ -5,7 +5,6 @@ import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddUserRequest;
 import com.agirpourtous.core.models.User;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class UserController {
@@ -27,10 +26,10 @@ public class UserController {
         while (userId == null) {
             userId = SCANNER.next();
         }
-        try{
+        try {
             User user = client.getUserService().findById(userId).block();
             show.showUser(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("There is no user with this id");
         }
 
@@ -39,7 +38,7 @@ public class UserController {
     }
 
     public void createUser(APIClient client) {
-        if (client.getUser().isAdmin()){
+        if (client.getUser().isAdmin()) {
 
             String username = null;
             String lastname = null;
@@ -48,34 +47,34 @@ public class UserController {
             boolean isAdmin = false;
 
             System.out.println("Input a Username :");
-            while (username == null){
+            while (username == null) {
                 username = SCANNER.next();
             }
 
             System.out.println("Input a Lastname :");
-            while (lastname == null){
+            while (lastname == null) {
                 lastname = SCANNER.next();
             }
 
             System.out.println("Input a firstname :");
-            while (firstname == null){
+            while (firstname == null) {
                 firstname = SCANNER.next();
             }
 
             System.out.println("Input a mail :");
-            while (mail == null){
+            while (mail == null) {
                 mail = SCANNER.next();
             }
 
 
-            AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
+            AddUserRequest addUserRequest = new AddUserRequest(username, mail, firstname, lastname, isAdmin);
 
             try {
                 client.getUserService().create(addUserRequest).block();
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Error while creating New User");
             }
-        }else{
+        } else {
             System.out.println("You are not admin");
         }
 
@@ -83,24 +82,24 @@ public class UserController {
     }
 
     public void setANewAdmin(APIClient client) {
-        if (client.getUser().isAdmin()){
+        if (client.getUser().isAdmin()) {
             String userId = null;
             System.out.println("Input id of user you want to grant admin");
 
-            while (userId == null){
+            while (userId == null) {
                 userId = SCANNER.next();
             }
             try {
                 User user = client.getUserService().findById(userId).block();
-                if (user != null){
+                if (user != null) {
                     client.getUserService().setAdmin(user);
-                }else{
+                } else {
                     System.out.println("There is no user with id : " + userId);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("There is no user with id : " + userId);
             }
-        }else{
+        } else {
             System.out.println("You are not admin");
         }
 
@@ -108,7 +107,7 @@ public class UserController {
     }
 
     public void updateUser(APIClient client) {
-        if (client.getUser().isAdmin()){
+        if (client.getUser().isAdmin()) {
 
             String userId = null;
             String username = null;
@@ -118,53 +117,53 @@ public class UserController {
             boolean isAdmin = false;
 
             System.out.println("Insert id of User you want to update :");
-            while(userId == null){
+            while (userId == null) {
                 userId = SCANNER.next();
             }
 
             try {
                 User user = client.getUserService().findById(userId).block();
-                if (user != null){
+                if (user != null) {
 
-                    System.out.println("Insert username (enter to keep " + user.getUsername() +" ) : ");
+                    System.out.println("Insert username (enter to keep " + user.getUsername() + " ) : ");
                     username = SCANNER.next();
-                    if (username == null){
+                    if (username == null) {
                         username = user.getUsername();
                     }
 
-                    System.out.println("Insert lastname (enter to keep " + user.getLastname() +" ) : ");
+                    System.out.println("Insert lastname (enter to keep " + user.getLastname() + " ) : ");
                     lastname = SCANNER.next();
-                    if (lastname == null){
+                    if (lastname == null) {
                         lastname = user.getLastname();
                     }
 
-                    System.out.println("Insert firstname (enter to keep " + user.getFirstname() +" ) : ");
+                    System.out.println("Insert firstname (enter to keep " + user.getFirstname() + " ) : ");
                     firstname = SCANNER.next();
-                    if (firstname == null){
+                    if (firstname == null) {
                         firstname = user.getFirstname();
                     }
 
-                    System.out.println("Insert mail (enter to keep " + user.getMail() +" ) : ");
+                    System.out.println("Insert mail (enter to keep " + user.getMail() + " ) : ");
                     mail = SCANNER.next();
-                    if (mail == null){
+                    if (mail == null) {
                         mail = user.getMail();
                     }
 
-                    System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
+                    System.out.println("Insert mail (isAdmin = " + user.isAdmin() + " ) : ");
                     isAdmin = SCANNER.nextBoolean();
 
-                    AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
+                    AddUserRequest addUserRequest = new AddUserRequest(username, mail, firstname, lastname, isAdmin);
 
                     try {
                         client.getUserService().create(addUserRequest).block();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Error while creating new user");
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("There is no User with the given Id");
             }
-        }else{
+        } else {
             System.out.println("You are not admin");
         }
 
@@ -172,7 +171,7 @@ public class UserController {
     }
 
     public void deleteUSer(APIClient client) {
-        if (client.getUser().isAdmin()){
+        if (client.getUser().isAdmin()) {
             System.out.println("Insert id of the User you want to remove : ");
 
             String userId = null;
@@ -182,10 +181,10 @@ public class UserController {
 
             try {
                 client.getUserService().delete(userId);
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("There is no user with the given id");
             }
-        }else{
+        } else {
             System.out.println("You are not admin");
         }
 

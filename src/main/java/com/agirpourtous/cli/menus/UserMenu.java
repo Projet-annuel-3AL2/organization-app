@@ -3,9 +3,9 @@ package com.agirpourtous.cli.menus;
 import com.agirpourtous.cli.controller.UserController;
 import com.agirpourtous.core.api.APIClient;
 
-public class UserMenu  extends Menu{
+public class UserMenu extends Menu {
 
-    private UserController userController = new UserController();
+    private final UserController userController = new UserController();
 
     public UserMenu(APIClient client) {
         super("User Menu");

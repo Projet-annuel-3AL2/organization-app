@@ -2,7 +2,6 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddCommentRequest;
-import com.agirpourtous.core.api.requests.UpdateTicketRequest;
 import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;

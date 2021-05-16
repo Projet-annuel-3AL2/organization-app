@@ -44,14 +44,14 @@ public class TicketController {
         }
 
         Ticket ticket = client.getTicketService().findById(idticket).block();
-        if (ticket != null){
+        if (ticket != null) {
             if (isAdminProject(client, ticket) || ticket.getCreatorId().equals(client.getUser().getId()))
-            try {
-                client.getTicketService().delete(idticket);
-            }catch (Exception e){
-                System.out.println("There is no Ticket with the given id");
-            }
-        }else{
+                try {
+                    client.getTicketService().delete(idticket);
+                } catch (Exception e) {
+                    System.out.println("There is no Ticket with the given id");
+                }
+        } else {
             System.out.println("There is no ticket with this id");
         }
 
@@ -75,75 +75,75 @@ public class TicketController {
         }
         try {
 
-            Ticket ticket =  client.getTicketService().findById(idTicket).block();
-            if (ticket != null){
-                if(isAdminProject(client, ticket) || ticket.getCreatorId().equals(client.getUser().getId())){
+            Ticket ticket = client.getTicketService().findById(idTicket).block();
+            if (ticket != null) {
+                if (isAdminProject(client, ticket) || ticket.getCreatorId().equals(client.getUser().getId())) {
 
-                    System.out.println("Insert assigne id (enter to keep " + ticket.getAssigneeId() +" ) : ");
+                    System.out.println("Insert assigne id (enter to keep " + ticket.getAssigneeId() + " ) : ");
                     assigneId = SCANNER.next();
-                    if (assigneId == null){
+                    if (assigneId == null) {
                         assigneId = ticket.getAssigneeId();
                     }
 
-                    System.out.println("Insert title (enter to keep " + ticket.getAssigneeId() +" ) : ");
+                    System.out.println("Insert title (enter to keep " + ticket.getAssigneeId() + " ) : ");
                     title = SCANNER.next();
-                    if (title == null){
+                    if (title == null) {
                         title = ticket.getTitle();
                     }
 
-                    System.out.println("Insert description (enter to keep " + ticket.getDescription() +" ) : ");
+                    System.out.println("Insert description (enter to keep " + ticket.getDescription() + " ) : ");
                     description = SCANNER.next();
-                    if (description == null){
+                    if (description == null) {
                         description = ticket.getDescription();
                     }
 
-                    System.out.println("Insert Status <TODO>/<OPEN>/<CLOSED> (enter to keep " + ticket.getStatus() +" ) : ");
+                    System.out.println("Insert Status <TODO>/<OPEN>/<CLOSED> (enter to keep " + ticket.getStatus() + " ) : ");
                     ticketStatus = SCANNER.next();
-                    if (ticketStatus == null || (!ticketStatus.equals("TODO") && !ticketStatus.equals("OPEN") && !ticketStatus.equals("CLOSED"))){
+                    if (ticketStatus == null || (!ticketStatus.equals("TODO") && !ticketStatus.equals("OPEN") && !ticketStatus.equals("CLOSED"))) {
                         ticketStatus = ticket.getDescription();
                     }
 
-                    System.out.println("Insert Estimated Duration (enter to keep " + ticket.getEstimatedDuration() +" ) : ");
+                    System.out.println("Insert Estimated Duration (enter to keep " + ticket.getEstimatedDuration() + " ) : ");
                     estimatedDuration = SCANNER.nextFloat();
-                    if (estimatedDuration < 0){
+                    if (estimatedDuration < 0) {
                         estimatedDuration = ticket.getEstimatedDuration();
                     }
 
-                    System.out.println("Insert Priority (enter to keep " + ticket.getPriority() +" ) : ");
+                    System.out.println("Insert Priority (enter to keep " + ticket.getPriority() + " ) : ");
                     priority = SCANNER.nextInt();
-                    if (priority < 0){
+                    if (priority < 0) {
                         priority = ticket.getPriority();
                     }
 
-                    System.out.println("Insert Status (enter to keep " + ticket.getStatus() +" ) : ");
+                    System.out.println("Insert Status (enter to keep " + ticket.getStatus() + " ) : ");
                     String statusTemp = SCANNER.next();
                     if (statusTemp == null) {
                         status = ticket.getStatus();
-                    }else if(statusTemp.equals("TODO")){
+                    } else if (statusTemp.equals("TODO")) {
                         status = TicketStatus.TODO;
-                    }else if(statusTemp.equals("OPEN")){
+                    } else if (statusTemp.equals("OPEN")) {
                         status = TicketStatus.OPEN;
-                    }else if(statusTemp.equals("CLOSED")){
+                    } else if (statusTemp.equals("CLOSED")) {
                         status = TicketStatus.CLOSED;
                     }
                     try {
 
-                        AddTicketRequest addTicketRequest = new AddTicketRequest(assigneId,title,description,estimatedDuration,priority, status);
+                        AddTicketRequest addTicketRequest = new AddTicketRequest(assigneId, title, description, estimatedDuration, priority, status);
                         try {
                             client.getTicketService().update(idTicket, addTicketRequest).block();
 
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             System.out.println("An error occur while update of the ticket");
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("An error while getting creator id");
                     }
-                }else{
+                } else {
                     System.out.println("You are not admin of the project or you aren't the creator");
                 }
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("There is no ticket with the given id");
         }
 
@@ -159,9 +159,9 @@ public class TicketController {
         }
 
         Ticket ticket = client.getTicketService().findById(idticket).block();
-        if (ticket != null){
+        if (ticket != null) {
 
-            if (isAdminProject(client, ticket)){
+            if (isAdminProject(client, ticket)) {
 
                 System.out.println("Insert id of the User you want to assign to ticket : ");
 
@@ -172,10 +172,10 @@ public class TicketController {
 
                 try {
                     client.getTicketService().setAssignee(idticket, idUser);
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("An Error Occur with the set of a new Assigne");
                 }
-            }else{
+            } else {
                 System.out.println("You are not admin of this project");
             }
         }
@@ -194,7 +194,7 @@ public class TicketController {
         System.out.println("------- List of Comments for ticket id " + idTicket + " :");
         try {
             client.getTicketService().getComments(idTicket).subscribe(show::showComment);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("There is no Ticket with the given id");
         }
 
@@ -213,8 +213,8 @@ public class TicketController {
         }
 
         Ticket ticket = client.getTicketService().findById(idTicket).block();
-        if (ticket != null){
-            if (isMemberProject(client,ticket)){
+        if (ticket != null) {
+            if (isMemberProject(client, ticket)) {
 
                 System.out.println("Insert text  for your comment : ");
 
@@ -225,13 +225,13 @@ public class TicketController {
                 AddCommentRequest addCommentRequest = new AddCommentRequest(text);
                 try {
                     client.getTicketService().addComment(idTicket, addCommentRequest).block();
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("An Error occur while creating a new comment");
                 }
-            }else{
+            } else {
                 System.out.println("You can't add a comment to this ticket, you are not a member of the project");
             }
-        }else{
+        } else {
             System.out.println("There is no Ticket with this id");
         }
 
@@ -241,20 +241,20 @@ public class TicketController {
     private boolean isAdminProject(APIClient client, Ticket ticket) {
         final boolean[] isGranted = new boolean[1];
         client.getProjectService().getAdmins(ticket.getProjectId()).subscribe(user -> {
-            if(user.getId().equals(client.getUser().getId())){
+            if (user.getId().equals(client.getUser().getId())) {
                 isGranted[0] = true;
             }
         });
-        return isGranted[0] ;
+        return isGranted[0];
     }
 
     private boolean isMemberProject(APIClient client, Ticket ticket) {
         final boolean[] isGranted = new boolean[1];
         client.getProjectService().getMembers(ticket.getProjectId()).subscribe(user -> {
-            if(user.getId().equals(client.getUser().getId())){
+            if (user.getId().equals(client.getUser().getId())) {
                 isGranted[0] = true;
             }
         });
-        return isGranted[0] ;
+        return isGranted[0];
     }
 }

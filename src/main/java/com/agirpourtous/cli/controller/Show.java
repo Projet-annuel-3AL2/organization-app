@@ -10,7 +10,7 @@ public class Show {
     public Show() {
     }
 
-    public  void showProject(Project project) {
+    public void showProject(Project project) {
         System.out.println("----------\n" +
                 "----- Name of Project : " + project.getName() + "\n" +
                 "----- Id of Project : " + project.getId() + "\n" +
@@ -25,10 +25,10 @@ public class Show {
 
     }
 
-    public  void showTicket(Ticket ticket) {
-        if (ticket == null){
+    public void showTicket(Ticket ticket) {
+        if (ticket == null) {
             System.out.println("------- There is no Tickets");
-        }else {
+        } else {
             System.out.println("------ Title : " + ticket.getTitle() + "  id: " + ticket.getId() + "\n" +
                     "------- Description : " + ticket.getDescription() + "\n" +
                     "------- Status : " + ticket.getStatus() + "  Priority :" + ticket.getPriority() + "\n" +
@@ -38,9 +38,9 @@ public class Show {
     }
 
     public void showUser(User user) {
-        if (user == null){
+        if (user == null) {
             System.out.println("------- There is no member");
-        }else {
+        } else {
             System.out.println("------ name : " + user.getUsername() + "  id: " + user.getId() + "\n" +
                     "------- mail : " + user.getMail() + "\n" +
                     "--------");
@@ -48,9 +48,9 @@ public class Show {
     }
 
     public void showComment(Comment comment) {
-        if (comment == null){
+        if (comment == null) {
             System.out.println("------- There is no comment");
-        }else {
+        } else {
             System.out.println("------ Username : " + comment.getUser().getUsername() + "\n" +
                     "------- Title : " + comment.getText() + "\n " +
                     "------- creation date : " + comment.getCreationDate() + "\n" +

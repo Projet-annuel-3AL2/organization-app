@@ -1,4 +1,5 @@
 package com.agirpourtous.core.api.requests;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
