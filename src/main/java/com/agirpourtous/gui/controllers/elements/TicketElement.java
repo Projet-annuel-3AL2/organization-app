@@ -45,4 +45,8 @@ public class TicketElement extends Element {
     public void onTicketElementClick() {
         ((ProjectDetailsController) controller).displayTicketDetails(ticket);
     }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
 }

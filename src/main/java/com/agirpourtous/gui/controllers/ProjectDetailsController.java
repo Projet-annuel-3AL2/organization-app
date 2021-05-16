@@ -1,8 +1,10 @@
 package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.UpdateTicketRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
+import com.agirpourtous.core.models.TicketStatus;
 import com.agirpourtous.gui.controllers.elements.TicketDetailsElement;
 import com.agirpourtous.gui.controllers.elements.TicketElement;
 import com.agirpourtous.gui.controllers.popups.CreateTicketPopup;
@@ -42,7 +44,8 @@ public class ProjectDetailsController extends Controller {
     public VBox openTicketsVBox;
     @FXML
     public VBox closedTicketsVBox;
-    private Pane draggingTicket;
+    private Pane draggingTicketPane;
+    private Ticket draggingTicket;
     private TicketDetailsElement ticketDetails;
 
 
@@ -61,7 +64,6 @@ public class ProjectDetailsController extends Controller {
 
     private void setTickets(List<Ticket> ticketsList) {
         removeDeletedTickets(ticketsList);
-
         ticketsList.forEach(this::addTicket);
     }
 
@@ -96,9 +98,9 @@ public class ProjectDetailsController extends Controller {
                 Pane ticketList = (Pane) ((ScrollPane) ((Pane) ticketsListsHBox.getChildren().get(ticket.getStatus().ordinal())).getChildren().get(1)).getContent();
                 TicketElement ticketElementController = new TicketElement(this, ticketList, ticket);
                 Pane ticketElement = ticketElementController.ticketElement;
-                ticketElement.setOnDragDetected(e -> setOnDragDetected(e, ticketElement));
+                ticketElement.setOnDragDetected(e -> setOnDragDetected(e, ticketElementController));
                 ticketElement.setOnMouseDragged(e -> e.setDragDetect(true));
-                ticketElement.setOnDragDone(e -> draggingTicket = null);
+                ticketElement.setOnDragDone(e -> draggingTicketPane = null);
                 tickets.put(ticket.getId(), ticketElementController);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -108,13 +110,15 @@ public class ProjectDetailsController extends Controller {
         }
     }
 
-    public void setOnDragDetected(MouseEvent event, Pane ticketElement) {
-        Dragboard db = ticketElement.startDragAndDrop(TransferMode.MOVE);
-        db.setDragView(ticketElement.snapshot(null, null));
+    @FXML
+    public void setOnDragDetected(MouseEvent event, TicketElement ticketController) {
+        Dragboard db = ticketController.ticketElement.startDragAndDrop(TransferMode.MOVE);
+        db.setDragView(ticketController.ticketElement.snapshot(null, null));
         ClipboardContent content = new ClipboardContent();
         content.putString("Ticket");
         db.setContent(content);
-        draggingTicket = ticketElement;
+        draggingTicketPane = ticketController.ticketElement;
+        draggingTicket = ticketController.getTicket();
         event.consume();
     }
 
@@ -122,16 +126,24 @@ public class ProjectDetailsController extends Controller {
     public void onTicketDragDropped(DragEvent event) {
         Dragboard db = event.getDragboard();
         if (db.hasString()) {
-            ((Pane) draggingTicket.getParent()).getChildren().remove(draggingTicket);
-            ((Pane) event.getGestureTarget()).getChildren().add(draggingTicket);
+            ((Pane) draggingTicketPane.getParent()).getChildren().remove(draggingTicketPane);
+            ((Pane) event.getGestureTarget()).getChildren().add(draggingTicketPane);
+            TicketStatus newStatus = TicketStatus.values()[ticketsListsHBox.getChildren().indexOf(((Pane) event.getGestureTarget()).getParent().getParent().getParent().getParent())];
+            updateTicket(draggingTicket.getId(), newStatus);
             event.setDropCompleted(true);
         }
         event.consume();
     }
 
+    private void updateTicket(String ticketId, TicketStatus status) {
+        client.getTicketService()
+                .update(ticketId, new UpdateTicketRequest(status))
+                .subscribe();
+    }
+
     @FXML
     public void onTicketDragOver(DragEvent event) {
-        if (draggingTicket != null && draggingTicket.getParent() != event.getGestureTarget()) {
+        if (draggingTicketPane != null && draggingTicketPane.getParent() != event.getGestureTarget()) {
             event.acceptTransferModes(TransferMode.MOVE);
         }
         event.consume();

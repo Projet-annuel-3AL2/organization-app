@@ -1,6 +1,7 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.UpdateTicketRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 import org.slf4j.Logger;
@@ -40,11 +41,11 @@ public class TicketService extends Service<Ticket> {
                 .bodyToMono(Void.class);
     }
 
-    public Mono<Ticket> update(String id, Ticket ticket) {
+    public Mono<Ticket> update(String id, UpdateTicketRequest updateTicketRequest) {
         return client.getClient().put()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(ticket), type)
+                .body(Mono.just(updateTicketRequest), UpdateTicketRequest.class)
                 .retrieve()
                 .bodyToMono(type);
     }
