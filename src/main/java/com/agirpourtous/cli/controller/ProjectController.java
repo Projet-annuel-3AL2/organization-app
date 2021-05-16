@@ -166,12 +166,20 @@ public class ProjectController {
             idProject = SCANNER.next();
         }
 
-        try {
-            client.getProjectService().delete(idProject);
-        }catch (Exception e){
-            System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
+        Project project = client.getProjectService().findById(idProject).block();
+        if (project != null){
+            if (isAdminProject(client, project)){
+                try {
+                    client.getProjectService().delete(idProject);
+                }catch (Exception e){
+                    System.out.println("The project with the id : " + idProject + " doesn't exit or Server fail");
+                }
+            }else{
+                System.out.println("You can't remove admin because you are not admin");
+            }
+        }else{
+            System.out.println("There is no project with this id");
         }
-
         new ProjectMenu(client);
     }
 
@@ -246,20 +254,29 @@ public class ProjectController {
             idProject = SCANNER.next();
         }
 
-        System.out.println("Insert id of the Member you want to remove : ");
+        Project project = client.getProjectService().findById(idProject).block();
+        if (project != null){
+            if (isAdminProject(client, project)){
 
-        String userId = null;
-        while (userId == null) {
-            userId = SCANNER.next();
+                System.out.println("Insert id of the Member you want to remove : ");
+
+                String userId = null;
+                while (userId == null) {
+                    userId = SCANNER.next();
+                }
+
+                try {
+                    client.getProjectService().removeMember(idProject, userId);
+
+                }catch (Exception e){
+                    System.out.println("Error while removing Member");
+                }
+            }else{
+                System.out.println("You can't remove admin because you are not admin");
+            }
+        }else{
+            System.out.println("There is no project with this id");
         }
-
-        try {
-            client.getProjectService().removeMember(idProject, userId);
-
-        }catch (Exception e){
-            System.out.println("Error while removing Member");
-        }
-
         new ProjectMenu(client);
     }
 
@@ -272,18 +289,28 @@ public class ProjectController {
             idProject = SCANNER.next();
         }
 
-        System.out.println("Insert id of the admin you want to remove : ");
+        Project project = client.getProjectService().findById(idProject).block();
+        if (project != null){
+            if (isAdminProject(client, project)){
 
-        String userId = null;
-        while (userId == null) {
-            userId = SCANNER.next();
-        }
+                System.out.println("Insert id of the admin you want to remove : ");
 
-        try {
-            client.getProjectService().removeAdmin(idProject, userId);
+                String userId = null;
+                while (userId == null) {
+                    userId = SCANNER.next();
+                }
 
-        }catch (Exception e){
-            System.out.println("Error while removing admin");
+                try {
+                    client.getProjectService().removeAdmin(idProject, userId);
+
+                }catch (Exception e){
+                    System.out.println("Error while removing admin");
+                }
+            }else{
+                System.out.println("You can't remove admin because you are not admin");
+            }
+        }else{
+            System.out.println("There is no project with this id");
         }
 
         new ProjectMenu(client);
