@@ -54,8 +54,8 @@ public class ProjectDetailsController extends Controller {
         this.tickets = new HashMap<>();
         this.project = project;
         project.getTickets().forEach(this::addTicket);
-        client.getTicketService()
-                .findAll()
+        client.getProjectService()
+                .getTickets(project.getId())
                 .collect(Collectors.toList())
                 .repeatWhen(Repeat.onlyIf(repeatContext -> isActive)
                         .fixedBackoff(Duration.ofSeconds(10)))

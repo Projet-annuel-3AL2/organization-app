@@ -2,34 +2,35 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label text="Creation d'utilisateur" />
-   <VBox alignment="CENTER" spacing="15.0">
-      <Label fx:id="errorLabel" visible="false" text="Impossible de créer un utilisateur"/>
-      <GridPane alignment="CENTER" hgap="10.0" vgap="5.0">
-         <Label alignment="CENTER_RIGHT" text="email" textAlignment="RIGHT" GridPane.rowIndex="3"/>
-         <TextField fx:id="usernameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"/>
-         <Label text="nom" textAlignment="RIGHT" GridPane.rowIndex="2"/>
-         <TextField fx:id="firstnameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"
-                    GridPane.rowIndex="1"/>
-         <Label text="identifiant" textAlignment="RIGHT"/>
-         <TextField fx:id="lastnameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"
-                    GridPane.rowIndex="2"/>
-         <Label text="prenom" textAlignment="RIGHT" GridPane.rowIndex="1"/>
-         <TextField fx:id="mailField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"
-                    GridPane.rowIndex="3"/>
-         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT"/>
-            <ColumnConstraints percentWidth="40.0"/>
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints/>
-            <RowConstraints/>
-            <RowConstraints/>
-            <RowConstraints/>
-         </rowConstraints>
-      </GridPane>
-      <CheckBox fx:id="isAdminCheckbox" mnemonicParsing="false" text="Compte d'administration"/>
-   </VBox>
-   <Button mnemonicParsing="false" onAction="#onCreateUserButton" text="Créer" />
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/11.0.1">
+    <Label text="Creation d'utilisateur"/>
+    <VBox alignment="CENTER" spacing="15.0">
+        <Label fx:id="errorLabel" visible="false" text="Impossible de créer un utilisateur"/>
+        <GridPane alignment="CENTER" hgap="10.0" vgap="5.0">
+            <Label alignment="CENTER_RIGHT" text="email" textAlignment="RIGHT" GridPane.rowIndex="3"/>
+            <TextField fx:id="usernameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"/>
+            <Label text="nom" textAlignment="RIGHT" GridPane.rowIndex="2"/>
+            <TextField fx:id="firstnameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
+            <Label text="identifiant" textAlignment="RIGHT"/>
+            <TextField fx:id="lastnameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                       GridPane.rowIndex="2"/>
+            <Label text="prenom" textAlignment="RIGHT" GridPane.rowIndex="1"/>
+            <TextField fx:id="mailField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1"
+                       GridPane.rowIndex="3"/>
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints percentWidth="40.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+            </rowConstraints>
+        </GridPane>
+        <CheckBox fx:id="isAdminCheckbox" mnemonicParsing="false" text="Compte d'administration"/>
+    </VBox>
+    <Button mnemonicParsing="false" onAction="#onCreateUserButton" text="Créer"/>
 </VBox>

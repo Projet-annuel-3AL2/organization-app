@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox alignment="CENTER" fillWidth="false" prefHeight="223.0" prefWidth="286.0" spacing="10.0"
-      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" fillWidth="false" prefHeight="223.0" prefWidth="286.0"
+      spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1">
     <GridPane hgap="10.0" prefHeight="25.0" prefWidth="227.0">
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0"
