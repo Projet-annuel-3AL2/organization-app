@@ -5,6 +5,7 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.gui.controllers.elements.TicketDetailsElement;
 import com.agirpourtous.gui.controllers.elements.TicketElement;
+import com.agirpourtous.gui.controllers.popups.CreateTicketPopup;
 import com.agirpourtous.gui.controllers.popups.ProjectUsersManagementPopup;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -81,8 +82,8 @@ public class ProjectDetailsController extends Controller {
         new MainMenuController(client, this);
     }
 
-    public void onAddTicketClick() {
-
+    public void onAddTicketClick() throws IOException {
+        new CreateTicketPopup(this);
     }
 
     public void onAddUserClick() throws IOException {

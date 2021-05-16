@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import reactor.retry.Repeat;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class TicketDetailsElement extends Element {
     private final Ticket ticket;
     private final HashMap<String, CommentElement> comments;
+    private final SimpleDateFormat formatter;
     public VBox ticketDetails;
     public Label titleLabel;
     public Label creationDateLabel;
@@ -37,6 +39,7 @@ public class TicketDetailsElement extends Element {
     public TicketDetailsElement(Controller controller, Pane parent, Ticket ticket) throws IOException {
         super("ticket_details", controller, parent);
         this.ticket = ticket;
+        formatter = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
         this.comments = new HashMap<>();
         setLabels();
         controller.getClient().getTicketService()
@@ -50,7 +53,7 @@ public class TicketDetailsElement extends Element {
 
     private void setLabels() {
         titleLabel.setText(ticket.getTitle());
-        creationDateLabel.setText(ticket.getCreationDate().toString());
+        creationDateLabel.setText(formatter.format(ticket.getCreationDate()));
         priorityLabel.setText(String.valueOf(ticket.getPriority()));
         descriptionLabel.setText(ticket.getDescription());
         User assignee = controller.getClient()
@@ -100,6 +103,9 @@ public class TicketDetailsElement extends Element {
     }
 
     public void onAddCommentClick() {
+        /*controller.getClient()
+                .getTicketService()
+                .addComment(ticket.getId(),);*/
     }
 
     public void onCloseClick() {
@@ -108,5 +114,9 @@ public class TicketDetailsElement extends Element {
 
     public void close() {
         parent.getChildren().remove(ticketDetails);
+    }
+
+    public Ticket getTicket() {
+        return ticket;
     }
 }

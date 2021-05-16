@@ -4,20 +4,20 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 public class AddTicketRequest {
-    private String name;
+    private String title;
     private String description;
 
-    public AddTicketRequest(String name, String description) {
-        this.name = name;
+    public AddTicketRequest(String title, String description) {
+        this.title = title;
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
