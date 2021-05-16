@@ -75,7 +75,7 @@ public class ProjectDetailsController extends Controller {
     }
 
     private void removeTicket(String id) {
-        tickets.get(id).remove();
+        tickets.get(id).close();
         tickets.remove(id);
     }
 

@@ -88,7 +88,7 @@ public class MainMenuController extends Controller {
     }
 
     private void removeProject(String id) {
-        projects.get(id).remove();
+        projects.get(id).close();
         projects.remove(id);
     }
 

@@ -38,7 +38,7 @@ public class TicketDetailsElement extends Element {
     public Button closeButton;
 
     public TicketDetailsElement(Controller controller, Pane parent, Ticket ticket) throws IOException {
-        super("ticket_details", controller, parent);
+        super("ticket_details_element", controller, parent);
         this.ticket = ticket;
         formatter = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
         this.comments = new HashMap<>();
@@ -86,7 +86,7 @@ public class TicketDetailsElement extends Element {
     }
 
     private void removeComment(String id) {
-        comments.get(id).remove();
+        comments.get(id).close();
         comments.remove(id);
     }
 
@@ -108,15 +108,6 @@ public class TicketDetailsElement extends Element {
                 .getTicketService()
                 .addComment(ticket.getId(), new AddCommentRequest(commentTextArea.getText()))
                 .subscribe();
-    }
-
-    public void onCloseClick() {
-        close();
-    }
-
-    public void close() {
-        parent.getChildren().remove(ticketDetails);
-        isActive = false;
     }
 
     public Ticket getTicket() {
