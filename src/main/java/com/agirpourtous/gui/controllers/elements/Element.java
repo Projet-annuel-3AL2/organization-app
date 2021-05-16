@@ -16,14 +16,15 @@ public abstract class Element {
     Element(String fxml, Controller controller, Pane parent) throws IOException {
         this.controller = controller;
         this.parent = parent;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/" + fxml + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/elements/" + fxml + ".fxml"));
         loader.setController(this);
         root = loader.load();
         parent.getChildren().add(root);
         isActive = true;
     }
 
-    public void remove() {
+    public void close() {
+        isActive = false;
         parent.getChildren().remove(root);
     }
 }

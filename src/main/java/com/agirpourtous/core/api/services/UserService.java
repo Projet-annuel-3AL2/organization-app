@@ -1,6 +1,8 @@
 package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.core.api.requests.AddUserRequest;
+import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +22,6 @@ public class UserService extends Service<User> {
         return client.getClient().get()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(type);
     }
@@ -29,17 +30,15 @@ public class UserService extends Service<User> {
         return client.getClient().get()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
 
-    public Mono<User> create(User user) {
+    public Mono<User> create(AddUserRequest addUserRequest) {
         return client.getClient().post()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
-                .body(Mono.just(user), type)
+                .body(Mono.just(addUserRequest), type)
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -48,18 +47,16 @@ public class UserService extends Service<User> {
         return client.getClient().put()
                 .uri(baseRoute + "/set-admin/" + user.getId())
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
 
-    public Flux<User> getProjects(User user) {
-        return client.getClient().put()
-                .uri(baseRoute + "/{id}/projects", user.getId())
+    public Flux<Project> getProjects() {
+        return client.getClient().get()
+                .uri(baseRoute + "/{id}/projects", client.getUser().getId())
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
-                .bodyToFlux(type);
+                .bodyToFlux(Project.class);
     }
 
     public Mono<User> update(String id, User user) {
@@ -67,7 +64,6 @@ public class UserService extends Service<User> {
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(user), type)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -76,7 +72,6 @@ public class UserService extends Service<User> {
         return client.getClient().delete()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }

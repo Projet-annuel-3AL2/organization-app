@@ -24,17 +24,17 @@
                maxWidth="1.7976931348623157E308" text="description" textAlignment="CENTER" wrapText="true"/>
         <Separator prefWidth="200.0"/>
         <Label text="Comments"/>
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
-                    maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-            <VBox fx:id="commentsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"/>
+        <ScrollPane centerShape="false" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308" scaleShape="false">
+            <VBox fx:id="commentsVBox" alignment="TOP_CENTER" spacing="5.0"/>
         </ScrollPane>
     </VBox>
-    <TextArea fx:id="commentTextArea" maxHeight="150.0" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0"
-              prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS"/>
+    <TextArea fx:id="commentTextArea" maxHeight="150.0" maxWidth="1.7976931348623157E308" minHeight="100.0"
+              minWidth="0.0" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS"/>
     <Button fx:id="addCommentButton" mnemonicParsing="false" onAction="#onAddCommentClick" text="Add comment"/>
     <Separator prefWidth="200.0"/>
     <Button fx:id="closeButton" contentDisplay="CENTER" layoutX="48.0" layoutY="331.0" mnemonicParsing="false"
-            onAction="#onCloseClick" text="Close"/>
+            onAction="#close" text="Close"/>
     <padding>
         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
     </padding>

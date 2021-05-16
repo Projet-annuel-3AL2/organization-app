@@ -1,5 +1,6 @@
 package com.agirpourtous.gui.controllers.elements;
 
+import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
@@ -7,21 +8,23 @@ import com.agirpourtous.gui.controllers.Controller;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import reactor.retry.Repeat;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TicketDetailsController extends Element {
+public class TicketDetailsElement extends Element {
     private final Ticket ticket;
-    private final HashMap<String, CommentElementController> comments;
+    private final HashMap<String, CommentElement> comments;
+    private final SimpleDateFormat formatter;
     public VBox ticketDetails;
     public Label titleLabel;
     public Label creationDateLabel;
@@ -30,13 +33,14 @@ public class TicketDetailsController extends Element {
     public Label creatorLabel;
     public Label descriptionLabel;
     public VBox commentsVBox;
-    public TextField commentTextField;
+    public TextArea commentTextArea;
     public Button addCommentButton;
     public Button closeButton;
 
-    public TicketDetailsController(Controller controller, Pane parent, Ticket ticket) throws IOException {
-        super("elements/ticket_details", controller, parent);
+    public TicketDetailsElement(Controller controller, Pane parent, Ticket ticket) throws IOException {
+        super("ticket_details_element", controller, parent);
         this.ticket = ticket;
+        formatter = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
         this.comments = new HashMap<>();
         setLabels();
         controller.getClient().getTicketService()
@@ -50,7 +54,7 @@ public class TicketDetailsController extends Element {
 
     private void setLabels() {
         titleLabel.setText(ticket.getTitle());
-        creationDateLabel.setText(ticket.getCreationDate().toString());
+        creationDateLabel.setText(formatter.format(ticket.getCreationDate()));
         priorityLabel.setText(String.valueOf(ticket.getPriority()));
         descriptionLabel.setText(ticket.getDescription());
         User assignee = controller.getClient()
@@ -72,7 +76,7 @@ public class TicketDetailsController extends Element {
     public void addComment(Comment comment) {
         if (!comments.containsKey(comment.getId())) {
             try {
-                comments.put(comment.getId(), new CommentElementController(controller, commentsVBox, comment));
+                comments.put(comment.getId(), new CommentElement(controller, commentsVBox, comment));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -82,7 +86,7 @@ public class TicketDetailsController extends Element {
     }
 
     private void removeComment(String id) {
-        comments.get(id).remove();
+        comments.get(id).close();
         comments.remove(id);
     }
 
@@ -100,13 +104,13 @@ public class TicketDetailsController extends Element {
     }
 
     public void onAddCommentClick() {
+        controller.getClient()
+                .getTicketService()
+                .addComment(ticket.getId(), new AddCommentRequest(commentTextArea.getText()))
+                .subscribe();
     }
 
-    public void onCloseClick() {
-        close();
-    }
-
-    public void close() {
-        parent.getChildren().remove(ticketDetails);
+    public Ticket getTicket() {
+        return ticket;
     }
 }
