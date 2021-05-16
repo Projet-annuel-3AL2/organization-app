@@ -6,6 +6,7 @@ import com.agirpourtous.core.api.requests.AddProjectRequest;
 import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
+import com.agirpourtous.core.models.TicketStatus;
 import com.agirpourtous.core.models.User;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class ProjectController {
             priority = SCANNER.nextInt();
         }
 
-        AddTicketRequest addTicketRequest = new AddTicketRequest(idProject,creatorId,assigneId,title,description,estimatedDuration, priority);
+        AddTicketRequest addTicketRequest = new AddTicketRequest(idProject,creatorId,assigneId,title,description,estimatedDuration, priority, TicketStatus.OPEN);
 
         try {
             client.getProjectService().addTicket(idProject, addTicketRequest).block();

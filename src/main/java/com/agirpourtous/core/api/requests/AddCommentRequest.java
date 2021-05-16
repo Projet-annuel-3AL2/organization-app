@@ -17,6 +17,10 @@ public class AddCommentRequest {
     public AddCommentRequest() {
     }
 
+    public AddCommentRequest(String text) {
+        this.text = text;
+    }
+
     public String getTicketId() {
         return ticketId;
     }

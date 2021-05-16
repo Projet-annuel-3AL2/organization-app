@@ -1,5 +1,6 @@
 package com.agirpourtous.core.api.requests;
 
+import com.agirpourtous.core.models.TicketStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
@@ -9,10 +10,11 @@ public class AddTicketRequest {
     private String assigneeId;
     private String title;
     private String description;
+    private TicketStatus status;
     private float estimatedDuration;
     private int priority;
 
-    public AddTicketRequest(String projectId, String creatorId, String assigneeId, String title, String description, float estimatedDuration, int priority) {
+    public AddTicketRequest(String projectId, String creatorId, String assigneeId, String title, String description, float estimatedDuration, int priority, TicketStatus status) {
         this.projectId = projectId;
         this.creatorId = creatorId;
         this.assigneeId = assigneeId;
@@ -20,6 +22,16 @@ public class AddTicketRequest {
         this.description = description;
         this.estimatedDuration = estimatedDuration;
         this.priority = priority;
+        this.status = status;
+    }
+
+    public AddTicketRequest(String text, String text1) {
+        this.title = text;
+        this.description = text1;
+    }
+
+    public AddTicketRequest(TicketStatus status) {
+        this.status = status;
     }
 
     public String getProjectId() {

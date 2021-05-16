@@ -7,6 +7,7 @@ import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
+import com.agirpourtous.core.models.TicketStatus;
 
 import java.util.Scanner;
 
@@ -60,6 +61,7 @@ public class TicketController {
         String description = null;
         String ticketStatus = null;
         String idTicket = null;
+        TicketStatus status = null;
         float estimatedDuration = -1;
         int priority = -1;
 
@@ -121,10 +123,21 @@ public class TicketController {
                     priority = ticket.getPriority();
                 }
 
+                System.out.println("Insert Status (enter to keep " + ticket.getStatus() +" ) : ");
+                String statusTemp = SCANNER.next();
+                if (statusTemp == null) {
+                    status = ticket.getStatus();
+                }else if(statusTemp.equals("TODO")){
+                    status = TicketStatus.TODO;
+                }else if(statusTemp.equals("OPEN")){
+                    status = TicketStatus.OPEN;
+                }else if(statusTemp.equals("CLOSED")){
+                    status = TicketStatus.CLOSED;
+                }
                 try {
                     creatorId = client.getUser().getId();
 
-                    AddTicketRequest addTicketRequest = new AddTicketRequest(projectId,creatorId,assigneId,title,description,estimatedDuration,priority);
+                    AddTicketRequest addTicketRequest = new AddTicketRequest(projectId,creatorId,assigneId,title,description,estimatedDuration,priority, status);
                     try {
                         client.getTicketService().update(idTicket, addTicketRequest).block();
 

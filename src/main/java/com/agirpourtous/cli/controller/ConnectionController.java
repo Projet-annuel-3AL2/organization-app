@@ -33,9 +33,9 @@ public class ConnectionController {
             loginRequest = new LoginRequest(username, password);
 
             try{
-                if (client.connect(loginRequest)){
-                    loopBreack = true;
-                }
+                client.connect(loginRequest);
+                loopBreack = true;
+
             }catch (Exception e){
                 System.out.println("Username/Password aren't in dataBase");
             }
