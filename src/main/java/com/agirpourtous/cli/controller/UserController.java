@@ -39,141 +39,154 @@ public class UserController {
     }
 
     public void createUser(APIClient client) {
-        String username = null;
-        String lastname = null;
-        String firstname = null;
-        String mail = null;
-        boolean isAdmin = false;
+        if (client.getUser().isAdmin()){
 
-        System.out.println("Input a Username :");
-        while (username == null){
-            username = SCANNER.next();
-        }
+            String username = null;
+            String lastname = null;
+            String firstname = null;
+            String mail = null;
+            boolean isAdmin = false;
 
-        System.out.println("Input a Lastname :");
-        while (lastname == null){
-            lastname = SCANNER.next();
-        }
+            System.out.println("Input a Username :");
+            while (username == null){
+                username = SCANNER.next();
+            }
 
-        System.out.println("Input a firstname :");
-        while (firstname == null){
-            firstname = SCANNER.next();
-        }
+            System.out.println("Input a Lastname :");
+            while (lastname == null){
+                lastname = SCANNER.next();
+            }
 
-        System.out.println("Input a mail :");
-        while (mail == null){
-            mail = SCANNER.next();
-        }
+            System.out.println("Input a firstname :");
+            while (firstname == null){
+                firstname = SCANNER.next();
+            }
 
-        System.out.println("Input boolean (true or false) or nothing for default false");
-        isAdmin = SCANNER.nextBoolean();
-        if (!isAdmin){
-            isAdmin = false;
-        }
+            System.out.println("Input a mail :");
+            while (mail == null){
+                mail = SCANNER.next();
+            }
 
-        AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
 
-        try {
-            client.getUserService().create(addUserRequest).block();
-        }catch (Exception e){
-            System.out.println("Error while creating New User");
+            AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
+
+            try {
+                client.getUserService().create(addUserRequest).block();
+            }catch (Exception e){
+                System.out.println("Error while creating New User");
+            }
+        }else{
+            System.out.println("You are not admin");
         }
 
         new UserMenu(client);
     }
 
     public void setANewAdmin(APIClient client) {
-        String userId = null;
-        System.out.println("Input id of user you want to grant admin");
+        if (client.getUser().isAdmin()){
+            String userId = null;
+            System.out.println("Input id of user you want to grant admin");
 
-        while (userId == null){
-            userId = SCANNER.next();
-        }
-        try {
-            User user = client.getUserService().findById(userId).block();
-            if (user != null){
-                client.getUserService().setAdmin(user);
-            }else{
+            while (userId == null){
+                userId = SCANNER.next();
+            }
+            try {
+                User user = client.getUserService().findById(userId).block();
+                if (user != null){
+                    client.getUserService().setAdmin(user);
+                }else{
+                    System.out.println("There is no user with id : " + userId);
+                }
+            }catch (Exception e){
                 System.out.println("There is no user with id : " + userId);
             }
-        }catch (Exception e){
-            System.out.println("There is no user with id : " + userId);
+        }else{
+            System.out.println("You are not admin");
         }
 
-
+        new UserMenu(client);
     }
 
     public void updateUser(APIClient client) {
-        String userId = null;
-        String username = null;
-        String lastname = null;
-        String firstname = null;
-        String mail = null;
-        boolean isAdmin = false;
-        
-        System.out.println("Insert id of User you want to update :");
-        while(userId == null){
-            userId = SCANNER.next();
-        }
+        if (client.getUser().isAdmin()){
 
-        try {
-            User user = client.getUserService().findById(userId).block();
-            if (user != null){
+            String userId = null;
+            String username = null;
+            String lastname = null;
+            String firstname = null;
+            String mail = null;
+            boolean isAdmin = false;
 
-                System.out.println("Insert username (enter to keep " + user.getUsername() +" ) : ");
-                username = SCANNER.next();
-                if (username == null){
-                    username = user.getUsername();
-                }
-
-                System.out.println("Insert lastname (enter to keep " + user.getLastname() +" ) : ");
-                lastname = SCANNER.next();
-                if (lastname == null){
-                    lastname = user.getLastname();
-                }
-
-                System.out.println("Insert firstname (enter to keep " + user.getFirstname() +" ) : ");
-                firstname = SCANNER.next();
-                if (firstname == null){
-                    firstname = user.getFirstname();
-                }
-
-                System.out.println("Insert mail (enter to keep " + user.getMail() +" ) : ");
-                mail = SCANNER.next();
-                if (mail == null){
-                    mail = user.getMail();
-                }
-
-                System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
-                isAdmin = SCANNER.nextBoolean();
-
-                AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
-
-                try {
-                    client.getUserService().create(addUserRequest).block();
-                }catch (Exception e){
-                    System.out.println("Error while creating new user");
-                }
+            System.out.println("Insert id of User you want to update :");
+            while(userId == null){
+                userId = SCANNER.next();
             }
-        }catch (Exception e){
-            System.out.println("There is no User with the given Id");
+
+            try {
+                User user = client.getUserService().findById(userId).block();
+                if (user != null){
+
+                    System.out.println("Insert username (enter to keep " + user.getUsername() +" ) : ");
+                    username = SCANNER.next();
+                    if (username == null){
+                        username = user.getUsername();
+                    }
+
+                    System.out.println("Insert lastname (enter to keep " + user.getLastname() +" ) : ");
+                    lastname = SCANNER.next();
+                    if (lastname == null){
+                        lastname = user.getLastname();
+                    }
+
+                    System.out.println("Insert firstname (enter to keep " + user.getFirstname() +" ) : ");
+                    firstname = SCANNER.next();
+                    if (firstname == null){
+                        firstname = user.getFirstname();
+                    }
+
+                    System.out.println("Insert mail (enter to keep " + user.getMail() +" ) : ");
+                    mail = SCANNER.next();
+                    if (mail == null){
+                        mail = user.getMail();
+                    }
+
+                    System.out.println("Insert mail (isAdmin = " + user.isAdmin() +" ) : ");
+                    isAdmin = SCANNER.nextBoolean();
+
+                    AddUserRequest addUserRequest = new AddUserRequest(username,mail,firstname,lastname, isAdmin);
+
+                    try {
+                        client.getUserService().create(addUserRequest).block();
+                    }catch (Exception e){
+                        System.out.println("Error while creating new user");
+                    }
+                }
+            }catch (Exception e){
+                System.out.println("There is no User with the given Id");
+            }
+        }else{
+            System.out.println("You are not admin");
         }
 
         new UserMenu(client);
     }
 
     public void deleteUSer(APIClient client) {
-        System.out.println("Insert id of the User you want to remove : ");
+        if (client.getUser().isAdmin()){
+            System.out.println("Insert id of the User you want to remove : ");
 
-        String userId = null;
-        while (userId == null) {
-            userId = SCANNER.next();
-        }
+            String userId = null;
+            while (userId == null) {
+                userId = SCANNER.next();
+            }
 
-        try {
-            client.getUserService().delete(userId);
-        }catch (Exception e){
-            System.out.println("There is no user with the given id");
+            try {
+                client.getUserService().delete(userId);
+            }catch (Exception e){
+                System.out.println("There is no user with the given id");
+            }
+        }else{
+            System.out.println("You are not admin");
         }
 
         new UserMenu(client);

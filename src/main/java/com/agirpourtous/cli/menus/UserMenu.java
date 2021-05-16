@@ -39,22 +39,20 @@ public class UserMenu  extends Menu{
             }
         });
 
-        if (client.getUser().isAdmin()){
+        addAction(new Action("Create User") {
+            @Override
+            public void execute() {
+                userController.createUser(client);
+            }
+        });
 
-            addAction(new Action("Create User") {
-                @Override
-                public void execute() {
-                    userController.createUser(client);
-                }
-            });
+        addAction(new Action("Set an Admin") {
+            @Override
+            public void execute() {
+                userController.setANewAdmin(client);
+            }
+        });
 
-            addAction(new Action("Set an Admin") {
-                @Override
-                public void execute() {
-                    userController.setANewAdmin(client);
-                }
-            });
-        }
 
         addAction(new Action("Return HomePage") {
             @Override
