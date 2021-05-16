@@ -2,8 +2,7 @@ package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.LoginRequest;
-import javafx.concurrent.Task;
-import javafx.concurrent.Worker;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -36,28 +35,14 @@ public class ConnexionController extends Controller {
     public void onConnectClick() {
         connectButton.setDisable(true);
         LoginRequest loginRequest = new LoginRequest(usernameField.getText(), passwordField.getText());
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() {
-                if (client.connect(loginRequest)) {
-                    this.succeeded();
-                } else {
-                    this.failed();
-                }
-                return null;
-            }
-        };
-        task.stateProperty().addListener((observable, oldValue, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                client.setStayConnected(keepConnectionCheckBox.isSelected());
-                isActive = false;
-                new MainMenuController(client, this);
-            }
-            if (newState == Worker.State.FAILED) {
-                connectButton.setDisable(false);
-            }
-        });
-        new Thread(task).start();
+        client.connect(loginRequest)
+                .doOnSuccess(response -> Platform.runLater(() -> {
+                    client.setStayConnected(keepConnectionCheckBox.isSelected());
+                    isActive = false;
+                    new MainMenuController(client, this);
+                }))
+                .doOnError(response -> Platform.runLater(() -> connectButton.setDisable(false)))
+                .subscribe();
     }
 
     @FXML

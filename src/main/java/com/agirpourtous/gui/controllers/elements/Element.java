@@ -23,7 +23,8 @@ public abstract class Element {
         isActive = true;
     }
 
-    public void remove() {
+    public void close() {
+        isActive = false;
         parent.getChildren().remove(root);
     }
 }

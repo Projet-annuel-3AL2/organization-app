@@ -5,11 +5,8 @@ import com.agirpourtous.core.api.requests.LoginRequest;
 import com.agirpourtous.core.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Mono;
-
-import java.util.Collections;
 
 public class AuthService extends Service<User> {
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class.getName());
@@ -23,15 +20,8 @@ public class AuthService extends Service<User> {
                 .uri("/auth/login")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .body(Mono.just(loginRequest), LoginRequest.class)
                 .retrieve()
-                .onStatus(HttpStatus::is2xxSuccessful, r -> {
-                    for (String key : r.cookies().keySet()) {
-                        client.getCookies().put(key, Collections.singletonList(r.cookies().get(key).get(0).getValue()));
-                    }
-                    return Mono.empty();
-                })
                 .bodyToMono(User.class);
     }
 
@@ -39,14 +29,7 @@ public class AuthService extends Service<User> {
         return client.getClient().delete()
                 .uri("/auth/logout")
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
-                .onStatus(HttpStatus::is2xxSuccessful, r -> {
-                    for (String key : r.cookies().keySet()) {
-                        client.getCookies().put(key, Collections.singletonList(r.cookies().get(key).get(0).getValue()));
-                    }
-                    return Mono.empty();
-                })
                 .bodyToMono(Void.class);
     }
 }

@@ -20,7 +20,6 @@ public class CommentService extends Service<Comment> {
         return client.getClient().get()
                 .uri(baseRoute)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToFlux(type);
     }
@@ -29,7 +28,6 @@ public class CommentService extends Service<Comment> {
         return client.getClient().get()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -39,7 +37,6 @@ public class CommentService extends Service<Comment> {
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(addCommentRequest), type)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(type);
     }
@@ -48,7 +45,6 @@ public class CommentService extends Service<Comment> {
         return client.getClient().delete()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .cookies(cookies -> cookies.addAll(client.getCookies()))
                 .retrieve()
                 .bodyToMono(Void.class);
     }

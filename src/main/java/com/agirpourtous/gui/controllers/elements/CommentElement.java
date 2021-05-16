@@ -1,18 +1,19 @@
 package com.agirpourtous.gui.controllers.elements;
 
 import com.agirpourtous.core.models.Comment;
+import com.agirpourtous.core.models.User;
 import com.agirpourtous.gui.controllers.Controller;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class CommentElementController extends Element {
+public class CommentElement extends Element {
     public Label authorLabel;
     public Label commentLabel;
     private Comment comment;
 
-    CommentElementController(Controller controller, Pane parent, Comment comment) throws IOException {
+    CommentElement(Controller controller, Pane parent, Comment comment) throws IOException {
         super("comment_element", controller, parent);
         this.comment = comment;
         updateLabels();
@@ -20,7 +21,9 @@ public class CommentElementController extends Element {
 
     private void updateLabels() {
         commentLabel.setText(comment.getText());
-        //authorLabel.setText(comment.getUser().getId());
+        User user = controller.getClient().getUserService().findById(comment.getUserId()).block();
+        assert user != null;
+        authorLabel.setText(user.getUsername());
     }
 
     protected void updateComment(Comment comment) {

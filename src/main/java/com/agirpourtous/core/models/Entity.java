@@ -1,7 +1,5 @@
 package com.agirpourtous.core.models;
 
-import java.util.Objects;
-
 public class Entity {
     private String id;
 

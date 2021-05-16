@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class ProjectElementController extends Element {
+public class ProjectElement extends Element {
     @FXML
     public Label titleLabel;
     @FXML
@@ -18,7 +18,7 @@ public class ProjectElementController extends Element {
     public Label activeTicketsCountLabel;
     private Project project;
 
-    public ProjectElementController(Controller controller, Pane parent, Project project) throws IOException {
+    public ProjectElement(Controller controller, Pane parent, Project project) throws IOException {
         super("project_element", controller, parent);
         this.project = project;
         titleLabel.setText(project.getName());

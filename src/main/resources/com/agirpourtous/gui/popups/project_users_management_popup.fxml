@@ -2,8 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox alignment="CENTER" prefHeight="341.0" prefWidth="534.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1"
-      xmlns:fx="http://javafx.com/fxml/1">
+<?import org.controlsfx.control.CheckComboBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="341.0" prefWidth="534.0" spacing="30.0"
+      xmlns="http://javafx.com/javafx/11.0.1">
     <Label text="Gestion des Utilisateurs"/>
     <GridPane hgap="10.0" vgap="10.0">
         <columnConstraints>
@@ -17,14 +18,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <Label fx:id="utilisateur" text="Utilisateurs non membre :"/>
-        <ChoiceBox fx:id="usersNotMemberList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"/>
+        <Label text="Utilisateurs non membre :"/>
+        <CheckComboBox fx:id="usersNotMemberList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"/>
         <Button mnemonicParsing="false" onAction="#onAddUsersClick" text="Ajouter les users" GridPane.columnIndex="2"/>
         <Button mnemonicParsing="false" onAction="#onRemoveUsersClick" text="Retirer les users" GridPane.columnIndex="2"
                 GridPane.rowIndex="1"/>
         <Label text="Membre du projet :" GridPane.rowIndex="1"/>
-        <ChoiceBox fx:id="usersMemberList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"
-                  GridPane.rowIndex="1"/>
+        <CheckComboBox fx:id="usersMemberList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
         <Button mnemonicParsing="false" onAction="#onAddAdminClick" text="Ajouter admin" GridPane.columnIndex="2"
                 GridPane.rowIndex="2"/>
         <Button mnemonicParsing="false" onAction="#onRemoveAdminClick" text="Retirer admin" GridPane.columnIndex="2"
@@ -32,9 +33,9 @@
         <Label text="Utilisateur non admin :" GridPane.rowIndex="2"/>
         <Label text="Admin du projet" GridPane.rowIndex="3"/>
         <ComboBox fx:id="usersAdminList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"
-                   GridPane.rowIndex="3"/>
+                  GridPane.rowIndex="3"/>
         <ComboBox fx:id="usersNotAdminList" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1"
-                   GridPane.rowIndex="2"/>
+                  GridPane.rowIndex="2"/>
     </GridPane>
     <Button mnemonicParsing="false" onAction="#close" text="Fermer"/>
 </VBox>
