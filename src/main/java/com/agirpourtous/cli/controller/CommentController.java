@@ -4,6 +4,7 @@ import com.agirpourtous.cli.menus.CommentMenu;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
+import com.agirpourtous.core.models.Ticket;
 
 import java.util.Scanner;
 
@@ -38,8 +39,6 @@ public class CommentController {
 
     public void updateComment(APIClient client) {
         String idComment = null;
-        String idTicket = null;
-        String userId = null;
         String text = null;
 
         System.out.println("Insert id of the Comment you want to update : ");
@@ -53,31 +52,22 @@ public class CommentController {
             Comment comment = client.getCommentService().findById(idComment).block();
 
             if (comment != null){
+                if (isAdminProject(client, comment) || comment.getUserId().equals(client.getUser().getId())){
 
-                System.out.println("Insert new ticket id (enter to keep " + comment.getTicketId() +" ) : ");
-                idTicket = SCANNER.next();
-                if (idTicket == null){
-                    idTicket = comment.getTicketId();
+                    System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
+                    text = SCANNER.next();
+                    if (text == null){
+                        text = comment.getText();
+                    }
+
+                    AddCommentRequest addCommentRequest = new AddCommentRequest(text);
+                    try {
+                        client.getCommentService().update(idComment, addCommentRequest).block();
+                    }catch (Exception e){
+                        System.out.println("An Error occur whil updating comment ");
+                    }
                 }
 
-                System.out.println("Insert new User id (enter to keep " + comment.getUserId() +" ) : ");
-                userId = SCANNER.next();
-                if (userId == null){
-                    userId = comment.getUserId();
-                }
-
-                System.out.println("Insert new text (enter to keep : \n" + comment.getText() +" \n) : ");
-                text = SCANNER.next();
-                if (text == null){
-                    text = comment.getText();
-                }
-
-                AddCommentRequest addCommentRequest = new AddCommentRequest(idTicket,userId,text);
-                try {
-                    client.getCommentService().update(idComment, addCommentRequest).block();
-                }catch (Exception e){
-                    System.out.println("An Error occur whil updating comment ");
-                }
             }
         }catch (Exception e){
             System.out.println("There is no comment with the given id");
@@ -94,12 +84,27 @@ public class CommentController {
             idComment = SCANNER.next();
         }
 
-        try {
-            client.getCommentService().delete(idComment);
-        }catch (Exception e){
+        Comment comment = client.getCommentService().findById(idComment).block();
+        if (comment != null){
+            if (isAdminProject(client, comment) || comment.getUserId().equals(client.getUser().getId())){
+                client.getCommentService().delete(idComment);
+            }else{
+                System.out.println("You are not admin or the creator of the comment");
+            }
+        }else{
             System.out.println("There is no comment with the given id");
         }
 
         new CommentMenu(client);
+    }
+
+    private boolean isAdminProject(APIClient client, Comment comment) {
+        final boolean[] isGranted = new boolean[1];
+        client.getProjectService().getAdmins(comment.getTicket().getProjectId()).subscribe(user -> {
+            if(user.getId().equals(client.getUser().getId())){
+                isGranted[0] = true;
+            }
+        });
+        return isGranted[0] ;
     }
 }

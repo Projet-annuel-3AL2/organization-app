@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 public class AddTicketRequest {
-    private String projectId;
-    private String creatorId;
+
     private String assigneeId;
     private String title;
     private String description;
@@ -14,9 +13,7 @@ public class AddTicketRequest {
     private float estimatedDuration;
     private int priority;
 
-    public AddTicketRequest(String projectId, String creatorId, String assigneeId, String title, String description, float estimatedDuration, int priority, TicketStatus status) {
-        this.projectId = projectId;
-        this.creatorId = creatorId;
+    public AddTicketRequest( String assigneeId, String title, String description, float estimatedDuration, int priority, TicketStatus status) {
         this.assigneeId = assigneeId;
         this.title = title;
         this.description = description;
@@ -32,22 +29,6 @@ public class AddTicketRequest {
 
     public AddTicketRequest(TicketStatus status) {
         this.status = status;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
     }
 
     public String getAssigneeId() {

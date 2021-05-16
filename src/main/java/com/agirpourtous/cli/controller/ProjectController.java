@@ -36,13 +36,7 @@ public class ProjectController {
         AddProjectRequest addProjectRequest = new AddProjectRequest(projectName);
 
         try {
-
-            Project project = client.getProjectService().create(addProjectRequest).block();
-            if (project != null){
-                client.getProjectService().addAdmin(project.getId(),client.getUser().getId());
-            }else{
-                System.out.println("An Error occur while creating a new Project");
-            }
+            client.getProjectService().create(addProjectRequest).block();
         }catch (Exception e){
             System.out.println("An Error occur while creating a new Project");
         }
@@ -91,7 +85,6 @@ public class ProjectController {
     public void addTicketWithIdTicketAndIdProject(APIClient client) {
 
         String idProject = null;
-        String creatorId = client.getUser().getId();
         String assigneId = null;
         String title = null;
         String description = null;
@@ -107,7 +100,7 @@ public class ProjectController {
         Project project = client.getProjectService().findById(idProject).block();
         if (project != null){
 
-            if (isAdminProject(client, project) || isMemberProject(client, project)){
+            if (isMemberProject(client, project)){
 
                 System.out.println("Insert id of the user you want to assign ticket : ");
 
@@ -139,7 +132,7 @@ public class ProjectController {
                     priority = SCANNER.nextInt();
                 }
 
-                AddTicketRequest addTicketRequest = new AddTicketRequest(idProject,creatorId,assigneId,title,description,estimatedDuration, priority, TicketStatus.OPEN);
+                AddTicketRequest addTicketRequest = new AddTicketRequest(assigneId,title,description,estimatedDuration, priority, TicketStatus.OPEN);
 
                 try {
                     client.getProjectService().addTicket(idProject, addTicketRequest).block();

@@ -110,7 +110,7 @@ public class UserController {
         String firstname = null;
         String mail = null;
         boolean isAdmin = false;
-
+        
         System.out.println("Insert id of User you want to update :");
         while(userId == null){
             userId = SCANNER.next();
