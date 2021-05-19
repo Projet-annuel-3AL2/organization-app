@@ -4,13 +4,14 @@ import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.LoginRequest;
 
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ConnectionController {
     private final static Scanner SCANNER = new Scanner(System.in);
     private LoginRequest loginRequest;
 
     public boolean start(APIClient client) {
-        boolean loopBreack = false;
+        AtomicBoolean loopBreack = new AtomicBoolean(false);
 
         do {
             System.out.println("Insert your Username : ");
@@ -31,15 +32,13 @@ public class ConnectionController {
 
             loginRequest = new LoginRequest(username, password);
 
-            try {
-                client.connect(loginRequest);
-                loopBreack = true;
-
-            } catch (Exception e) {
+            client.connect(loginRequest).doOnSuccess(response ->{
+                loopBreack.set(true);
+            }).doOnError(response ->{
                 System.out.println("Username/Password aren't in dataBase");
-            }
+            }).block() ;
 
-        } while (!loopBreack);
+        } while (!loopBreack.get());
 
         System.out.println("You are connected ");
         return true;
