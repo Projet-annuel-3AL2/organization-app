@@ -70,4 +70,12 @@ public class AddTicketRequest {
     public void setPriority(int priority) {
         this.priority = priority;
     }
+
+    public TicketStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
+    }
 }
