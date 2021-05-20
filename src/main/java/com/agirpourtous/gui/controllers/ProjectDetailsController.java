@@ -1,7 +1,7 @@
 package com.agirpourtous.gui.controllers;
 
 import com.agirpourtous.core.api.APIClient;
-import com.agirpourtous.core.api.requests.UpdateTicketRequest;
+import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.TicketStatus;
@@ -137,7 +137,7 @@ public class ProjectDetailsController extends Controller {
 
     private void updateTicket(String ticketId, TicketStatus status) {
         client.getTicketService()
-                .update(ticketId, new UpdateTicketRequest(status))
+                .update(ticketId, new AddTicketRequest(status))
                 .subscribe();
     }
 

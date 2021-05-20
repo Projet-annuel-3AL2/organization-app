@@ -30,11 +30,11 @@ public class ProjectService extends Service<Project> {
                 .bodyToMono(type);
     }
 
-    public Mono<Project> update(String id, Project project) {
+    public Mono<Project> update(String id, AddProjectRequest addProjectRequest) {
         return client.getClient().put()
                 .uri(baseRoute + id)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(project), type)
+                .body(Mono.just(addProjectRequest), type)
                 .retrieve()
                 .bodyToMono(type);
     }
