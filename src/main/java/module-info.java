@@ -19,11 +19,13 @@ module com.agirpourtous {
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
     opens com.agirpourtous.gui;
+    opens com.agirpourtous.gui.plugin;
     exports com.agirpourtous.core.models;
     exports com.agirpourtous.core.api;
     exports com.agirpourtous.core.api.requests;
     exports com.agirpourtous.core.api.services;
     exports com.agirpourtous.gui;
+    exports com.agirpourtous.gui.plugin;
     exports com.agirpourtous.gui.controllers;
     exports com.agirpourtous.gui.controllers.elements;
     exports com.agirpourtous.gui.controllers.popups;

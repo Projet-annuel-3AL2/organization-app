@@ -9,6 +9,7 @@ import com.agirpourtous.gui.controllers.elements.TicketDetailsElement;
 import com.agirpourtous.gui.controllers.elements.TicketElement;
 import com.agirpourtous.gui.controllers.popups.CreateTicketPopup;
 import com.agirpourtous.gui.controllers.popups.ProjectUsersManagementPopup;
+import com.agirpourtous.gui.plugin.PluginMenuController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -147,6 +148,11 @@ public class ProjectDetailsController extends Controller {
             event.acceptTransferModes(TransferMode.MOVE);
         }
         event.consume();
+    }
+
+    @FXML
+    public void onPluginAction() throws IOException {
+        new PluginMenuController(this);
     }
 
     public void displayTicketDetails(Ticket ticket) {
