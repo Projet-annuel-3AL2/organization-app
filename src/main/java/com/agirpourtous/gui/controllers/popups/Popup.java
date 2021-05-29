@@ -14,7 +14,7 @@ public abstract class Popup {
     protected Controller controller;
     protected Stage stage;
 
-    Popup(String title, String fxml, Controller controller) throws IOException {
+    public Popup(String title, String fxml, Controller controller) throws IOException {
         this.isActive = true;
         this.controller = controller;
         this.stage = new Stage();

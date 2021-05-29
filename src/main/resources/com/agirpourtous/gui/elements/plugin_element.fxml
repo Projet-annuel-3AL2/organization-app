@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox onMouseClicked="#onClick" alignment="CENTER_LEFT" prefHeight="75.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.agirpourtous.gui.plugin.GuiPluginController">
+   <ImageView fx:id="icon" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+      <HBox.margin>
+         <Insets left="10.0" />
+      </HBox.margin>
+   </ImageView>
+   <Region HBox.hgrow="ALWAYS" />
+   <Label fx:id="name" text="Label">
+      <HBox.margin>
+         <Insets right="10.0" />
+      </HBox.margin></Label>
+</HBox>
