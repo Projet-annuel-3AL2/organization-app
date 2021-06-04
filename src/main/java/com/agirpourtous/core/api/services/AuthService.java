@@ -2,6 +2,7 @@ package com.agirpourtous.core.api.services;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.LoginRequest;
+import com.agirpourtous.core.api.requests.ResetPasswordRequest;
 import com.agirpourtous.core.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,26 @@ public class AuthService extends Service<User> {
     public Mono<Void> logout() {
         return client.getClient().delete()
                 .uri(baseRoute + "/logout")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .log();
+    }
+
+    public Mono<Void> resetPassword(String token, ResetPasswordRequest resetPasswordRequest) {
+        return client.getClient().post()
+                .uri(baseRoute + "/reset-password/" + token)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(resetPasswordRequest), ResetPasswordRequest.class)
+                .retrieve()
+                .bodyToMono(Void.class)
+                .log();
+    }
+
+    public Mono<Void> forgotPassword(String username) {
+        return client.getClient().get()
+                .uri(baseRoute + "/forgot-password/" + username)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Void.class)
