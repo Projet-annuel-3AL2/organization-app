@@ -26,7 +26,7 @@ public class ConnexionController extends Controller {
         super("connexion", client);
     }
 
-    public ConnexionController(APIClient client, Controller previous) {
+    public ConnexionController(Controller previous) {
         super("connexion", previous);
         client.logout();
     }
@@ -39,7 +39,7 @@ public class ConnexionController extends Controller {
                 .doOnSuccess(response -> Platform.runLater(() -> {
                     client.setStayConnected(keepConnectionCheckBox.isSelected());
                     isActive = false;
-                    new MainMenuController(client, this);
+                    new MainMenuController(this);
                 }))
                 .doOnError(response -> Platform.runLater(() -> connectButton.setDisable(false)))
                 .subscribe();
@@ -47,6 +47,7 @@ public class ConnexionController extends Controller {
 
     @FXML
     public void onForgotPasswordClick() {
+        new ForgotPasswordController(this);
     }
 
 }

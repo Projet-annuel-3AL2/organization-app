@@ -1,6 +1,5 @@
 package com.agirpourtous.gui.controllers;
 
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.gui.controllers.elements.ProjectElement;
 import com.agirpourtous.gui.controllers.popups.CreateProjectPopup;
@@ -37,7 +36,7 @@ public class MainMenuController extends Controller {
     @FXML
     public VBox adminPane;
 
-    public MainMenuController(APIClient client, Controller controller) {
+    public MainMenuController(Controller controller) {
         super("main_menu", controller);
         this.usernameLabel.setText(client.getUser().getUsername());
         this.projects = new HashMap<>();
@@ -72,7 +71,7 @@ public class MainMenuController extends Controller {
 
     @FXML
     public void onDisconnectClick() {
-        new ConnexionController(client, this);
+        new ConnexionController(this);
     }
 
     private void addProject(Project project) {
