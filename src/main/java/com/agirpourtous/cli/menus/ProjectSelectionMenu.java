@@ -13,7 +13,7 @@ public class ProjectSelectionMenu extends Menu {
                 .collect(Collectors.toList())
                 .subscribe(projects -> {
                     if (projects == null || projects.size() <= 0) {
-                        new HomePageMenu(client);
+                        new MainMenu(client);
                         return;
                     }
                     for (Project project : projects) {
@@ -27,7 +27,7 @@ public class ProjectSelectionMenu extends Menu {
                     addAction(new Action("Retour au menu principal") {
                         @Override
                         public void execute() {
-                            new HomePageMenu(client);
+                            new MainMenu(client);
                         }
                     });
                     start();

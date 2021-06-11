@@ -2,15 +2,15 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.core.api.APIClient;
 
-public class HomePageMenu extends Menu {
+public class MainMenu extends Menu {
 
-    public HomePageMenu(APIClient client) {
-        super("Home Page Menu");
+    public MainMenu(APIClient client) {
+        super("Menu principal");
 
         addAction(new Action("Project Menu") {
             @Override
             public void execute() {
-                new ProjectSelectionMenu(client);
+                new ProjectsMenu(client);
             }
         });
 
@@ -25,6 +25,7 @@ public class HomePageMenu extends Menu {
             @Override
             public void execute() {
                 client.close();
+                new AuthMenu();
             }
         });
 

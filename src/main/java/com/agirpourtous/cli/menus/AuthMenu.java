@@ -13,7 +13,7 @@ public class AuthMenu extends Menu {
             public void execute() {
                 client.connect(new AuthForm().askEntries())
                         .onErrorContinue((res, r) -> res.printStackTrace())
-                        .doOnSuccess(res -> new HomePageMenu(client))
+                        .doOnSuccess(res -> new MainMenu(client))
                         .doOnError(res -> new AuthMenu())
                         .block();
             }
