@@ -8,22 +8,29 @@ import java.util.stream.Collectors;
 public class ProjectSelectionMenu extends Menu {
     public ProjectSelectionMenu(APIClient client) {
         super("Selectionnez un projet:");
-        for (Project project : client.getUserService()
+        client.getUserService()
                 .getProjects()
                 .collect(Collectors.toList())
-                .block()) {
-            addAction(new Action(project.getName()) {
-                @Override
-                public void execute() {
-                    new ProjectMenu(client, project);
-                }
-            });
-            addAction(new Action("Retour au menu principal") {
-                @Override
-                public void execute() {
-                    new HomePageMenu(client);
-                }
-            });
-        }
+                .subscribe(projects -> {
+                    if (projects == null || projects.size() <= 0) {
+                        new HomePageMenu(client);
+                        return;
+                    }
+                    for (Project project : projects) {
+                        addAction(new Action(project.getName()) {
+                            @Override
+                            public void execute() {
+                                new ProjectMenu(client, project);
+                            }
+                        });
+                    }
+                    addAction(new Action("Retour au menu principal") {
+                        @Override
+                        public void execute() {
+                            new HomePageMenu(client);
+                        }
+                    });
+                    start();
+                });
     }
 }
