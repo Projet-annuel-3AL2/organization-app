@@ -76,10 +76,6 @@ public class APIClient {
         return userService;
     }
 
-    public AuthService getAuthService() {
-        return authService;
-    }
-
     public ProjectService getProjectService() {
         return projectService;
     }

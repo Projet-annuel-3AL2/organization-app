@@ -11,11 +11,11 @@ public class AuthMenu extends Menu {
         addAction(new Action("Authentification") {
             @Override
             public void execute() {
-                client.getAuthService()
-                        .login(new AuthForm().askEntries())
+                client.connect(new AuthForm().askEntries())
+                        .onErrorContinue((res, r) -> res.printStackTrace())
                         .doOnSuccess(res -> new HomePageMenu(client))
                         .doOnError(res -> new AuthMenu())
-                        .subscribe();
+                        .block();
             }
         });
 
