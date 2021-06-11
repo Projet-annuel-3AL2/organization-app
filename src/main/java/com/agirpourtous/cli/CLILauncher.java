@@ -8,11 +8,10 @@ public class CLILauncher {
 
     public void start() {
         System.out.println("Start in CLI mode");
-        client = new APIClient();
-        new AuthMenu(client);
+        new AuthMenu();
     }
 
-    public void stop() throws Exception {
+    public void stop()  {
 
         client.close();
     }

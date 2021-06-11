@@ -10,7 +10,7 @@ public class HomePageMenu extends Menu {
         addAction(new Action("Project Menu") {
             @Override
             public void execute() {
-                new ProjectMenu(client);
+                new ProjectSelectionMenu(client);
             }
         });
 
@@ -18,20 +18,6 @@ public class HomePageMenu extends Menu {
             @Override
             public void execute() {
                 new UserMenu(client);
-            }
-        });
-
-        addAction(new Action("Ticket Menu") {
-            @Override
-            public void execute() {
-                new TicketMenu(client);
-            }
-        });
-
-        addAction(new Action("Comment Menu") {
-            @Override
-            public void execute() {
-                new CommentMenu(client);
             }
         });
 
