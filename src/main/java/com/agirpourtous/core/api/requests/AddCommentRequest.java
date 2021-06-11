@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 
 @JsonAutoDetect
-public class AddCommentRequest {
+public class AddCommentRequest implements Request {
     private String text;
 
     public AddCommentRequest() {

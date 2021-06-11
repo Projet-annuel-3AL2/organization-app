@@ -4,7 +4,7 @@ import com.agirpourtous.core.models.TicketStatus;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class AddTicketRequest {
+public class AddTicketRequest implements Request {
 
     private String assigneeId;
     private String title;
