@@ -1,6 +1,8 @@
 package com.agirpourtous.core.models;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
@@ -9,7 +11,7 @@ public class User extends Entity {
     private final ArrayList<Ticket> createdTickets;
     private final ArrayList<Ticket> assignedTickets;
     private final ArrayList<Comment> comments;
-    private boolean isAdmin;
+    private boolean admin;
     private String username;
     private String lastname;
     private String firstname;
@@ -35,7 +37,7 @@ public class User extends Entity {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public String getUsername() {
