@@ -6,6 +6,7 @@ import com.agirpourtous.cli.menus.list.ProjectMemberListMenu;
 import com.agirpourtous.cli.menus.list.ProjectNonAdminListMenu;
 import com.agirpourtous.cli.menus.list.ProjectNonMemberListMenu;
 import com.agirpourtous.core.models.Project;
+import com.agirpourtous.core.models.User;
 
 public class ProjectUsersMenu extends Menu {
     protected static final int id = 0;
@@ -15,8 +16,12 @@ public class ProjectUsersMenu extends Menu {
         addAction(new Action("Ajouter un utilisateur au projet") {
             @Override
             public void execute() {
+                User user = (User) new ProjectNonMemberListMenu(launcher, project).startList();
+                if (user == null) {
+                    return;
+                }
                 launcher.getClient().getProjectService()
-                        .addMember(project.getId(), new ProjectNonMemberListMenu(launcher, project).startList().getId())
+                        .addMember(project.getId(), user.getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
                         .subscribe();
             }
@@ -24,8 +29,12 @@ public class ProjectUsersMenu extends Menu {
         addAction(new Action("Retirer un utilisateur du projet") {
             @Override
             public void execute() {
+                User user = (User) new ProjectMemberListMenu(launcher, project).startList();
+                if (user == null) {
+                    return;
+                }
                 launcher.getClient().getProjectService()
-                        .removeMember(project.getId(), new ProjectMemberListMenu(launcher, project).startList().getId())
+                        .removeMember(project.getId(), user.getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
                         .subscribe();
             }
@@ -33,8 +42,12 @@ public class ProjectUsersMenu extends Menu {
         addAction(new Action("Ajouter un administrateur au projet") {
             @Override
             public void execute() {
+                User user = (User) new ProjectNonAdminListMenu(launcher, project).startList();
+                if (user == null) {
+                    return;
+                }
                 launcher.getClient().getProjectService()
-                        .removeAdmin(project.getId(), new ProjectNonAdminListMenu(launcher, project).startList().getId())
+                        .removeAdmin(project.getId(), user.getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
                         .subscribe();
             }
@@ -42,8 +55,12 @@ public class ProjectUsersMenu extends Menu {
         addAction(new Action("Retirer un administrateur du projet") {
             @Override
             public void execute() {
+                User user = (User) new ProjectAdminListMenu(launcher, project).startList();
+                if (user == null) {
+                    return;
+                }
                 launcher.getClient().getProjectService()
-                        .removeAdmin(project.getId(), new ProjectAdminListMenu(launcher, project).startList().getId())
+                        .removeAdmin(project.getId(), user.getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
                         .subscribe();
             }

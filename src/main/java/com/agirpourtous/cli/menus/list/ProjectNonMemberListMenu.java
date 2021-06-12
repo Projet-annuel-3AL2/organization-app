@@ -5,6 +5,7 @@ import com.agirpourtous.core.models.Entity;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectNonMemberListMenu extends ListSelectionMenu {
@@ -17,23 +18,36 @@ public class ProjectNonMemberListMenu extends ListSelectionMenu {
 
     @Override
     protected void loadEntityList() {
-        launcher.getClient().getUserService()
+        try {
+            List<User> members = getMembersList();
+            List<User> users = getUsersList();
+            if (users != null && members != null) {
+                users.removeAll(members);
+                for (User user : users) {
+                    addAction(new ListAction(user.getUsername()) {
+                        @Override
+                        public Entity getEntity() {
+                            return user;
+                        }
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<User> getUsersList() {
+        return launcher.getClient().getUserService()
                 .findAll()
                 .collect(Collectors.toList())
-                .subscribe(users -> launcher.getClient().getProjectService()
-                        .getMembers(project.getId())
-                        .collect(Collectors.toList())
-                        .subscribe(members -> {
-                            users.removeAll(members);
-                            for (User user : users) {
-                                addAction(new ListAction(user.getUsername()) {
-                                    @Override
-                                    public Entity getEntity() {
-                                        return user;
-                                    }
-                                });
+                .block();
+    }
 
-                            }
-                        }));
+    private List<User> getMembersList() {
+        return launcher.getClient().getProjectService()
+                .getMembers(project.getId())
+                .collect(Collectors.toList())
+                .block();
     }
 }
