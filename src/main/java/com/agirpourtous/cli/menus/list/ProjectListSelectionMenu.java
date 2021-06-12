@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class ProjectListSelectionMenu extends ListSelectionMenu {
 
     public ProjectListSelectionMenu(CLILauncher launcher) {
-        super(launcher);
+        super(launcher,"Sélectionnez un projet");
     }
 
     @Override

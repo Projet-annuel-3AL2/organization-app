@@ -6,8 +6,8 @@ import com.agirpourtous.core.models.Entity;
 
 public abstract class ListSelectionMenu extends Menu {
 
-    public ListSelectionMenu(CLILauncher launcher) {
-        super(launcher, "");
+    public ListSelectionMenu(CLILauncher launcher, String display) {
+        super(launcher, display);
         loadEntityList();
         addAction(new ListAction("Retour au menu principal") {
             @Override

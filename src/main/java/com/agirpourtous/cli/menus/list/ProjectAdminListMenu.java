@@ -12,7 +12,7 @@ public class ProjectAdminListMenu extends ListSelectionMenu {
     private final Project project;
 
     public ProjectAdminListMenu(CLILauncher launcher, Project project) {
-        super(launcher);
+        super(launcher,"Sélectionnez un administrateur");
         this.project = project;
     }
 

@@ -37,7 +37,8 @@ public class ProjectMenu extends Menu {
                 public void execute() {
                     launcher.getClient().getProjectService()
                             .delete(project.getId())
-                            .doOnTerminate(() -> new MainMenu(launcher))
+                            .doOnError(err -> launcher.setActiveMenu(new MainMenu(launcher)))
+                            .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
                             .block();
                 }
             });

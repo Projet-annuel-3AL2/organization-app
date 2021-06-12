@@ -12,7 +12,7 @@ public class ProjectNonAdminListMenu extends ListSelectionMenu {
     private final Project project;
 
     public ProjectNonAdminListMenu(CLILauncher launcher, Project project) {
-        super(launcher);
+        super(launcher,"Sélectionnez un membre n'ayant pas les droits d'administration");
         this.project = project;
     }
 

@@ -12,7 +12,7 @@ public class ProjectNonMemberListMenu extends ListSelectionMenu {
     private final Project project;
 
     public ProjectNonMemberListMenu(CLILauncher launcher, Project project) {
-        super(launcher);
+        super(launcher, "Sélectionnez un utilisateur ne faisant pas partie du projet " + project.getName());
         this.project = project;
     }
 
