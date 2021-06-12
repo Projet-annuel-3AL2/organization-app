@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
 public class AddTicketRequest implements Request {
-
-    private String assigneeId;
     private String title;
     private String description;
     private TicketStatus status;
@@ -14,14 +12,6 @@ public class AddTicketRequest implements Request {
     private int priority;
 
     public AddTicketRequest() {
-    }
-
-    public String getAssigneeId() {
-        return assigneeId;
-    }
-
-    public void setAssigneeId(String assigneeId) {
-        this.assigneeId = assigneeId;
     }
 
     public String getTitle() {
