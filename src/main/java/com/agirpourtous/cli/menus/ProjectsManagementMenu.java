@@ -3,7 +3,6 @@ package com.agirpourtous.cli.menus;
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddProjectForm;
 import com.agirpourtous.cli.menus.list.ProjectListSelectionMenu;
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 
 public class ProjectsManagementMenu extends Menu {
@@ -34,5 +33,11 @@ public class ProjectsManagementMenu extends Menu {
                 }
             });
         }
+        addAction(new Action("Retour au menu principal") {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new MainMenu(launcher));
+            }
+        });
     }
 }

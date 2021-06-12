@@ -19,7 +19,7 @@ public class UserMenu extends Menu {
             public void execute() {
                 launcher.getClient().getUserService()
                         .setAdmin(user)
-                        .block();
+                        .subscribe();
             }
         });
         addAction(new Action("Supprimer l'utilisateur") {
@@ -28,7 +28,13 @@ public class UserMenu extends Menu {
                 launcher.getClient().getUserService()
                         .delete(user.getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
-                        .block();
+                        .subscribe();
+            }
+        });
+        addAction(new Action("Retour au menu principal") {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
     }

@@ -18,7 +18,7 @@ public class ProjectUsersMenu extends Menu {
                 launcher.getClient().getProjectService()
                         .addMember(project.getId(), new ProjectNonMemberListMenu(launcher, project).startList().getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
-                        .block();
+                        .subscribe();
             }
         });
         addAction(new Action("Retirer un utilisateur du projet") {
@@ -27,7 +27,7 @@ public class ProjectUsersMenu extends Menu {
                 launcher.getClient().getProjectService()
                         .removeMember(project.getId(), new ProjectMemberListMenu(launcher, project).startList().getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
-                        .block();
+                        .subscribe();
             }
         });
         addAction(new Action("Ajouter un administrateur au projet") {
@@ -36,7 +36,7 @@ public class ProjectUsersMenu extends Menu {
                 launcher.getClient().getProjectService()
                         .removeAdmin(project.getId(), new ProjectNonAdminListMenu(launcher, project).startList().getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
-                        .block();
+                        .subscribe();
             }
         });
         addAction(new Action("Retirer un administrateur du projet") {
@@ -45,7 +45,13 @@ public class ProjectUsersMenu extends Menu {
                 launcher.getClient().getProjectService()
                         .removeAdmin(project.getId(), new ProjectAdminListMenu(launcher, project).startList().getId())
                         .doOnTerminate(() -> launcher.setActiveMenu(new ProjectMenu(launcher, project)))
-                        .block();
+                        .subscribe();
+            }
+        });
+        addAction(new Action("Retour au menu principal") {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
     }

@@ -22,7 +22,7 @@ public abstract class ListSelectionMenu extends Menu {
     }
 
     public Entity startList() {
-        if (actions.size() <= 0) {
+        if (actions.size() <= 1) {
             System.out.println("Il n'y a pour le moment aucun élément à sélectionner");
             return null;
         }

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class ProjectListSelectionMenu extends ListSelectionMenu {
 
     public ProjectListSelectionMenu(CLILauncher launcher) {
-        super(launcher,"Sélectionnez un projet");
+        super(launcher, "Sélectionnez un projet");
     }
 
     @Override
@@ -20,7 +20,6 @@ public class ProjectListSelectionMenu extends ListSelectionMenu {
                 .doOnError(Throwable::printStackTrace)
                 .doOnSuccess(projects -> {
                     for (Project project : projects) {
-                        System.out.println(project.getName());
                         addAction(new ListAction(project.getName()) {
                             @Override
                             public Entity getEntity() {

@@ -2,7 +2,6 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddTicketForm;
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 
 public class ProjectMenu extends Menu {
@@ -13,7 +12,7 @@ public class ProjectMenu extends Menu {
         addAction(new Action("Afficher les tickets") {
             @Override
             public void execute() {
-                new TicketSelectionMenu(launcher);
+                //new TicketSelectionMenu(launcher);
             }
         });
         addAction(new Action("Ajouter un ticket") {
@@ -22,7 +21,7 @@ public class ProjectMenu extends Menu {
                 launcher.getClient().getProjectService()
                         .addTicket(project.getId(), new AddTicketForm().askEntries())
                         .doOnTerminate(() -> start())
-                        .block();
+                        .subscribe();
             }
         });
         if (launcher.getClient().getUser().isAdmin()) {
@@ -39,9 +38,15 @@ public class ProjectMenu extends Menu {
                             .delete(project.getId())
                             .doOnError(err -> launcher.setActiveMenu(new MainMenu(launcher)))
                             .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
-                            .block();
+                            .subscribe();
                 }
             });
         }
+        addAction(new Action("Retour au menu principal") {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new MainMenu(launcher));
+            }
+        });
     }
 }
