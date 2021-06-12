@@ -13,30 +13,38 @@ public class AuthMenu extends Menu {
         addAction(new Action("Authentification") {
             @Override
             public void execute() {
-                launcher.getClient().connect(new AuthForm().askEntries())
-                        .onErrorContinue((res, r) -> res.printStackTrace())
-                        .doOnSuccess(res -> launcher.setActiveMenu(new MainMenu(launcher)))
-                        .doOnError(res -> launcher.setActiveMenu(new AuthMenu(launcher)))
-                        .block();
+                try {
+                    launcher.getClient().connect(new AuthForm().askEntries())
+                            .doOnSuccess(res -> launcher.setActiveMenu(new MainMenu(launcher)))
+                            .doOnError(res -> launcher.setActiveMenu(new AuthMenu(launcher)))
+                            .block();
+                } catch (Exception ignored) {
+                }
             }
         });
         addAction(new Action("Mot de passe oublié ou nouveau compte") {
             @Override
             public void execute() {
-                launcher.getClient().getAuthService()
-                        .forgotPassword(new ForgotPasswordForm().askEntries().getUsername())
-                        .doOnSuccess(res -> System.out.println("Un mail contenant le code de récupération vous a été envoyé"))
-                        .doOnTerminate(() -> launcher.setActiveMenu(new AuthMenu(launcher)))
-                        .block();
+                try {
+                    launcher.getClient().getAuthService()
+                            .forgotPassword(new ForgotPasswordForm().askEntries().getUsername())
+                            .doOnSuccess(res -> System.out.println("Un mail contenant le code de récupération vous a été envoyé"))
+                            .doOnTerminate(() -> launcher.setActiveMenu(new AuthMenu(launcher)))
+                            .block();
+                } catch (Exception ignored) {
+                }
             }
         });
         addAction(new Action("Réinitialiser le mot de passe avec un code de récupération") {
             @Override
             public void execute() {
-                launcher.getClient().getAuthService()
-                        .resetPassword(new ResetPasswordForm().askEntries())
-                        .doOnTerminate(() -> launcher.setActiveMenu(new AuthMenu(launcher)))
-                        .block();
+                try {
+                    launcher.getClient().getAuthService()
+                            .resetPassword(new ResetPasswordForm().askEntries())
+                            .doOnTerminate(() -> launcher.setActiveMenu(new AuthMenu(launcher)))
+                            .block();
+                } catch (Exception ignored) {
+                }
             }
         });
     }
