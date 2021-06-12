@@ -81,7 +81,7 @@ public class ProjectDetailsController extends Controller {
 
     public void onMainMenuButtonClick() {
         isActive = false;
-        new MainMenuController(client, this);
+        new MainMenuController(this);
     }
 
     public void onAddTicketClick() throws IOException {
