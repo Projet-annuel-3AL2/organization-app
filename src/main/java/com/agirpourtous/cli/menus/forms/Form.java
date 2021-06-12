@@ -38,7 +38,7 @@ public abstract class Form {
                 "A-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);
         String str = "";
-        while (str.isBlank() || pat.matcher(str).matches()) {
+        while (str.isBlank() || !pat.matcher(str).matches()) {
             System.out.println(display);
             str = SCANNER.nextLine();
         }
