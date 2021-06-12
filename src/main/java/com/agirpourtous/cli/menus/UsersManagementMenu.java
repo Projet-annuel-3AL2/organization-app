@@ -2,7 +2,7 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddUserForm;
-import com.agirpourtous.cli.menus.list.UserListSelectionMenu;
+import com.agirpourtous.cli.menus.list.UserListMenu;
 import com.agirpourtous.core.models.User;
 
 public class UsersManagementMenu extends Menu {
@@ -14,7 +14,7 @@ public class UsersManagementMenu extends Menu {
         addAction(new Action("Afficher les utilisateurs") {
             @Override
             public void execute() {
-                User user = (User) new UserListSelectionMenu(launcher).startList();
+                User user = (User) new UserListMenu(launcher).startList();
                 if (user != null) {
                     launcher.setActiveMenu(new UserMenu(launcher, user));
                 } else {
