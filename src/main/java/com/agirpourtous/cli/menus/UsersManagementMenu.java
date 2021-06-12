@@ -2,7 +2,10 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddUserForm;
-import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.cli.menus.list.ProjectListSelectionMenu;
+import com.agirpourtous.cli.menus.list.UserListSelectionMenu;
+import com.agirpourtous.core.models.Project;
+import com.agirpourtous.core.models.User;
 
 public class UsersManagementMenu extends Menu {
     protected static final int id = 0;
@@ -13,7 +16,12 @@ public class UsersManagementMenu extends Menu {
         addAction(new Action("Afficher les utilisateurs") {
             @Override
             public void execute() {
-                launcher.setActiveMenu(new UserSelectionMenu(launcher));
+                User user = (User) new UserListSelectionMenu(launcher).startList();
+                if (user != null) {
+                    launcher.setActiveMenu(new UserMenu(launcher, user));
+                } else {
+                    launcher.setActiveMenu(new MainMenu(launcher));
+                }
             }
         });
 
@@ -23,7 +31,13 @@ public class UsersManagementMenu extends Menu {
                 launcher.getClient().getUserService()
                         .create(new AddUserForm().askEntries())
                         .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
-                        .block();
+                        .subscribe();
+            }
+        });
+        addAction(new Action("Retour au menu principal") {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
     }
