@@ -7,17 +7,17 @@ public class MainMenu extends Menu {
     public MainMenu(APIClient client) {
         super("Menu principal");
 
-        addAction(new Action("Project Menu") {
+        /*addAction(new Action("Menu de gestion des projets") {
             @Override
             public void execute() {
-                new ProjectsMenu(client);
+                new ProjectsManagementMenu(client);
             }
-        });
+        });*/
 
-        addAction(new Action("User Menu") {
+        addAction(new Action("Menu de gestion d'utilisateurs") {
             @Override
             public void execute() {
-                new UserMenu(client);
+                new UsersManagementMenu(client);
             }
         });
 
