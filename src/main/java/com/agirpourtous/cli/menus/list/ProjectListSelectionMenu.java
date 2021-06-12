@@ -17,7 +17,6 @@ public class ProjectListSelectionMenu extends ListSelectionMenu {
         launcher.getClient().getUserService()
                 .getProjects()
                 .collect(Collectors.toList())
-                .doOnError(Throwable::printStackTrace)
                 .doOnSuccess(projects -> {
                     for (Project project : projects) {
                         addAction(new ListAction(project.getName()) {

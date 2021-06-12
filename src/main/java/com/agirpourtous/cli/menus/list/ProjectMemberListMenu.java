@@ -5,6 +5,7 @@ import com.agirpourtous.core.models.Entity;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectMemberListMenu extends ListSelectionMenu {
@@ -17,23 +18,27 @@ public class ProjectMemberListMenu extends ListSelectionMenu {
 
     @Override
     protected void loadEntityList() {
-        launcher.getClient().getProjectService()
+        try {
+            List<User> members = getMembers();
+            for (User user : members) {
+                if (user.getId().equals(launcher.getClient().getUser().getId())) {
+                    continue;
+                }
+                addAction(new ListAction(user.getUsername()) {
+                    @Override
+                    public Entity getEntity() {
+                        return user;
+                    }
+                });
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private List<User> getMembers() {
+        return launcher.getClient().getProjectService()
                 .getMembers(project.getId())
                 .collect(Collectors.toList())
-                .doOnSuccess(members -> {
-                    for (User user : members) {
-                        if (user.getId().equals(launcher.getClient().getUser().getId())) {
-                            continue;
-                        }
-                        addAction(new ListAction(user.getUsername()) {
-                            @Override
-                            public Entity getEntity() {
-                                return user;
-                            }
-                        });
-
-                    }
-                })
                 .block();
     }
 }

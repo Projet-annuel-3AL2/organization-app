@@ -35,8 +35,7 @@ public class ProjectNonMemberListMenu extends ListSelectionMenu {
                     });
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 
