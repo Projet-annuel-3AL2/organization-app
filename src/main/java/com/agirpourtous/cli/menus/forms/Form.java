@@ -31,6 +31,15 @@ public abstract class Form {
         return str;
     }
 
+    protected int numberField(String display, int min, int max) {
+        int number = 0;
+        while (number < min && number > max) {
+            System.out.println(display + "(entre " + min + " et " + max + ")");
+            number = SCANNER.nextInt();
+        }
+        return number;
+    }
+
     protected String emailField(String display) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
