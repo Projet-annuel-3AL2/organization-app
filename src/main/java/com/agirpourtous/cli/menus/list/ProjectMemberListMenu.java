@@ -22,6 +22,9 @@ public class ProjectMemberListMenu extends ListSelectionMenu {
                 .collect(Collectors.toList())
                 .doOnSuccess(members -> {
                     for (User user : members) {
+                        if (user.getId().equals(launcher.getClient().getUser().getId())) {
+                            continue;
+                        }
                         addAction(new ListAction(user.getUsername()) {
                             @Override
                             public Entity getEntity() {

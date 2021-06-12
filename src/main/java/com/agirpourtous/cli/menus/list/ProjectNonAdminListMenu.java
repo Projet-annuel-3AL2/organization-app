@@ -26,6 +26,9 @@ public class ProjectNonAdminListMenu extends ListSelectionMenu {
                         .subscribe(admins -> {
                             members.removeAll(admins);
                             for (User user : members) {
+                                if (user.getId().equals(launcher.getClient().getUser().getId())) {
+                                    continue;
+                                }
                                 addAction(new ListAction(user.getUsername()) {
                                     @Override
                                     public Entity getEntity() {

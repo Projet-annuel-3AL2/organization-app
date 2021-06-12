@@ -24,6 +24,9 @@ public class ProjectNonMemberListMenu extends ListSelectionMenu {
             if (users != null && members != null) {
                 users.removeAll(members);
                 for (User user : users) {
+                    if (user.getId().equals(launcher.getClient().getUser().getId())) {
+                        continue;
+                    }
                     addAction(new ListAction(user.getUsername()) {
                         @Override
                         public Entity getEntity() {
