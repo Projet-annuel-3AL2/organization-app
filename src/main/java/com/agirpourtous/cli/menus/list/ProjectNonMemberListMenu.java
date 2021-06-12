@@ -27,7 +27,7 @@ public class ProjectNonMemberListMenu extends ListSelectionMenu {
                         .subscribe(members -> {
                             users.removeAll(members);
                             for (User user : users) {
-                                actions.add(new ListAction(user.getUsername()) {
+                                addAction(new ListAction(user.getUsername()) {
                                     @Override
                                     public Entity getEntity() {
                                         return user;

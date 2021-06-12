@@ -23,7 +23,7 @@ public class ProjectAdminListMenu extends ListSelectionMenu {
                 .collect(Collectors.toList())
                 .doOnSuccess(members -> {
                     for (User user : members) {
-                        actions.add(new ListAction(user.getUsername()) {
+                        addAction(new ListAction(user.getUsername()) {
                             @Override
                             public Entity getEntity() {
                                 return user;

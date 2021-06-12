@@ -10,7 +10,7 @@ public abstract class Menu {
     protected final Scanner SCANNER = new Scanner(System.in);
     protected final CLILauncher launcher;
     private final String menuName;
-    private final ArrayList<Action> actions;
+    protected final ArrayList<Action> actions;
 
     public Menu(CLILauncher launcher, String menuName) {
         this.launcher = launcher;

@@ -1,7 +1,6 @@
 package com.agirpourtous.cli.menus.list;
 
 import com.agirpourtous.cli.CLILauncher;
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Entity;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
@@ -23,7 +22,7 @@ public class ProjectMemberListMenu extends ListSelectionMenu {
                 .collect(Collectors.toList())
                 .doOnSuccess(members -> {
                     for (User user : members) {
-                        actions.add(new ListAction(user.getUsername()) {
+                        addAction(new ListAction(user.getUsername()) {
                             @Override
                             public Entity getEntity() {
                                 return user;
