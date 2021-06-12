@@ -2,7 +2,9 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddTicketForm;
+import com.agirpourtous.cli.menus.list.ProjectTicketsListMenu;
 import com.agirpourtous.core.models.Project;
+import com.agirpourtous.core.models.Ticket;
 
 public class ProjectMenu extends Menu {
     protected static final int id = 0;
@@ -12,7 +14,11 @@ public class ProjectMenu extends Menu {
         addAction(new Action("Afficher les tickets") {
             @Override
             public void execute() {
-                //new TicketSelectionMenu(launcher);
+                Ticket ticket = (Ticket) new ProjectTicketsListMenu(launcher,project).startList();
+                if(ticket == null){
+                    return;
+                }
+                launcher.setActiveMenu(new TicketMenu(launcher, ticket));
             }
         });
         addAction(new Action("Ajouter un ticket") {
