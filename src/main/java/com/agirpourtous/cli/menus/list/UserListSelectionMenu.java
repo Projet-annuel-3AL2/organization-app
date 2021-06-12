@@ -20,7 +20,7 @@ public class UserListSelectionMenu extends ListSelectionMenu {
                 .doOnError(Throwable::printStackTrace)
                 .doOnSuccess(projects -> {
                     for (User user : projects) {
-                        if(user.getId().equals(launcher.getClient().getUser().getId())){
+                        if (user.getId().equals(launcher.getClient().getUser().getId())) {
                             continue;
                         }
                         addAction(new ListAction(user.getUsername()) {

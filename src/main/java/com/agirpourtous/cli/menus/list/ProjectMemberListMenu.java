@@ -11,7 +11,7 @@ public class ProjectMemberListMenu extends ListSelectionMenu {
     private final Project project;
 
     public ProjectMemberListMenu(CLILauncher launcher, Project project) {
-        super(launcher,"Sélectionnez un membre du projet " + project.getName());
+        super(launcher, "Sélectionnez un membre du projet " + project.getName());
         this.project = project;
     }
 

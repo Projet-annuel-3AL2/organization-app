@@ -1,7 +1,6 @@
 package com.agirpourtous.cli.menus.list;
 
 import com.agirpourtous.cli.CLILauncher;
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Entity;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;

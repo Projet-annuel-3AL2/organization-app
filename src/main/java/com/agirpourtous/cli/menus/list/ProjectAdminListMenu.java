@@ -1,7 +1,6 @@
 package com.agirpourtous.cli.menus.list;
 
 import com.agirpourtous.cli.CLILauncher;
-import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Entity;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
@@ -12,7 +11,7 @@ public class ProjectAdminListMenu extends ListSelectionMenu {
     private final Project project;
 
     public ProjectAdminListMenu(CLILauncher launcher, Project project) {
-        super(launcher,"Sélectionnez un administrateur");
+        super(launcher, "Sélectionnez un administrateur");
         this.project = project;
     }
 

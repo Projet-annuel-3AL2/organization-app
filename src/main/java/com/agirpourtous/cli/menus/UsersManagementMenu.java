@@ -2,9 +2,7 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddUserForm;
-import com.agirpourtous.cli.menus.list.ProjectListSelectionMenu;
 import com.agirpourtous.cli.menus.list.UserListSelectionMenu;
-import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
 
 public class UsersManagementMenu extends Menu {
