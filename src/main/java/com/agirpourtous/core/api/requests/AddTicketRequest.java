@@ -13,22 +13,7 @@ public class AddTicketRequest implements Request {
     private float estimatedDuration;
     private int priority;
 
-    public AddTicketRequest(String assigneeId, String title, String description, float estimatedDuration, int priority, TicketStatus status) {
-        this.assigneeId = assigneeId;
-        this.title = title;
-        this.description = description;
-        this.estimatedDuration = estimatedDuration;
-        this.priority = priority;
-        this.status = status;
-    }
-
-    public AddTicketRequest(String text, String text1) {
-        this.title = text;
-        this.description = text1;
-    }
-
-    public AddTicketRequest(TicketStatus status) {
-        this.status = status;
+    public AddTicketRequest() {
     }
 
     public String getAssigneeId() {

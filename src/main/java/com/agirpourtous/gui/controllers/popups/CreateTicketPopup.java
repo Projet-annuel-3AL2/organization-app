@@ -18,12 +18,14 @@ public class CreateTicketPopup extends Popup {
     }
 
     public void onCreateClick() {
+        AddTicketRequest addTicketRequest = new AddTicketRequest();
+        addTicketRequest.setTitle(nameField.getText());
+        addTicketRequest.setDescription(descriptionField.getText());
         controller.getClient()
                 .getProjectService()
                 .addTicket(((ProjectDetailsController) controller)
-                                .getProject()
-                                .getId(),
-                        new AddTicketRequest(nameField.getText(), descriptionField.getText()))
+                        .getProject()
+                        .getId(), addTicketRequest)
                 .doOnSuccess(response -> Platform.runLater(this::close))
                 .subscribe();
     }
