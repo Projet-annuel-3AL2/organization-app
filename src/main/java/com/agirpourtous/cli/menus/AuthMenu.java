@@ -17,7 +17,7 @@ public class AuthMenu extends Menu {
                         .onErrorContinue((res, r) -> res.printStackTrace())
                         .doOnSuccess(res -> new MainMenu(client))
                         .doOnError(res -> new AuthMenu())
-                        .block();
+                        .subscribe();
             }
         });
         addAction(new Action("Mot de passe oublié ou nouveau compte") {
@@ -27,7 +27,7 @@ public class AuthMenu extends Menu {
                         .forgotPassword(new ForgotPasswordForm().askEntries().getUsername())
                         .doOnSuccess(res -> System.out.println("Un mail contenant le code de récupération vous a été envoyé"))
                         .doOnTerminate(AuthMenu::new)
-                        .block();
+                        .subscribe();
             }
         });
         addAction(new Action("Réinitialiser le mot de passe avec un code de récupération") {
@@ -36,7 +36,7 @@ public class AuthMenu extends Menu {
                 client.getAuthService()
                         .resetPassword(new ResetPasswordForm().askEntries())
                         .doOnTerminate(AuthMenu::new)
-                        .block();
+                        .subscribe();
             }
         });
 

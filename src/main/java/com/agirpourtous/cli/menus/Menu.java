@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Menu {
-    private final static Scanner SCANNER = new Scanner(System.in);
+    protected final static Scanner SCANNER = new Scanner(System.in);
     private final String menuName;
     private final ArrayList<Action> actions;
 
-    Menu(String menuName) {
+    public Menu(String menuName) {
         this.menuName = menuName;
         actions = new ArrayList<>();
     }
@@ -30,7 +30,7 @@ public abstract class Menu {
         actions.get(getChoice()).execute();
     }
 
-    private int getChoice() {
+    protected int getChoice() {
         int choice = -1;
         while (choice < 0 || choice >= actions.size()) {
             display();
