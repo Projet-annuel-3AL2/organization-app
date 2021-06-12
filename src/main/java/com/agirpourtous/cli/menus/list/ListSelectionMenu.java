@@ -18,13 +18,13 @@ public abstract class ListSelectionMenu extends Menu {
         loadEntityList();
         addAction(new ListAction("Retour au menu principal") {
             @Override
-            public Entity getEntity() {
+            public Object getEntity() {
                 return null;
             }
         });
     }
 
-    public Entity startList() {
+    public Object startList() {
         initActions();
         if (actions.size() <= 1) {
             System.out.println("Il n'y a pour le moment aucun élément à sélectionner");
