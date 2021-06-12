@@ -7,9 +7,9 @@ import com.agirpourtous.core.models.User;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserListSelectionMenu extends ListSelectionMenu {
+public class UserListMenu extends ListSelectionMenu {
 
-    public UserListSelectionMenu(CLILauncher launcher) {
+    public UserListMenu(CLILauncher launcher) {
         super(launcher, "Sélectionnez un utilisateur");
     }
 
