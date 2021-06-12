@@ -14,6 +14,7 @@ module com.agirpourtous {
     requires org.reactivestreams;
     requires com.fasterxml.jackson.core;
     requires org.controlsfx.controls;
+    requires com.fasterxml.jackson.databind;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
