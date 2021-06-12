@@ -1,5 +1,6 @@
 package com.agirpourtous.cli.menus.list;
 
+import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Entity;
 import com.agirpourtous.core.models.Project;
@@ -10,17 +11,17 @@ import java.util.stream.Collectors;
 public class ProjectNonMemberListMenu extends ListSelectionMenu {
     private final Project project;
 
-    public ProjectNonMemberListMenu(APIClient client, Project project) {
-        super(client);
+    public ProjectNonMemberListMenu(CLILauncher launcher, Project project) {
+        super(launcher);
         this.project = project;
     }
 
     @Override
     protected void loadEntityList() {
-        client.getUserService()
+        launcher.getClient().getUserService()
                 .findAll()
                 .collect(Collectors.toList())
-                .subscribe(users -> client.getProjectService()
+                .subscribe(users -> launcher.getClient().getProjectService()
                         .getMembers(project.getId())
                         .collect(Collectors.toList())
                         .subscribe(members -> {

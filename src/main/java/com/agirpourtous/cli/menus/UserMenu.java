@@ -1,11 +1,13 @@
 package com.agirpourtous.cli.menus;
 
-import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.core.models.User;
 
 public class UserMenu extends Menu {
-    UserMenu(APIClient client, User user) {
-        super("Menu de l'utilisateur " + user.getUsername());
+    protected static final int id = 0;
+
+    UserMenu(CLILauncher launcher, User user) {
+        super(launcher, "Menu de l'utilisateur " + user.getUsername());
         String adminRight;
         if (!user.isAdmin()) {
             adminRight = "Ajouter les droits d'administrations";
@@ -15,7 +17,7 @@ public class UserMenu extends Menu {
         addAction(new Action(adminRight) {
             @Override
             public void execute() {
-                client.getUserService()
+                launcher.getClient().getUserService()
                         .setAdmin(user)
                         .block();
             }
@@ -23,12 +25,11 @@ public class UserMenu extends Menu {
         addAction(new Action("Supprimer l'utilisateur") {
             @Override
             public void execute() {
-                client.getUserService()
+                launcher.getClient().getUserService()
                         .delete(user.getId())
-                        .doOnTerminate(() -> new MainMenu(client))
+                        .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
                         .block();
             }
         });
-        start();
     }
 }

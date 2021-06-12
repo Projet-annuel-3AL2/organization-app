@@ -1,16 +1,25 @@
 package com.agirpourtous.cli.menus;
 
+import com.agirpourtous.cli.CLILauncher;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Menu {
-    protected final static Scanner SCANNER = new Scanner(System.in);
+    protected static int id;
+    protected final Scanner SCANNER = new Scanner(System.in);
+    protected final CLILauncher launcher;
     private final String menuName;
     private final ArrayList<Action> actions;
 
-    public Menu(String menuName) {
+    public Menu(CLILauncher launcher, String menuName) {
+        this.launcher = launcher;
         this.menuName = menuName;
         actions = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
     }
 
     private void display() {

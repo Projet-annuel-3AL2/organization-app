@@ -1,44 +1,46 @@
 package com.agirpourtous.cli.menus;
 
+import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddTicketForm;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 
 public class ProjectMenu extends Menu {
-    public ProjectMenu(APIClient client, Project project) {
-        super("Menu du projet " + project.getName());
+    protected static final int id = 0;
+
+    public ProjectMenu(CLILauncher launcher, Project project) {
+        super(launcher, "Menu du projet " + project.getName());
         addAction(new Action("Afficher les tickets") {
             @Override
             public void execute() {
-                new TicketSelectionMenu(client);
+                new TicketSelectionMenu(launcher);
             }
         });
         addAction(new Action("Ajouter un ticket") {
             @Override
             public void execute() {
-                client.getProjectService()
+                launcher.getClient().getProjectService()
                         .addTicket(project.getId(), new AddTicketForm().askEntries())
                         .doOnTerminate(() -> start())
                         .block();
             }
         });
-        if (client.getUser().isAdmin()) {
+        if (launcher.getClient().getUser().isAdmin()) {
             addAction(new Action("Gestion d'utilisateurs") {
                 @Override
                 public void execute() {
-                    new ProjectUsersMenu(client, project);
+                    launcher.setActiveMenu(new ProjectUsersMenu(launcher, project));
                 }
             });
             addAction(new Action("Supprimer le projet") {
                 @Override
                 public void execute() {
-                    client.getProjectService()
+                    launcher.getClient().getProjectService()
                             .delete(project.getId())
-                            .doOnTerminate(() -> new MainMenu(client))
+                            .doOnTerminate(() -> new MainMenu(launcher))
                             .block();
                 }
             });
         }
-        start();
     }
 }

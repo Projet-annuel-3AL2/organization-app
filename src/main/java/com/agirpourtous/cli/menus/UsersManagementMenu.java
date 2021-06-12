@@ -1,29 +1,30 @@
 package com.agirpourtous.cli.menus;
 
+import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AddUserForm;
 import com.agirpourtous.core.api.APIClient;
 
 public class UsersManagementMenu extends Menu {
-    public UsersManagementMenu(APIClient client) {
-        super("Menu des utilisateurs");
+    protected static final int id = 0;
+
+    public UsersManagementMenu(CLILauncher launcher) {
+        super(launcher, "Menu des utilisateurs");
 
         addAction(new Action("Afficher les utilisateurs") {
             @Override
             public void execute() {
-                new UserSelectionMenu(client);
+                launcher.setActiveMenu(new UserSelectionMenu(launcher));
             }
         });
 
         addAction(new Action("Ajouter un utilisateur") {
             @Override
             public void execute() {
-                client.getUserService()
+                launcher.getClient().getUserService()
                         .create(new AddUserForm().askEntries())
-                        .doOnTerminate(() -> new MainMenu(client))
+                        .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
                         .block();
             }
         });
-
-        start();
     }
 }
