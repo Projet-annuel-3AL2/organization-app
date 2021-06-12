@@ -12,8 +12,9 @@ public class UserSelectionMenu extends Menu {
         client.getUserService()
                 .findAll()
                 .collect(Collectors.toList())
+                .doOnError(res -> new MainMenu(client))
                 .subscribe(users -> {
-                    if (users == null || users.size() <= 0) {
+                    if (users == null || users.size() <= 1) {
                         new MainMenu(client);
                         return;
                     }
@@ -36,6 +37,5 @@ public class UserSelectionMenu extends Menu {
                     });
                     start();
                 });
-        start();
     }
 }
