@@ -32,9 +32,13 @@ public abstract class Form {
     }
 
     protected int numberField(String display, int min, int max) {
-        int number = 0;
-        while (number < min && number > max) {
+        int number = -1;
+        while (number < min || number > max) {
             System.out.println(display + "(entre " + min + " et " + max + ")");
+            while (!SCANNER.hasNextInt()) {
+                System.out.println(display + "(entre " + min + " et " + max + ")");
+                SCANNER.next();
+            }
             number = SCANNER.nextInt();
         }
         return number;
