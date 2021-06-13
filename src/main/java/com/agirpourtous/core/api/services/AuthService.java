@@ -36,9 +36,9 @@ public class AuthService extends Service<User> {
                 .log();
     }
 
-    public Mono<Void> resetPassword(String token, ResetPasswordRequest resetPasswordRequest) {
+    public Mono<Void> resetPassword(ResetPasswordRequest resetPasswordRequest) {
         return client.getClient().post()
-                .uri(baseRoute + "/reset-password/" + token)
+                .uri(baseRoute + "/reset-password/" + resetPasswordRequest.getToken())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(resetPasswordRequest), ResetPasswordRequest.class)

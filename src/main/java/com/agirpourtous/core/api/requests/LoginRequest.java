@@ -3,7 +3,7 @@ package com.agirpourtous.core.api.requests;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class LoginRequest {
+public class LoginRequest implements Request {
     private String username;
     private String password;
 

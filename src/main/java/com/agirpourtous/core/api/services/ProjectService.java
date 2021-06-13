@@ -14,6 +14,8 @@ import org.springframework.http.MediaType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.logging.Level;
+
 public class ProjectService extends Service<Project> {
     private static final Logger logger = LoggerFactory.getLogger(ProjectService.class.getName());
 
@@ -24,10 +26,12 @@ public class ProjectService extends Service<Project> {
     public Mono<Project> create(AddProjectRequest addProjectRequest) {
         return client.getClient().post()
                 .uri(baseRoute)
+                .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(addProjectRequest), type)
                 .retrieve()
-                .bodyToMono(type);
+                .bodyToMono(type)
+                .log(null, Level.ALL);
     }
 
     public Mono<Project> update(String id, AddProjectRequest addProjectRequest) {
@@ -108,6 +112,14 @@ public class ProjectService extends Service<Project> {
                 .uri(baseRoute + "/{projectId}/member/", projectId)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(usersManagementRequest), UsersManagementRequest.class)
+                .retrieve()
+                .bodyToMono(Void.class);
+    }
+
+    public Mono<Void> addMember(String projectId, String userId) {
+        return client.getClient().put()
+                .uri(baseRoute + "/{projectId}/member/{userId}", projectId, userId)
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Void.class);
     }

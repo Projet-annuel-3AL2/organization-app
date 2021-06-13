@@ -1,66 +1,40 @@
 package com.agirpourtous.cli.menus;
 
-import com.agirpourtous.cli.controller.UserController;
-import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.cli.CLILauncher;
+import com.agirpourtous.core.models.User;
 
 public class UserMenu extends Menu {
 
-    private final UserController userController = new UserController();
-
-    public UserMenu(APIClient client) {
-        super("User Menu");
-
-        addAction(new Action("Find all Users") {
+    UserMenu(CLILauncher launcher, User user) {
+        super(launcher, "Menu de l'utilisateur " + user.getUsername());
+        String adminRight;
+        if (!user.isAdmin()) {
+            adminRight = "Ajouter les droits d'administrations";
+        } else {
+            adminRight = "Retirer les droits d'administrations";
+        }
+        addAction(new Action(adminRight) {
             @Override
             public void execute() {
-                userController.findAllUser(client);
+                launcher.getClient().getUserService()
+                        .setAdmin(user)
+                        .subscribe();
             }
         });
-
-        addAction(new Action("Find User with Id") {
+        addAction(new Action("Supprimer l'utilisateur") {
             @Override
             public void execute() {
-                userController.findUserById(client);
+                launcher.getClient().getUserService()
+                        .delete(user.getId())
+                        .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
+                        .subscribe();
             }
         });
-
-
-        addAction(new Action("update an User") {
+        addAction(new Action("Retour au menu principal") {
             @Override
             public void execute() {
-                userController.updateUser(client);
+                launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
-
-        addAction(new Action("Delete") {
-            @Override
-            public void execute() {
-                userController.deleteUSer(client);
-            }
-        });
-
-        addAction(new Action("Create User") {
-            @Override
-            public void execute() {
-                userController.createUser(client);
-            }
-        });
-
-        addAction(new Action("Set an Admin") {
-            @Override
-            public void execute() {
-                userController.setANewAdmin(client);
-            }
-        });
-
-
-        addAction(new Action("Return HomePage") {
-            @Override
-            public void execute() {
-                new HomePageMenu(client);
-            }
-        });
-
-        start();
     }
 }
