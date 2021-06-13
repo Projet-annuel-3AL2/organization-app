@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="ticketDetails" alignment="TOP_CENTER" spacing="10.0"
+      xmlns="http://javafx.com/javafx/11.0.1">
+    <VBox alignment="TOP_CENTER" layoutX="4.0" layoutY="14.0" maxHeight="1.7976931348623157E308"
+          maxWidth="1.7976931348623157E308" spacing="2.0" VBox.vgrow="ALWAYS">
+        <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308"
+               text="Title" textAlignment="CENTER" wrapText="true"/>
+        <Separator maxWidth="1.7976931348623157E308"/>
+        <HBox alignment="CENTER" layoutX="10.0" layoutY="34.0" maxWidth="1.7976931348623157E308" spacing="10.0">
+            <Label fx:id="creationDateLabel" prefHeight="17.0" prefWidth="117.0" text="CreationDate" wrapText="true"/>
+            <Label fx:id="priorityLabel" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="56.0" text="priority"
+                   textAlignment="RIGHT" wrapText="true"/>
+        </HBox>
+        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+            <Label fx:id="assigneeLabel" prefHeight="17.0" prefWidth="91.0" text="Assignee" wrapText="true"/>
+            <Label fx:id="creatorLabel" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="82.0" text="Creator"
+                   textAlignment="RIGHT" wrapText="true"/>
+        </HBox>
+        <Label fx:id="descriptionLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
+               maxWidth="1.7976931348623157E308" text="description" textAlignment="CENTER" wrapText="true"/>
+        <Separator prefWidth="200.0"/>
+        <Label text="Comments"/>
+        <ScrollPane centerShape="false" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308" scaleShape="false">
+            <VBox fx:id="commentsVBox" alignment="TOP_CENTER" spacing="5.0"/>
+        </ScrollPane>
+    </VBox>
+    <TextArea fx:id="commentTextArea" maxHeight="150.0" maxWidth="1.7976931348623157E308" minHeight="100.0"
+              minWidth="0.0" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS"/>
+    <Button fx:id="addCommentButton" mnemonicParsing="false" onAction="#onAddCommentClick" text="Add comment"/>
+    <Separator prefWidth="200.0"/>
+    <Button fx:id="closeButton" contentDisplay="CENTER" layoutX="48.0" layoutY="331.0" mnemonicParsing="false"
+            onAction="#close" text="Close"/>
+    <padding>
+        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+    </padding>
+</VBox>
