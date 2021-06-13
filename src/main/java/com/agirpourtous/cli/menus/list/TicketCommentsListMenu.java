@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TicketCommentsListMenu extends ListSelectionMenu {
-    private Ticket ticket;
+    private final Ticket ticket;
 
     public TicketCommentsListMenu(CLILauncher launcher, Ticket ticket) {
         super(launcher, "Choisissez un commentaire");
+        this.ticket = ticket;
     }
 
     @Override
