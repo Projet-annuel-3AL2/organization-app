@@ -24,7 +24,7 @@ public class TicketMenu extends Menu {
         addAction(new Action("Gérer les commentaires") {
             @Override
             public void execute() {
-                launcher.setActiveMenu(new MainMenu(launcher));
+                launcher.setActiveMenu(new CommentManagementMenu(launcher, ticket));
             }
         });
         addAction(new Action("Editer le ticket") {
