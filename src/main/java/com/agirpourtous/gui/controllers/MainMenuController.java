@@ -1,5 +1,6 @@
 package com.agirpourtous.gui.controllers;
 
+import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.gui.controllers.elements.ProjectElement;
 import com.agirpourtous.gui.controllers.popups.CreateProjectPopup;
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MainMenuController extends Controller {
-    private final HashMap<String, ProjectElement> projects;
     @FXML
     public Label usernameLabel;
     @FXML
@@ -35,11 +35,24 @@ public class MainMenuController extends Controller {
     public HBox projectsHBox;
     @FXML
     public VBox adminPane;
+    private HashMap<String, ProjectElement> projects;
 
     public MainMenuController(Controller controller) {
         super("main_menu", controller);
-        this.usernameLabel.setText(client.getUser().getUsername());
+    }
+
+    public MainMenuController(APIClient client) {
+        super("main_menu", client);
+    }
+
+    @FXML
+    public void initialize() {
+        if (client.getUser() == null) {
+            Platform.runLater(() -> new ConnexionController(this));
+            return;
+        }
         this.projects = new HashMap<>();
+        this.usernameLabel.setText(client.getUser().getUsername());
         client.getUserService()
                 .getProjects()
                 .collect(Collectors.toList())

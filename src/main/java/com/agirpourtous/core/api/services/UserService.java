@@ -34,6 +34,14 @@ public class UserService extends Service<User> {
                 .bodyToMono(type);
     }
 
+    public Mono<User> getCurrentUser() {
+        return client.getClient().get()
+                .uri(baseRoute + "/me")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(type);
+    }
+
     public Mono<User> create(AddUserRequest addUserRequest) {
         return client.getClient().post()
                 .uri(baseRoute)
