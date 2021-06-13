@@ -17,7 +17,7 @@ public class TicketManagementMenu extends Menu {
                 if (ticket == null) {
                     return;
                 }
-                launcher.setActiveMenu(new TicketMenu(launcher, ticket));
+                launcher.setActiveMenu(new TicketMenu(launcher, project, ticket));
             }
         });
         addAction(new Action("Ajouter un ticket") {

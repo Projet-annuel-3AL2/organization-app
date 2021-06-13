@@ -1,13 +1,16 @@
 package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
+import com.agirpourtous.cli.menus.list.ProjectMemberListMenu;
 import com.agirpourtous.cli.menus.list.TicketStatusListMenu;
 import com.agirpourtous.core.api.requests.AddTicketRequest;
+import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.TicketStatus;
+import com.agirpourtous.core.models.User;
 
 public class TicketMenu extends Menu {
-    public TicketMenu(CLILauncher launcher, Ticket ticket) {
+    public TicketMenu(CLILauncher launcher, Project project, Ticket ticket) {
         super(launcher, "Menu du ticket " + ticket.getTitle());
 
         addAction(new Action("Changer le status du ticket") {
@@ -27,10 +30,18 @@ public class TicketMenu extends Menu {
                 launcher.setActiveMenu(new CommentManagementMenu(launcher, ticket));
             }
         });
-        addAction(new Action("Editer le ticket") {
+        addAction(new Action("Assigner le ticket à un membre du projet") {
             @Override
             public void execute() {
-                launcher.setActiveMenu(new MainMenu(launcher));
+                User user = (User) new ProjectMemberListMenu(launcher, project).startList();
+                if (user == null) {
+                    launcher.setActiveMenu(new ProjectMenu(launcher, project));
+                    return;
+                }
+                launcher.getClient()
+                        .getTicketService()
+                        .setAssignee(ticket.getId(), user.getId())
+                        .subscribe();
             }
         });
         addAction(new Action("Supprimer le ticket") {
@@ -40,7 +51,13 @@ public class TicketMenu extends Menu {
                         .getTicketService()
                         .delete(ticket.getId())
                         .subscribe();
-                launcher.setActiveMenu(new MainMenu(launcher));
+                launcher.setActiveMenu(new ProjectMenu(launcher, project));
+            }
+        });
+        addAction(new Action("Retour au menu du projet " + project.getName()) {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new ProjectMenu(launcher, project));
             }
         });
         addAction(new Action("Retour au menu principal") {
