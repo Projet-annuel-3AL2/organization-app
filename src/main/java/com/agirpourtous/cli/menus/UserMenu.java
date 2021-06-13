@@ -4,7 +4,6 @@ import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.core.models.User;
 
 public class UserMenu extends Menu {
-    protected static final int id = 0;
 
     UserMenu(CLILauncher launcher, User user) {
         super(launcher, "Menu de l'utilisateur " + user.getUsername());

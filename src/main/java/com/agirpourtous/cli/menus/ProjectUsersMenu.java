@@ -9,7 +9,6 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.User;
 
 public class ProjectUsersMenu extends Menu {
-    protected static final int id = 0;
 
     public ProjectUsersMenu(CLILauncher launcher, Project project) {
         super(launcher, "Gestion des utilisateurs du projet " + project.getName());

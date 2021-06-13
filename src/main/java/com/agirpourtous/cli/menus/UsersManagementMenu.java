@@ -6,7 +6,6 @@ import com.agirpourtous.cli.menus.list.UserListMenu;
 import com.agirpourtous.core.models.User;
 
 public class UsersManagementMenu extends Menu {
-    protected static final int id = 0;
 
     public UsersManagementMenu(CLILauncher launcher) {
         super(launcher, "Menu des utilisateurs");

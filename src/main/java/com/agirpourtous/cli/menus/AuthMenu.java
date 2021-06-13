@@ -6,7 +6,6 @@ import com.agirpourtous.cli.menus.forms.ForgotPasswordForm;
 import com.agirpourtous.cli.menus.forms.ResetPasswordForm;
 
 public class AuthMenu extends Menu {
-    protected static final int id = 0;
 
     public AuthMenu(CLILauncher launcher) {
         super(launcher, "Menu de connexion");

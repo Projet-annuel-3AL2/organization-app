@@ -3,7 +3,6 @@ package com.agirpourtous.cli.menus;
 import com.agirpourtous.cli.CLILauncher;
 
 public class MainMenu extends Menu {
-    protected static final int id = 1;
 
     public MainMenu(CLILauncher launcher) {
         super(launcher, "Menu principal");

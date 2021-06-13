@@ -6,10 +6,9 @@ import com.agirpourtous.cli.menus.list.ProjectListSelectionMenu;
 import com.agirpourtous.core.models.Project;
 
 public class ProjectsManagementMenu extends Menu {
-    protected static final int id = 0;
 
     public ProjectsManagementMenu(CLILauncher launcher) {
-        super(launcher, "Projects menu");
+        super(launcher, "Menu de gestion des projets");
         addAction(new Action("Choisir un projet") {
             @Override
             public void execute() {

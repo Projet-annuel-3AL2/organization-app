@@ -41,6 +41,7 @@ public abstract class Form {
             }
             number = SCANNER.nextInt();
         }
+        SCANNER.next();
         return number;
     }
 

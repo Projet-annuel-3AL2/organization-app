@@ -21,15 +21,25 @@ public class TicketMenu extends Menu {
                         .subscribe();
             }
         });
+        addAction(new Action("Gérer les commentaires") {
+            @Override
+            public void execute() {
+                launcher.setActiveMenu(new MainMenu(launcher));
+            }
+        });
         addAction(new Action("Editer le ticket") {
             @Override
             public void execute() {
                 launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
-        addAction(new Action("Supprimer un ticket") {
+        addAction(new Action("Supprimer le ticket") {
             @Override
             public void execute() {
+                launcher.getClient()
+                        .getTicketService()
+                        .delete(ticket.getId())
+                        .subscribe();
                 launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
