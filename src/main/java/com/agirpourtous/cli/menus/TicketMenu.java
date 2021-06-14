@@ -1,71 +1,70 @@
 package com.agirpourtous.cli.menus;
 
-import com.agirpourtous.cli.controller.TicketController;
-import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.cli.CLILauncher;
+import com.agirpourtous.cli.menus.list.ProjectMemberListMenu;
+import com.agirpourtous.cli.menus.list.TicketStatusListMenu;
+import com.agirpourtous.core.api.requests.AddTicketRequest;
+import com.agirpourtous.core.models.Project;
+import com.agirpourtous.core.models.Ticket;
+import com.agirpourtous.core.models.TicketStatus;
+import com.agirpourtous.core.models.User;
 
 public class TicketMenu extends Menu {
+    public TicketMenu(CLILauncher launcher, Project project, Ticket ticket) {
+        super(launcher, "Menu du ticket " + ticket.getTitle());
 
-    private final TicketController ticketController = new TicketController();
-
-    public TicketMenu(APIClient client) {
-        super("Ticket Menu");
-
-        addAction(new Action("find all") {
+        addAction(new Action("Changer le status du ticket") {
             @Override
             public void execute() {
-                ticketController.getAllTicket(client);
+                AddTicketRequest addTicketRequest = new AddTicketRequest();
+                addTicketRequest.setStatus((TicketStatus) new TicketStatusListMenu(launcher).startList());
+                launcher.getClient()
+                        .getTicketService()
+                        .update(ticket.getId(), addTicketRequest)
+                        .subscribe();
             }
         });
-
-        addAction(new Action("Find ticket by Id Ticket") {
+        addAction(new Action("Gérer les commentaires") {
             @Override
             public void execute() {
-                ticketController.getTicketById(client);
+                launcher.setActiveMenu(new CommentManagementMenu(launcher, ticket));
             }
         });
-
-        addAction(new Action("Delete with Id Ticket") {
+        addAction(new Action("Assigner le ticket à un membre du projet") {
             @Override
             public void execute() {
-                ticketController.removeTicketWithId(client);
+                User user = (User) new ProjectMemberListMenu(launcher, project).startList();
+                if (user == null) {
+                    launcher.setActiveMenu(new ProjectMenu(launcher, project));
+                    return;
+                }
+                launcher.getClient()
+                        .getTicketService()
+                        .setAssignee(ticket.getId(), user.getId())
+                        .subscribe();
             }
         });
-
-        addAction(new Action("update a Ticket") {
+        addAction(new Action("Supprimer le ticket") {
             @Override
             public void execute() {
-                ticketController.updateTicket(client);
+                launcher.getClient()
+                        .getTicketService()
+                        .delete(ticket.getId())
+                        .subscribe();
+                launcher.setActiveMenu(new ProjectMenu(launcher, project));
             }
         });
-
-        addAction(new Action("Set an Assigne to a Ticket") {
+        addAction(new Action("Retour au menu du projet " + project.getName()) {
             @Override
             public void execute() {
-                ticketController.setAssigneeWithIdUserAndIdTicket(client);
+                launcher.setActiveMenu(new ProjectMenu(launcher, project));
             }
         });
-
-        addAction(new Action("Get comment of an ticket") {
+        addAction(new Action("Retour au menu principal") {
             @Override
             public void execute() {
-                ticketController.getCommentOfTicket(client);
+                launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
-
-        addAction(new Action("Add a Comment to a ticket") {
-            @Override
-            public void execute() {
-                ticketController.addCommentToTicket(client);
-            }
-        });
-
-        addAction(new Action("Return HomePage") {
-            @Override
-            public void execute() {
-                new HomePageMenu(client);
-            }
-        });
-
-        start();
     }
 }

@@ -3,7 +3,7 @@ package com.agirpourtous.core.api.requests;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class AddUserRequest {
+public class AddUserRequest implements Request {
     private String username;
     private String mail;
     private String firstname;

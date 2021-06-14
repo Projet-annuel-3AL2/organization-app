@@ -3,7 +3,7 @@ package com.agirpourtous.cli.menus;
 public abstract class Action {
     private final String displayAction;
 
-    Action(String displayAction) {
+    public Action(String displayAction) {
         this.displayAction = displayAction;
     }
 

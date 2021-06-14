@@ -1,99 +1,41 @@
 package com.agirpourtous.cli.menus;
 
-import com.agirpourtous.cli.controller.ProjectController;
-import com.agirpourtous.core.api.APIClient;
+import com.agirpourtous.cli.CLILauncher;
+import com.agirpourtous.core.models.Project;
 
 public class ProjectMenu extends Menu {
-    private final ProjectController projectController = new ProjectController();
 
-    public ProjectMenu(APIClient client) {
-        super("Project Menu");
-
-        addAction(new Action("Show all Project") {
+    public ProjectMenu(CLILauncher launcher, Project project) {
+        super(launcher, "Menu du projet " + project.getName());
+        addAction(new Action("Gérer les tickets") {
             @Override
             public void execute() {
-                projectController.showAllProject(client);
-
+                launcher.setActiveMenu(new TicketManagementMenu(launcher, project));
             }
         });
-
-        addAction(new Action("Create a project") {
+        if (launcher.getClient().getUser().isAdmin()) {
+            addAction(new Action("Gestion d'utilisateurs") {
+                @Override
+                public void execute() {
+                    launcher.setActiveMenu(new ProjectUsersMenu(launcher, project));
+                }
+            });
+            addAction(new Action("Supprimer le projet") {
+                @Override
+                public void execute() {
+                    launcher.getClient().getProjectService()
+                            .delete(project.getId())
+                            .doOnError(err -> launcher.setActiveMenu(new MainMenu(launcher)))
+                            .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
+                            .subscribe();
+                }
+            });
+        }
+        addAction(new Action("Retour au menu principal") {
             @Override
             public void execute() {
-                projectController.createProject(client);
+                launcher.setActiveMenu(new MainMenu(launcher));
             }
         });
-
-        addAction(new Action("Update a project") {
-            @Override
-            public void execute() {
-                projectController.updateProject(client);
-            }
-        });
-
-        addAction(new Action("Delete ad project") {
-            @Override
-            public void execute() {
-                projectController.deleteProject(client);
-            }
-        });
-
-        addAction(new Action("Find project By ID") {
-            @Override
-            public void execute() {
-                projectController.findProjectById(client);
-            }
-        });
-
-        addAction(new Action("Get Members of a project with ID Project") {
-            @Override
-            public void execute() {
-                projectController.getMembersWithIdProject(client);
-            }
-        });
-
-        addAction(new Action("Get Admin of a project with ID Project") {
-            @Override
-            public void execute() {
-                projectController.getAdminsWithIdProject(client);
-            }
-        });
-
-        addAction(new Action("Remove member of a project") {
-            @Override
-            public void execute() {
-                projectController.removeMemberWithIdProjectAndIdMember(client);
-            }
-        });
-
-        addAction(new Action("Remove Admin of a project") {
-            @Override
-            public void execute() {
-                projectController.removeAdminWithIdProject(client);
-            }
-        });
-
-        addAction(new Action("Get All ticket of a project") {
-            @Override
-            public void execute() {
-                projectController.GetAllTicketWithIdProject(client);
-            }
-        });
-
-        addAction(new Action("Add Ticket to a project") {
-            @Override
-            public void execute() {
-                projectController.addTicketWithIdTicketAndIdProject(client);
-            }
-        });
-
-        addAction(new Action("Return HomePage") {
-            @Override
-            public void execute() {
-                new HomePageMenu(client);
-            }
-        });
-
-        start();
     }
 }

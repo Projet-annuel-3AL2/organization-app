@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.List;
 
 @JsonAutoDetect
-public class UsersManagementRequest {
+public class UsersManagementRequest implements Request {
     private List<String> userIds;
 
     public UsersManagementRequest(List<String> userIds) {

@@ -2,7 +2,7 @@ package com.agirpourtous.core.api.requests;
 
 import com.agirpourtous.core.models.TicketStatus;
 
-public class UpdateTicketRequest {
+public class UpdateTicketRequest implements Request {
     private TicketStatus status;
 
     public UpdateTicketRequest(TicketStatus status) {

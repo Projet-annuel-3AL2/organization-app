@@ -3,24 +3,24 @@ package com.agirpourtous.core.api.requests;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect
-public class LoginRequest implements Request {
-    private String username;
+public class ResetPasswordRequest implements Request {
     private String password;
+    private String token;
 
-    public LoginRequest(String username, String password) {
-        this.username = username;
+    public ResetPasswordRequest(String password, String token) {
         this.password = password;
+        this.token = token;
     }
 
-    public LoginRequest() {
+    public ResetPasswordRequest() {
     }
 
-    public String getUsername() {
-        return username;
+    public String getToken() {
+        return token;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getPassword() {

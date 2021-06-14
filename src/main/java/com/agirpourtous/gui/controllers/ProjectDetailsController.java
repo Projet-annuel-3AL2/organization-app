@@ -82,7 +82,7 @@ public class ProjectDetailsController extends Controller {
 
     public void onMainMenuButtonClick() {
         isActive = false;
-        new MainMenuController(client, this);
+        new MainMenuController(this);
     }
 
     public void onAddTicketClick() throws IOException {
@@ -137,8 +137,10 @@ public class ProjectDetailsController extends Controller {
     }
 
     private void updateTicket(String ticketId, TicketStatus status) {
+        AddTicketRequest addTicketRequest = new AddTicketRequest();
+        addTicketRequest.setStatus(status);
         client.getTicketService()
-                .update(ticketId, new AddTicketRequest(status))
+                .update(ticketId, addTicketRequest)
                 .subscribe();
     }
 

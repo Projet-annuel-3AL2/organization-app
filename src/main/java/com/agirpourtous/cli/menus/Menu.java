@@ -1,21 +1,30 @@
 package com.agirpourtous.cli.menus;
 
+import com.agirpourtous.cli.CLILauncher;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Menu {
-    private final static Scanner SCANNER = new Scanner(System.in);
+    protected static int id;
+    protected final Scanner SCANNER = new Scanner(System.in);
+    protected final CLILauncher launcher;
+    protected final ArrayList<Action> actions;
     private final String menuName;
-    private final ArrayList<Action> actions;
 
-    Menu(String menuName) {
+    public Menu(CLILauncher launcher, String menuName) {
+        this.launcher = launcher;
         this.menuName = menuName;
         actions = new ArrayList<>();
     }
 
+    public int getId() {
+        return id;
+    }
+
     private void display() {
         StringBuilder display = new StringBuilder();
-        display.append(menuName + ":\n");
+        display.append(menuName).append(":\n");
         for (int i = 0; i < actions.size(); i++) {
             display.append(i).append(". ").append(actions.get(i).getDisplayAction()).append("\n");
         }
@@ -30,7 +39,7 @@ public abstract class Menu {
         actions.get(getChoice()).execute();
     }
 
-    private int getChoice() {
+    protected int getChoice() {
         int choice = -1;
         while (choice < 0 || choice >= actions.size()) {
             display();

@@ -9,7 +9,7 @@ public class User extends Entity {
     private final ArrayList<Ticket> createdTickets;
     private final ArrayList<Ticket> assignedTickets;
     private final ArrayList<Comment> comments;
-    private boolean isAdmin;
+    private boolean admin;
     private String username;
     private String lastname;
     private String firstname;
@@ -35,7 +35,7 @@ public class User extends Entity {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public String getUsername() {

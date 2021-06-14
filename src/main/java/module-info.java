@@ -15,6 +15,8 @@ module com.agirpourtous {
     requires com.fasterxml.jackson.core;
     requires org.controlsfx.controls;
     requires org.pf4j;
+    requires com.fasterxml.jackson.databind;
+    requires java.logging;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
