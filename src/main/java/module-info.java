@@ -26,6 +26,10 @@ module com.agirpourtous {
     exports com.agirpourtous.core.api;
     exports com.agirpourtous.core.api.requests;
     exports com.agirpourtous.core.api.services;
+    exports com.agirpourtous.cli;
+    exports com.agirpourtous.cli.menus;
+    exports com.agirpourtous.cli.menus.list;
+    exports com.agirpourtous.cli.menus.forms;
     exports com.agirpourtous.gui;
     exports com.agirpourtous.gui.plugin;
     exports com.agirpourtous.gui.controllers;

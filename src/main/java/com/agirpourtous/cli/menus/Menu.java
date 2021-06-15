@@ -1,16 +1,16 @@
 package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
+import org.pf4j.ExtensionPoint;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Menu {
-    protected static int id;
+public abstract class Menu implements ExtensionPoint {
     protected final Scanner SCANNER = new Scanner(System.in);
-    protected final CLILauncher launcher;
+    protected CLILauncher launcher;
     protected final ArrayList<Action> actions;
-    private final String menuName;
+    private String menuName;
 
     public Menu(CLILauncher launcher, String menuName) {
         this.launcher = launcher;
@@ -18,8 +18,9 @@ public abstract class Menu {
         actions = new ArrayList<>();
     }
 
-    public int getId() {
-        return id;
+    public Menu(String menuName) {
+        this.menuName = menuName;
+        actions = new ArrayList<>();
     }
 
     private void display() {
@@ -50,6 +51,11 @@ public abstract class Menu {
             choice = SCANNER.nextInt();
         }
         return choice;
+    }
+
+    public Menu pluginBuild(CLILauncher launcher) {
+        this.launcher = launcher;
+        return this;
     }
 
     public void addAction(Action action) {
