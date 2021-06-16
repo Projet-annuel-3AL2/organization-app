@@ -20,7 +20,7 @@ public class PluginListMenu extends ListSelectionMenu {
     @Override
     protected void loadEntityList() {
         for (Menu menu : pluginManager.getExtensions(Menu.class)) {
-            addAction(new ListAction("aaaaaa") {
+            addAction(new ListAction(pluginManager.whichPlugin(menu.getClass()).getPluginId()) {
                 @Override
                 public Object getEntity() {
                     return menu;

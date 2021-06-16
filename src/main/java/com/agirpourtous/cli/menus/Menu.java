@@ -10,7 +10,7 @@ public abstract class Menu implements ExtensionPoint {
     protected final Scanner SCANNER = new Scanner(System.in);
     protected CLILauncher launcher;
     protected final ArrayList<Action> actions;
-    private String menuName;
+    private final String menuName;
 
     public Menu(CLILauncher launcher, String menuName) {
         this.launcher = launcher;
