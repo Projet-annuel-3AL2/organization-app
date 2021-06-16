@@ -1,6 +1,7 @@
 package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
+import com.agirpourtous.core.generatePDF.GeneratePDF;
 import com.agirpourtous.core.models.Project;
 
 public class ProjectMenu extends Menu {
@@ -31,6 +32,17 @@ public class ProjectMenu extends Menu {
                 }
             });
         }
+        addAction(new Action("Export Projet en PDF") {
+            @Override
+            public void execute() {
+                launcher.getClient().getProjectService()
+                        .findById(project.getId())
+                        .doOnSuccess(project1 -> {
+                            GeneratePDF.generatePDF(project);
+                        }).doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
+                        .subscribe();
+            }
+        });
         addAction(new Action("Retour au menu principal") {
             @Override
             public void execute() {
