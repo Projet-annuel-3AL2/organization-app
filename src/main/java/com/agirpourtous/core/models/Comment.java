@@ -38,4 +38,13 @@ public class Comment extends Entity {
     public String getUserId() {
         return userId;
     }
+
+    // TODO : A Supprimer
+    public Comment(Ticket ticket, String userId, User user, String text, Date creationDate) {
+        this.ticket = ticket;
+        this.userId = userId;
+        this.user = user;
+        this.text = text;
+        this.creationDate = creationDate;
+    }
 }

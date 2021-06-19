@@ -34,4 +34,12 @@ public class Project extends Entity {
     public String getName() {
         return name;
     }
+
+    //TODO : A supprimer
+    public Project(String name, ArrayList<User> adminsList, ArrayList<User> membersList, ArrayList<Ticket> ticketList){
+        this.admins = adminsList;
+        this.tickets = ticketList;
+        this.members = membersList;
+        this.name = name;
+    }
 }

@@ -32,6 +32,7 @@ public class ProjectMenu extends Menu {
                 }
             });
         }
+        // TODO : Remplacer findById() par un getFullProject()
         addAction(new Action("Export Projet en PDF") {
             @Override
             public void execute() {
@@ -39,6 +40,9 @@ public class ProjectMenu extends Menu {
                         .findById(project.getId())
                         .doOnSuccess(project1 -> {
                             GeneratePDF.generatePDF(project);
+                        })
+                        .doOnError(err -> {
+                            System.out.println(err.toString());
                         }).doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
                         .subscribe();
             }

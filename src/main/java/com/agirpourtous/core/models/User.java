@@ -53,4 +53,16 @@ public class User extends Entity {
     public String getMail() {
         return mail;
     }
+
+    // TODO : A Supprimer
+    public User(Boolean admin, String username, String lastname, String firstname, String mail){
+        this.admin = admin;
+        this.username = username;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.mail = mail;
+        this.assignedTickets = null;
+        this.comments = null;
+        this.createdTickets = null;
+    }
 }

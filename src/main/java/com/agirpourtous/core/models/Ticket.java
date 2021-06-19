@@ -87,4 +87,23 @@ public class Ticket extends Entity {
     public Date getUpdateDate() {
         return updateDate;
     }
+
+    // TODO : A Supprimer
+    public Ticket(ArrayList<Comment> comments, String projectId, Project project, String creatorId, User creator, String assigneeId, User assignee, String title, String description, TicketStatus status, Date creationDate, Date updateDate, Date endDate, float estimatedDuration, int priority) {
+        this.comments = comments;
+        this.projectId = projectId;
+        this.project = project;
+        this.creatorId = creatorId;
+        this.creator = creator;
+        this.assigneeId = assigneeId;
+        this.assignee = assignee;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+        this.endDate = endDate;
+        this.estimatedDuration = estimatedDuration;
+        this.priority = priority;
+    }
 }

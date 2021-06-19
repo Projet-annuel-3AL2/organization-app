@@ -1,9 +1,6 @@
 package com.agirpourtous.core.generatePDF;
 
-import com.agirpourtous.core.models.Comment;
-import com.agirpourtous.core.models.Project;
-import com.agirpourtous.core.models.Ticket;
-import com.agirpourtous.core.models.User;
+import com.agirpourtous.core.models.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -11,44 +8,63 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 public class GeneratePDF {
 
     public static void generatePDF(Project project) {
-        System.out.println(project);
+        //Project project = getFixtureProject();
+
+        System.out.println(project.toString());
 
         Document document = new Document();
 
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/pdf/"+project.getName() + "_" + UUID.randomUUID()));
-            Font fontTitre = FontFactory.getFont(FontFactory.COURIER, 24, BaseColor.BLACK);
-            Font fontText = FontFactory.getFont(FontFactory.COURIER, 14, BaseColor.BLACK);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./pdf/"+project.getName() + "_" + UUID.randomUUID()+".pdf"));
+            Font fontTitre = FontFactory.getFont(FontFactory.COURIER_BOLD, 24, BaseColor.BLACK);
+            Font fontTitre2 = FontFactory.getFont(FontFactory.COURIER_BOLD, 16, BaseColor.BLACK);
+
+            Paragraph vide = new Paragraph(" ");
+
             document.open();
 
             Chunk chunkTitre = new Chunk("Nom du Projet : " + project.getName(), fontTitre);
 
-            Chunk chunkAdmin = new Chunk("List des membres : ", fontText);
+            Chunk chunkAdmin = new Chunk("List des Admins : ", fontTitre2);
             PdfPTable tableAdmin = new PdfPTable(4);
             addTableUserHeader(tableAdmin);
             project.getAdmins().forEach(user -> addRowsMember(tableAdmin, user));
 
-            Chunk chunkMembres = new Chunk("List des membres : ", fontText);
+            Chunk chunkMembres = new Chunk("List des membres : ", fontTitre2);
             PdfPTable tableMembers = new PdfPTable(4);
 
             addTableUserHeader(tableMembers);
             project.getMembers().forEach(user -> addRowsMember(tableMembers, user));
 
-            document.add(chunkTitre);
-            document.add(chunkAdmin);
-            document.add(tableAdmin);
-            document.add(chunkMembres);
-            document.add(tableMembers);
+            Paragraph p1 = new Paragraph();
+            p1.add(chunkTitre);
+            Paragraph p2 = new Paragraph();
+            p2.add(chunkAdmin);
+            p2.add(tableAdmin);
 
-            Chunk chunkListTicket = new Chunk("Liste des tickets : \n");
+            Paragraph p3 = new Paragraph();
+            p3.add(chunkMembres);
+            p3.add(tableMembers);
+
+            document.add(vide);
+            document.add(p1);
+            document.add(vide);
+            document.add(p2);
+            document.add(vide);
+            document.add(p3);
+            document.add(vide);
+
+            Chunk chunkListTicket = new Chunk("Liste des tickets : ", fontTitre2);
             document.add(chunkListTicket);
-
+            document.add(vide);
             project.getTickets().forEach(ticket -> addTicket(document, ticket));
 
             writer.close();
@@ -60,26 +76,27 @@ public class GeneratePDF {
 
     private static void addTicket(Document document, Ticket ticket) {
         Font fontText = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
+        Font fontTextBold = FontFactory.getFont(FontFactory.COURIER_BOLD, 12, BaseColor.BLACK);
+        Paragraph title = new Paragraph( "  Titre : " +ticket.getTitle(), fontTextBold);
+        Paragraph creator = new Paragraph(  "       Créateur : " +ticket.getCreator().getUsername(), fontText);
+        Paragraph assignee = new Paragraph( "       Assignee : " +ticket.getAssignee().getUsername(), fontText);
+        Paragraph status = new Paragraph(   "       Status : " +ticket.getStatus(), fontText);
+        Paragraph description = new Paragraph(  "       Description : " , fontText);
+        Paragraph descriptionText = new Paragraph(ticket.getDescription(), fontText);
+        Paragraph creationDate = new Paragraph( "       Date de création : " + ticket.getCreationDate(), fontText);
+        Paragraph updateDate = new Paragraph(   "       Date de mise à jour : : " + ticket.getCreationDate(), fontText);
+        Paragraph endDate = new Paragraph(  "       Date de fin : " + ticket.getCreationDate(), fontText);
+        Paragraph estimatedDuration = new Paragraph(    "       Durée estimé : " + ticket.getEstimatedDuration(), fontText);
+        Paragraph priority = new Paragraph( "       Priorité : " + ticket.getPriority(), fontText);
+        Paragraph listComment = new Paragraph(  "       List des Commentaires : ", fontText);
+        Paragraph vide = new Paragraph(" ");
 
-        Chunk vide = new Chunk("\n");
-        Chunk title = new Chunk( "Titre : " +ticket.getTitle(), fontText);
-        Chunk creator = new Chunk("Créateur : " +ticket.getCreator().getUsername(), fontText);
-        Chunk assignee = new Chunk("Assignee : " +ticket.getAssignee().getUsername(), fontText);
-        Chunk status = new Chunk("Status : " +ticket.getStatus(), fontText);
-        Chunk description = new Chunk("Description : " + ticket.getDescription(), fontText);
-        Chunk creationDate = new Chunk("Date de création : " + ticket.getCreationDate(), fontText);
-        Chunk updateDate = new Chunk("Date de mise à jour : : " + ticket.getCreationDate(), fontText);
-        Chunk endDate = new Chunk("Date de fin : " + ticket.getCreationDate(), fontText);
-        Chunk estimatedDuration = new Chunk("Durée estimé : " + ticket.getEstimatedDuration(), fontText);
-        Chunk priority = new Chunk("Priorité : " + ticket.getPriority(), fontText);
-
-        Chunk listComment = new Chunk("List des Commentaires : ", fontText);
-        PdfPTable tableComment = new PdfPTable(3);
+        float [] pointColumnWidths = {150F, 300F, 150F};
+        PdfPTable tableComment = new PdfPTable(pointColumnWidths);
         addTableCommentHeader(tableComment);
         ticket.getComments().forEach(comment -> addRowsComment(tableComment, comment));
 
         try {
-            document.add(vide);
             document.add(title);
             document.add(creator);
             document.add(assignee);
@@ -90,8 +107,11 @@ public class GeneratePDF {
             document.add(estimatedDuration);
             document.add(priority);
             document.add(description);
+            document.add(descriptionText);
             document.add(listComment);
+            document.add(vide);
             document.add(tableComment);
+            document.add(vide);
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -100,8 +120,8 @@ public class GeneratePDF {
 
     private static void addRowsComment(PdfPTable tableComment, Comment comment) {
         addCell(tableComment, comment.getUser().getUsername());
+        addTextCell(tableComment, comment.getText());
         addCell(tableComment, comment.getCreationDate().toString());
-        addCell(tableComment, comment.getText());
     }
 
     private static void addTableCommentHeader(PdfPTable tableComment) {
@@ -122,6 +142,12 @@ public class GeneratePDF {
         table.addCell(cell);
     }
 
+    private static void addTextCell(PdfPTable table, String data) {
+        PdfPCell cell = new PdfPCell(new Phrase(data));
+        cell.setHorizontalAlignment(Element.ALIGN_TOP);
+        table.addCell(cell);
+    }
+
     private static void addRowsMember(PdfPTable tableMembers, User user) {
         addCell(tableMembers, user.getUsername());
         addCell(tableMembers, user.getFirstname());
@@ -138,6 +164,37 @@ public class GeneratePDF {
                     header.setPhrase(new Phrase(columnTitle));
                     tableMembers.addCell(header);
                 });
+    }
+
+    // TODO: A Supprimer
+    private static Project getFixtureProject() {
+        ArrayList<User> admins = new ArrayList<>();
+        ArrayList<User> members = new ArrayList<>();
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        ArrayList<Comment> comments = new ArrayList<>();
+
+        User userAdmin = new User(true, "Username", "lastname", "firstname", "jesuisunmail@gmail.com");
+        User user = new User(false, "Username", "lastname", "firstname", "mail");
+        Comment comment = new Comment(null, "1", user, "je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire je suis un text de commentaire", new Date("Wed, 4 Jul 2001 12:08:56"));
+        comments.add(comment);
+        comments.add(comment);
+        comments.add(comment);
+        Ticket ticket = new Ticket(comments,"1",null, "1", user,"1", userAdmin, "ticketTitle", "je suis une description de ticket je suis une description de ticket je suis une description de ticket je suis une description de ticket", TicketStatus.OPEN, new Date("Wed, 4 Jul 2001 12:08:56"), new Date("Wed, 4 Jul 2001 12:08:56"), new Date("Wed, 4 Jul 2001 12:08:56"), 3.5F, 5 );
+
+        tickets.add(ticket);
+        tickets.add(ticket);
+        tickets.add(ticket);
+        tickets.add(ticket);
+
+        admins.add(userAdmin);
+        admins.add(userAdmin);
+
+        members.add(user);
+        members.add(user);
+        members.add(user);
+        members.add(user);
+
+        return new Project("Projet_Test_PDF", admins, members, tickets);
     }
 
 
