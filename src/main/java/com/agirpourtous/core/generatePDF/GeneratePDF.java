@@ -30,6 +30,7 @@ public class GeneratePDF {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./pdf/"+ pdfName));
             Font fontTitre = FontFactory.getFont(FontFactory.COURIER_BOLD, 24, BaseColor.BLACK);
             Font fontTitre2 = FontFactory.getFont(FontFactory.COURIER_BOLD, 16, BaseColor.BLACK);
+            float [] pointColumnWidths = {150F, 150F, 150F, 200F};
 
             Paragraph vide = new Paragraph(" ");
 
@@ -38,12 +39,12 @@ public class GeneratePDF {
             Chunk chunkTitre = new Chunk("Nom du Projet : " + project.getName(), fontTitre);
 
             Chunk chunkAdmin = new Chunk("List des Admins : ", fontTitre2);
-            PdfPTable tableAdmin = new PdfPTable(4);
+            PdfPTable tableAdmin = new PdfPTable(pointColumnWidths);
             addTableUserHeader(tableAdmin);
             project.getAdmins().forEach(user -> addRowsMember(tableAdmin, user));
 
             Chunk chunkMembres = new Chunk("List des membres : ", fontTitre2);
-            PdfPTable tableMembers = new PdfPTable(4);
+            PdfPTable tableMembers = new PdfPTable(pointColumnWidths);
 
             addTableUserHeader(tableMembers);
             project.getMembers().forEach(user -> addRowsMember(tableMembers, user));
