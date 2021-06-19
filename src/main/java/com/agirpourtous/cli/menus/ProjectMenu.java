@@ -41,9 +41,7 @@ public class ProjectMenu extends Menu {
                         .doOnSuccess(project1 -> {
                             GeneratePDF.generatePDF(project);
                         })
-                        .doOnError(err -> {
-                            System.out.println(err.toString());
-                        }).doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
+                        .doOnTerminate(() -> launcher.setActiveMenu(new MainMenu(launcher)))
                         .subscribe();
             }
         });

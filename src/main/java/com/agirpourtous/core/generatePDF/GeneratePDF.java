@@ -8,6 +8,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -19,12 +21,13 @@ public class GeneratePDF {
         // TODO : A Supprimer
         Project project = getFixtureProject();
 
-        System.out.println(project.toString());
-
         Document document = new Document();
 
         try {
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./pdf/"+project.getName() + "_" + UUID.randomUUID()+".pdf"));
+
+            String pdfName = project.getName() + "_" + UUID.randomUUID()+".pdf";
+            System.out.println("Nom du fichierPDF : " + pdfName);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./pdf/"+ pdfName));
             Font fontTitre = FontFactory.getFont(FontFactory.COURIER_BOLD, 24, BaseColor.BLACK);
             Font fontTitre2 = FontFactory.getFont(FontFactory.COURIER_BOLD, 16, BaseColor.BLACK);
 
@@ -69,6 +72,7 @@ public class GeneratePDF {
             project.getTickets().forEach(ticket -> addTicket(document, ticket));
 
             writer.close();
+
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,9 +88,9 @@ public class GeneratePDF {
         Paragraph status = new Paragraph(   "       Status : " +ticket.getStatus(), fontText);
         Paragraph description = new Paragraph(  "       Description : " , fontText);
         Paragraph descriptionText = new Paragraph(ticket.getDescription(), fontText);
-        Paragraph creationDate = new Paragraph( "       Date de création : " + ticket.getCreationDate(), fontText);
-        Paragraph updateDate = new Paragraph(   "       Date de mise à jour : : " + ticket.getCreationDate(), fontText);
-        Paragraph endDate = new Paragraph(  "       Date de fin : " + ticket.getCreationDate(), fontText);
+        Paragraph creationDate = new Paragraph( "       Date de création : " + formatDate(ticket.getCreationDate()), fontText);
+        Paragraph updateDate = new Paragraph(   "       Date de mise à jour : : " + formatDate(ticket.getCreationDate()), fontText);
+        Paragraph endDate = new Paragraph(  "       Date de fin : " + formatDate(ticket.getCreationDate()), fontText);
         Paragraph estimatedDuration = new Paragraph(    "       Durée estimé : " + ticket.getEstimatedDuration(), fontText);
         Paragraph priority = new Paragraph( "       Priorité : " + ticket.getPriority(), fontText);
         Paragraph listComment = new Paragraph(  "       List des Commentaires : ", fontText);
@@ -122,7 +126,7 @@ public class GeneratePDF {
     private static void addRowsComment(PdfPTable tableComment, Comment comment) {
         addCell(tableComment, comment.getUser().getUsername());
         addTextCell(tableComment, comment.getText());
-        addCell(tableComment, comment.getCreationDate().toString());
+        addCell(tableComment, formatDate(comment.getCreationDate()));
     }
 
     private static void addTableCommentHeader(PdfPTable tableComment) {
@@ -165,6 +169,11 @@ public class GeneratePDF {
                     header.setPhrase(new Phrase(columnTitle));
                     tableMembers.addCell(header);
                 });
+    }
+
+    private static String formatDate(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        return dateFormat.format(date);
     }
 
     // TODO: A Supprimer
