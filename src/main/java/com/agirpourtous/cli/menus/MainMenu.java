@@ -28,7 +28,7 @@ public class MainMenu extends Menu {
                 }
             }
         });
-        addAction(new Action("Disconnect") {
+        addAction(new Action("Déconnecter") {
             @Override
             public void execute() {
                 launcher.getClient().logout();
