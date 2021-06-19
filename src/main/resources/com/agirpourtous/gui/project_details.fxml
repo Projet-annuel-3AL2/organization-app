@@ -10,6 +10,7 @@
         <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onMainMenuButtonClick" text="Main menu"/>
         <Button fx:id="addTicketButton" mnemonicParsing="false" onAction="#onAddTicketClick" text="Add ticket"/>
         <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#onAddUserClick" text="Add User"/>
+        <Button fx:id="extractPDFButton" mnemonicParsing="false" onAction="#onExtractPDFClic" text="Extract PDF"/>
     </ToolBar>
     <Label alignment="CENTER" text="Project name" wrapText="true"/>
     <HBox fx:id="ticketsListsHBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308"

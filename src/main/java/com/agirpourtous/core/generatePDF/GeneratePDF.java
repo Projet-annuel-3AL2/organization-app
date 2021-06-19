@@ -15,8 +15,9 @@ import java.util.stream.Stream;
 
 public class GeneratePDF {
 
-    public static void generatePDF(Project project) {
-        //Project project = getFixtureProject();
+    public static void generatePDF(Project proj) {
+        // TODO : A Supprimer
+        Project project = getFixtureProject();
 
         System.out.println(project.toString());
 

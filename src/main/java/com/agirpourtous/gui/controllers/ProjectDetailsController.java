@@ -1,7 +1,9 @@
 package com.agirpourtous.gui.controllers;
 
+import com.agirpourtous.cli.menus.MainMenu;
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.api.requests.AddTicketRequest;
+import com.agirpourtous.core.generatePDF.GeneratePDF;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.TicketStatus;
@@ -36,6 +38,8 @@ public class ProjectDetailsController extends Controller {
     public Button addTicketButton;
     @FXML
     public Button addUserButton;
+    @FXML
+    public Button extractPDFButton;
     @FXML
     public HBox ticketsListsHBox;
     @FXML
@@ -149,6 +153,16 @@ public class ProjectDetailsController extends Controller {
             event.acceptTransferModes(TransferMode.MOVE);
         }
         event.consume();
+    }
+
+    @FXML
+    public void onExtractPDFClic() {
+        client.getProjectService()
+                .findById(project.getId())
+                .doOnSuccess(project1 -> {
+                    GeneratePDF.generatePDF(project);
+                })
+                .subscribe();
     }
 
     public void displayTicketDetails(Ticket ticket) {
