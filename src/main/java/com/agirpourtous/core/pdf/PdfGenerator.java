@@ -30,11 +30,11 @@ public abstract class PdfGenerator {
         document.close();
     }
 
-    public Document generateDocument() throws DocumentException {
-        return generateDocument(this.document);
+    public void generateDocument() throws DocumentException {
+        generateDocument(this.document);
     }
 
-    protected abstract Document generateDocument(Document document) throws DocumentException;
+    protected abstract void generateDocument(Document document) throws DocumentException;
 
     private File getFile() throws IOException {
         File file = new File("./pdf/details_pdf.pdf");

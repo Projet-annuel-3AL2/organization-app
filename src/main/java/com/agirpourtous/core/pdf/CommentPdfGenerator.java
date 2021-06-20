@@ -5,7 +5,6 @@ import com.agirpourtous.core.models.Comment;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
 
 import java.text.SimpleDateFormat;
 
@@ -17,16 +16,9 @@ public class CommentPdfGenerator extends PdfGenerator {
     }
 
     @Override
-    public Document generateDocument() throws DocumentException {
-        getDocument().add(new Chunk(comment.getUser().getUsername(), getTitleFont()));
-        return super.generateDocument();
-    }
-
-    @Override
-    public Document generateDocument(Document document) throws DocumentException {
-        document.add(new Paragraph(comment.getUser().getUsername(), getTextFont()));
-        document.add(new Paragraph(comment.getText(), getTextFont()));
-        document.add(new Paragraph(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(comment.getCreationDate()), getTextFont()));
-        return document;
+    public void generateDocument(Document document) throws DocumentException {
+        document.add(new Chunk(comment.getUser().getUsername(), getTextFont()));
+        document.add(new Chunk(comment.getText(), getTextFont()));
+        document.add(new Chunk(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(comment.getCreationDate()), getTextFont()));
     }
 }
