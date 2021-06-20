@@ -4,8 +4,13 @@ import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.User;
+import com.agirpourtous.core.pdf.ProjectPdfGenerator;
+import com.agirpourtous.core.pdf.TicketPdfGenerator;
 import com.agirpourtous.gui.controllers.Controller;
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -108,6 +113,20 @@ public class TicketDetailsElement extends Element {
                 .getTicketService()
                 .addComment(ticket.getId(), new AddCommentRequest(commentTextArea.getText()))
                 .subscribe();
+    }
+
+    @FXML
+    public void onGeneratePDFClick() {
+        try {
+            new TicketPdfGenerator(controller.getClient(), ticket).generatePdf();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Le fichier PDF a été généré");
+            alert.showAndWait();
+        } catch (IOException | DocumentException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.setHeaderText("Impossible de générer le PDF");
+            alert.showAndWait();
+        }
     }
 
     public Ticket getTicket() {
