@@ -8,6 +8,10 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.TicketStatus;
 import com.agirpourtous.core.models.User;
+import com.agirpourtous.core.pdf.TicketPdfGenerator;
+import com.itextpdf.text.DocumentException;
+
+import java.io.IOException;
 
 public class TicketMenu extends Menu {
     public TicketMenu(CLILauncher launcher, Project project, Ticket ticket) {
@@ -42,6 +46,16 @@ public class TicketMenu extends Menu {
                         .getTicketService()
                         .setAssignee(ticket.getId(), user.getId())
                         .subscribe();
+            }
+        });
+        addAction(new Action("Exporter sous format PDF") {
+            @Override
+            public void execute() {
+                try {
+                    new TicketPdfGenerator(launcher.getClient(), ticket).generatePdf();
+                } catch (DocumentException | IOException e) {
+                    System.out.println("Erreur lors de l'écriture du fichier PDF");
+                }
             }
         });
         addAction(new Action("Supprimer le ticket") {

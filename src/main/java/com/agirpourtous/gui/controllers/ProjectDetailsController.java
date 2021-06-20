@@ -5,12 +5,15 @@ import com.agirpourtous.core.api.requests.AddTicketRequest;
 import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.models.Ticket;
 import com.agirpourtous.core.models.TicketStatus;
+import com.agirpourtous.core.pdf.ProjectPdfGenerator;
 import com.agirpourtous.gui.controllers.elements.TicketDetailsElement;
 import com.agirpourtous.gui.controllers.elements.TicketElement;
 import com.agirpourtous.gui.controllers.popups.CreateTicketPopup;
 import com.agirpourtous.gui.controllers.popups.ProjectUsersManagementPopup;
+import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.*;
@@ -159,6 +162,20 @@ public class ProjectDetailsController extends Controller {
             this.ticketDetails = new TicketDetailsElement(this, ticketsListsHBox, ticket);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onGeneratePDFClick() {
+        try {
+            new ProjectPdfGenerator(client, project).generatePdf();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Le fichier PDF a été généré");
+            alert.showAndWait();
+        } catch (IOException | DocumentException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.setHeaderText("Impossible de générer le PDF");
+            alert.showAndWait();
         }
     }
 
