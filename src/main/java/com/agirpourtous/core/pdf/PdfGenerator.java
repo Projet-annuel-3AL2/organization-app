@@ -7,6 +7,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public abstract class PdfGenerator {
     private final Document document;
@@ -22,14 +25,8 @@ public abstract class PdfGenerator {
         this.textFont = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
     }
 
-    public void generatePdf() throws DocumentException, FileNotFoundException {
-        File file = new File("./pdf/details_pdf.pdf");
-        int increase = 1;
-        while (file.exists()) {
-            increase++;
-            file = new File("./pdf/details_pdf(" + increase + ").pdf");
-        }
-        PdfWriter.getInstance(generateDocument(), new FileOutputStream(file));
+    public void generatePdf() throws DocumentException, IOException {
+        PdfWriter.getInstance(generateDocument(), new FileOutputStream(getFile()));
     }
 
     public Document generateDocument() throws DocumentException {
@@ -37,6 +34,17 @@ public abstract class PdfGenerator {
     }
 
     protected abstract Document generateDocument(Document document) throws DocumentException;
+
+    private File getFile() throws IOException {
+        File file = new File("./pdf/details_pdf.pdf");
+        Files.createDirectories(Path.of("./pdf"));
+        int increase = 1;
+        while (file.exists()) {
+            increase++;
+            file = new File("./pdf/details_pdf(" + increase + ").pdf");
+        }
+        return file;
+    }
 
     protected Font getTitleFont() {
         return titleFont;

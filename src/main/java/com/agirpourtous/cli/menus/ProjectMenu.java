@@ -5,7 +5,7 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.core.pdf.ProjectPdfGenerator;
 import com.itextpdf.text.DocumentException;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ProjectMenu extends Menu {
 
@@ -40,7 +40,7 @@ public class ProjectMenu extends Menu {
             public void execute() {
                 try {
                     new ProjectPdfGenerator(launcher.getClient(), project).generatePdf();
-                } catch (DocumentException | FileNotFoundException e) {
+                } catch (DocumentException | IOException e) {
                     e.printStackTrace();
                     System.out.println("Erreur lors de l'écriture du fichier PDF");
                 }
