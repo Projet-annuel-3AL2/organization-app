@@ -13,10 +13,15 @@ import java.text.SimpleDateFormat;
 public class TicketPdfGenerator extends PdfGenerator {
     private final Ticket ticket;
 
-    public TicketPdfGenerator(APIClient client, Ticket ticket) throws DocumentException {
+    public TicketPdfGenerator(APIClient client, Ticket ticket) {
         super(client);
         this.ticket = ticket;
+    }
+
+    @Override
+    public Document generateDocument() throws DocumentException {
         getDocument().add(new Chunk(ticket.getTitle(), getTitleFont()));
+        return super.generateDocument();
     }
 
     @Override

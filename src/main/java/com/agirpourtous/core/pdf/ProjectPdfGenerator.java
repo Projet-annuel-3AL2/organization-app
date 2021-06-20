@@ -13,7 +13,12 @@ public class ProjectPdfGenerator extends PdfGenerator {
     public ProjectPdfGenerator(APIClient client, Project project) throws DocumentException {
         super(client);
         this.project = project;
+    }
+
+    @Override
+    public Document generateDocument() throws DocumentException {
         getDocument().add(new Chunk(project.getName(), getTitleFont()));
+        return super.generateDocument();
     }
 
     @Override

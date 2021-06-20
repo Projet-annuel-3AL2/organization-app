@@ -18,16 +18,16 @@ public abstract class PdfGenerator {
 
     protected PdfGenerator(APIClient client) {
         this.document = new Document();
-        this.document.open();
         this.client = client;
         this.titleFont = FontFactory.getFont(FontFactory.COURIER_BOLD, 24, BaseColor.BLACK);
         this.textFont = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
     }
 
     public void generatePdf() throws DocumentException, IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(getFile());
-        PdfWriter.getInstance(generateDocument(), fileOutputStream);
-        fileOutputStream.close();
+        PdfWriter.getInstance(document, new FileOutputStream(getFile()));
+        document.open();
+        generateDocument();
+        document.close();
     }
 
     public Document generateDocument() throws DocumentException {

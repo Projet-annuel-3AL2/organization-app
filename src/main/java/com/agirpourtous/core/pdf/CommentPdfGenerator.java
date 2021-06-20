@@ -2,6 +2,7 @@ package com.agirpourtous.core.pdf;
 
 import com.agirpourtous.core.api.APIClient;
 import com.agirpourtous.core.models.Comment;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -13,6 +14,12 @@ public class CommentPdfGenerator extends PdfGenerator {
     public CommentPdfGenerator(APIClient client, Comment comment) {
         super(client);
         this.comment = comment;
+    }
+
+    @Override
+    public Document generateDocument() throws DocumentException {
+        getDocument().add(new Chunk(comment.getUser().getUsername(), getTitleFont()));
+        return super.generateDocument();
     }
 
     @Override

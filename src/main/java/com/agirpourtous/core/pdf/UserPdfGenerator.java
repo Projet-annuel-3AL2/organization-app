@@ -16,6 +16,12 @@ public class UserPdfGenerator extends PdfGenerator {
     }
 
     @Override
+    public Document generateDocument() throws DocumentException {
+        getDocument().add(new Chunk(user.getUsername(), getTitleFont()));
+        return super.generateDocument();
+    }
+
+    @Override
     public Document generateDocument(Document document) throws DocumentException {
         document.add(new Paragraph(user.getUsername(), getTextFont()));
         document.add(new Paragraph(user.getFirstname(), getTextFont()));
