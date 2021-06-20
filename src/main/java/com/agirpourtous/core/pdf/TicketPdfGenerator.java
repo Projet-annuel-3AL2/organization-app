@@ -57,6 +57,7 @@ public class TicketPdfGenerator extends PdfGenerator {
             return;
         }
         document.add(new Paragraph("Assigné à: " + assignee.getUsername(), getTextFont()));
+        addComments(document);
     }
 
     private void addComments(Document document) throws DocumentException {
