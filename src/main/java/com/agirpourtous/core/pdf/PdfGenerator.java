@@ -25,8 +25,9 @@ public abstract class PdfGenerator {
     }
 
     public void generatePdf() throws DocumentException, IOException {
-        File file = getFile();
-        PdfWriter.getInstance(generateDocument(), new FileOutputStream(file));
+        FileOutputStream fileOutputStream = new FileOutputStream(getFile());
+        PdfWriter.getInstance(generateDocument(), fileOutputStream);
+        fileOutputStream.close();
     }
 
     public Document generateDocument() throws DocumentException {
