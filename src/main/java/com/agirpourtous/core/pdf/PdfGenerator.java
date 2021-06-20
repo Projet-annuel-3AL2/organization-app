@@ -5,7 +5,6 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,7 +25,8 @@ public abstract class PdfGenerator {
     }
 
     public void generatePdf() throws DocumentException, IOException {
-        PdfWriter.getInstance(generateDocument(), new FileOutputStream(getFile()));
+        File file = getFile();
+        PdfWriter.getInstance(generateDocument(), new FileOutputStream(file));
     }
 
     public Document generateDocument() throws DocumentException {
@@ -38,7 +38,7 @@ public abstract class PdfGenerator {
     private File getFile() throws IOException {
         File file = new File("./pdf/details_pdf.pdf");
         Files.createDirectories(Path.of("./pdf"));
-        int increase = 1;
+        int increase = 0;
         while (file.exists()) {
             increase++;
             file = new File("./pdf/details_pdf(" + increase + ").pdf");
