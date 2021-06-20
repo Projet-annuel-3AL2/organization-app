@@ -19,6 +19,7 @@ public class CommentPdfGenerator extends PdfGenerator {
     public void generateDocument(Document document) throws DocumentException {
         document.add(new Paragraph("Créateur: " + comment.getUser().getUsername(), getTextFont()));
         document.add(new Paragraph("Commentaire: " + comment.getText(), getTextFont()));
-        document.add(new Paragraph("Date de création: "+new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(comment.getCreationDate()), getTextFont()));
+        document.add(new Paragraph("Date de création: " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(comment.getCreationDate()), getTextFont()));
+        document.add(new Paragraph(" "));
     }
 }

@@ -38,6 +38,7 @@ public class ProjectPdfGenerator extends PdfGenerator {
         for (User user : admins) {
             new UserPdfGenerator(client, user).generateDocument(document);
         }
+        document.add(new Paragraph(" "));
     }
 
     private void addMembers(Document document) throws DocumentException {

@@ -17,8 +17,9 @@ public class UserPdfGenerator extends PdfGenerator {
     @Override
     public void generateDocument(Document document) throws DocumentException {
         document.add(new Paragraph("Nom d'utilisateur: " + user.getUsername(), getTextFont()));
-        document.add(new Paragraph(Chunk.TAB + "Prénom: " + user.getFirstname(), getTextFont()));
-        document.add(new Paragraph(Chunk.TAB + "Nom: " + user.getLastname(), getTextFont()));
-        document.add(new Paragraph(Chunk.TAB + "Email: " + user.getMail(), getTextFont()));
+        document.add(new Paragraph( "Prénom: " + user.getFirstname(), getTextFont()));
+        document.add(new Paragraph( "Nom: " + user.getLastname(), getTextFont()));
+        document.add(new Paragraph( "Email: " + user.getMail(), getTextFont()));
+        document.add(new Paragraph(" "));
     }
 }
