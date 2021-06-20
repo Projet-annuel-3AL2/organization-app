@@ -34,6 +34,7 @@ public class TicketPdfGenerator extends PdfGenerator {
             document.add(new Paragraph("Date de fin: " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(ticket.getEndDate()), getTextFont()));
         document.add(new Paragraph("Durée estimé: " + ticket.getEstimatedDuration(), getTextFont()));
         document.add(new Paragraph("Priorité: " + ticket.getPriority(), getTextFont()));
+        addComments(document);
         document.add(new Paragraph(" "));
     }
 
@@ -57,7 +58,6 @@ public class TicketPdfGenerator extends PdfGenerator {
             return;
         }
         document.add(new Paragraph("Assigné à: " + assignee.getUsername(), getTextFont()));
-        addComments(document);
     }
 
     private void addComments(Document document) throws DocumentException {
