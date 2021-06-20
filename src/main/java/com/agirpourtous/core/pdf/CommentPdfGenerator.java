@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 
 public class CommentPdfGenerator extends PdfGenerator {
     private final Comment comment;
+
     public CommentPdfGenerator(APIClient client, Comment comment) {
         super(client);
         this.comment = comment;

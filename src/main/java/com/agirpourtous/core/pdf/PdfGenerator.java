@@ -11,10 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public abstract class PdfGenerator {
+    protected final APIClient client;
     private final Document document;
     private final Font titleFont;
     private final Font textFont;
-    protected final APIClient client;
 
     protected PdfGenerator(APIClient client) {
         this.document = new Document();
