@@ -41,7 +41,6 @@ public class ProjectMenu extends Menu {
                 try {
                     new ProjectPdfGenerator(launcher.getClient(), project).generatePdf();
                 } catch (DocumentException | IOException e) {
-                    e.printStackTrace();
                     System.out.println("Erreur lors de l'écriture du fichier PDF");
                 }
             }
