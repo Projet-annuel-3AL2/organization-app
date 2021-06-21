@@ -2,7 +2,6 @@ package com.agirpourtous.cli.menus.list;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.Menu;
-import com.agirpourtous.gui.plugin.GuiPluginController;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.PluginManager;
 
@@ -16,9 +15,6 @@ public class PluginListMenu extends ListSelectionMenu {
         pluginManager = new DefaultPluginManager(Path.of("./plugins"));
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
-        System.out.println(pluginManager.getPlugins());
-        System.out.println(pluginManager.getExtensions(Menu.class));
-        System.out.println(pluginManager.getExtensions(GuiPluginController.class));
     }
 
     @Override

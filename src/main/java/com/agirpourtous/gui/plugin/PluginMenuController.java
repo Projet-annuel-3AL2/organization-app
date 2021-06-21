@@ -1,8 +1,5 @@
 package com.agirpourtous.gui.plugin;
 
-import com.agirpourtous.cli.menus.MainMenu;
-import com.agirpourtous.cli.menus.Menu;
-import com.agirpourtous.cli.menus.ProjectMenu;
 import com.agirpourtous.gui.controllers.Controller;
 import com.agirpourtous.gui.controllers.popups.Popup;
 import javafx.fxml.FXML;
@@ -23,7 +20,9 @@ public class PluginMenuController extends Popup {
 
     @FXML
     public void initialize() throws IOException {
-        PluginManager pluginManager = new DefaultPluginManager(Path.of("./plugin"));
+        PluginManager pluginManager = new DefaultPluginManager(Path.of("./plugins"));
+        pluginManager.loadPlugins();
+        pluginManager.startPlugins();
         for (GuiPluginController controller : pluginManager.getExtensions(GuiPluginController.class)) {
             controller.display(this, pluginList);
         }
