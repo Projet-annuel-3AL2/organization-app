@@ -31,4 +31,8 @@ public abstract class Popup {
         isActive = false;
         stage.close();
     }
+
+    public Controller getController() {
+        return controller;
+    }
 }

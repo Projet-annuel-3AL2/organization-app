@@ -1,6 +1,7 @@
 package com.agirpourtous.gui.plugin;
 
 import com.agirpourtous.Main;
+import com.agirpourtous.gui.controllers.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -16,14 +17,14 @@ import java.io.IOException;
 public abstract class GuiPluginController implements ExtensionPoint {
     private final Image image;
     private final String name;
+    private PluginMenuController controller;
+    private Pane parent;
     @FXML
     Pane root;
     @FXML
     Label nameLabel;
     @FXML
     ImageView imageView;
-    PluginMenuController controller;
-    Pane parent;
 
     public GuiPluginController(Image image, String name) {
         this.image = image;
@@ -49,5 +50,9 @@ public abstract class GuiPluginController implements ExtensionPoint {
                 start();
             }
         }
+    }
+
+    public Controller getController() {
+        return controller.getController();
     }
 }
