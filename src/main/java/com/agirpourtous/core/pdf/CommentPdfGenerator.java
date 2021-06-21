@@ -18,11 +18,12 @@ public class CommentPdfGenerator extends PdfGenerator {
     }
 
     @Override
-    public void generateDocument(Document document) throws DocumentException {
+    public Document generateDocument(Document document) throws DocumentException {
         addCreator(document);
         document.add(new Paragraph("Date de création: " + new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(comment.getCreationDate()), getTextFont()));
         document.add(new Paragraph("Commentaire: " + comment.getText(), getTextFont()));
         document.add(new Paragraph(" "));
+        return document;
     }
 
     private void addCreator(Document document) throws DocumentException {

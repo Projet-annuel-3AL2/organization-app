@@ -10,6 +10,7 @@ import com.agirpourtous.gui.controllers.elements.TicketDetailsElement;
 import com.agirpourtous.gui.controllers.elements.TicketElement;
 import com.agirpourtous.gui.controllers.popups.CreateTicketPopup;
 import com.agirpourtous.gui.controllers.popups.ProjectUsersManagementPopup;
+import com.agirpourtous.gui.plugin.PluginMenuController;
 import com.itextpdf.text.DocumentException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -177,6 +178,11 @@ public class ProjectDetailsController extends Controller {
             alert.setHeaderText("Impossible de générer le PDF");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    public void onPluginAction() throws IOException {
+        new PluginMenuController(this);
     }
 
     public Project getProject() {

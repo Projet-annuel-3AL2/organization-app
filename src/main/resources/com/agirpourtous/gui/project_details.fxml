@@ -10,6 +10,8 @@
         <Button fx:id="addTicketButton" mnemonicParsing="false" onAction="#onAddTicketClick" text="Ajouter un ticket" />
         <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#onAddUserClick" text="Ajouter un utilisateur" />
         <Button fx:id="generatePDFButton" mnemonicParsing="false" onAction="#onGeneratePDFClick" text="Générer un PDF" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#onPluginAction" mnemonicParsing="false" text="Plugins" />
     </ToolBar>
     <Label alignment="CENTER" text="Project name" wrapText="true" />
     <HBox fx:id="ticketsListsHBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="800.0" spacing="10.0" VBox.vgrow="ALWAYS">

@@ -21,7 +21,7 @@ public class TicketPdfGenerator extends PdfGenerator {
     }
 
     @Override
-    public void generateDocument(Document document) throws DocumentException {
+    public Document generateDocument(Document document) throws DocumentException {
         document.add(new Paragraph("Ticket: " + ticket.getTitle(), getTextFont()));
         addCreatorName(document);
         addAssigneeName(document);
@@ -36,6 +36,7 @@ public class TicketPdfGenerator extends PdfGenerator {
         document.add(new Paragraph("Priorité: " + ticket.getPriority(), getTextFont()));
         addComments(document);
         document.add(new Paragraph(" "));
+        return document;
     }
 
     private void addCreatorName(Document document) throws DocumentException {

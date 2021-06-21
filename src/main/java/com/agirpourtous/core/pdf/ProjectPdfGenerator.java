@@ -20,11 +20,12 @@ public class ProjectPdfGenerator extends PdfGenerator {
     }
 
     @Override
-    public void generateDocument(Document document) throws DocumentException {
+    public Document generateDocument(Document document) throws DocumentException {
         document.add(new Paragraph("Nom du Projet: " + project.getName(), getTextFont()));
         addAdmins(document);
         addMembers(document);
         addTickets(document);
+        return document;
     }
 
     private void addAdmins(Document document) throws DocumentException {

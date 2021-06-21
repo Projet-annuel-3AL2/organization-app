@@ -5,6 +5,7 @@ import com.agirpourtous.core.models.Project;
 import com.agirpourtous.gui.controllers.elements.ProjectElement;
 import com.agirpourtous.gui.controllers.popups.CreateProjectPopup;
 import com.agirpourtous.gui.controllers.popups.CreateUserPopup;
+import com.agirpourtous.gui.plugin.PluginMenuController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
