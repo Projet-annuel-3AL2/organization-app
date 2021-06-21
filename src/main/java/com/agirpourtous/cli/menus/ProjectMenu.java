@@ -2,6 +2,10 @@ package com.agirpourtous.cli.menus;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.core.models.Project;
+import com.agirpourtous.core.pdf.ProjectPdfGenerator;
+import com.itextpdf.text.DocumentException;
+
+import java.io.IOException;
 
 public class ProjectMenu extends Menu {
 
@@ -31,6 +35,16 @@ public class ProjectMenu extends Menu {
                 }
             });
         }
+        addAction(new Action("Exporter sous format PDF") {
+            @Override
+            public void execute() {
+                try {
+                    new ProjectPdfGenerator(launcher.getClient(), project).generatePdf();
+                } catch (DocumentException | IOException e) {
+                    System.out.println("Erreur lors de l'écriture du fichier PDF");
+                }
+            }
+        });
         addAction(new Action("Retour au menu principal") {
             @Override
             public void execute() {

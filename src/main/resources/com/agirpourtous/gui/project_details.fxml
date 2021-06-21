@@ -6,28 +6,27 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <ToolBar maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="800.0">
-        <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onMainMenuButtonClick" text="Menu principal" />
+        <Button fx:id="mainMenuButton" mnemonicParsing="false" onAction="#onMainMenuButtonClick" text="Retour au menu principal" />
         <Button fx:id="addTicketButton" mnemonicParsing="false" onAction="#onAddTicketClick" text="Ajouter un ticket" />
         <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#onAddUserClick" text="Ajouter un utilisateur" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Button onAction="#onPluginAction" mnemonicParsing="false" text="Plugins" />
+        <Button fx:id="generatePDFButton" mnemonicParsing="false" onAction="#onGeneratePDFClick" text="Générer un PDF" />
     </ToolBar>
     <Label alignment="CENTER" text="Project name" wrapText="true" />
     <HBox fx:id="ticketsListsHBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="800.0" spacing="10.0" VBox.vgrow="ALWAYS">
         <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308">
-            <Label text="A faire" />
+            <Label text="To do" />
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <VBox fx:id="todoTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onDragDropped="#onTicketDragDropped" onDragOver="#onTicketDragOver" />
             </ScrollPane>
         </VBox>
         <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308">
-            <Label text="Ouvert" />
+            <Label text="Open" />
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <VBox fx:id="openTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onDragDropped="#onTicketDragDropped" onDragOver="#onTicketDragOver" />
             </ScrollPane>
         </VBox>
         <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308">
-            <Label text="Fermer" />
+            <Label text="Closed" />
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <VBox fx:id="closedTicketsVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onDragDropped="#onTicketDragDropped" onDragOver="#onTicketDragOver" />
             </ScrollPane>

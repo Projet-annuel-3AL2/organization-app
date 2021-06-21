@@ -17,6 +17,7 @@ module com.agirpourtous {
     requires org.pf4j;
     requires com.fasterxml.jackson.databind;
     requires java.logging;
+    requires itextpdf;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;

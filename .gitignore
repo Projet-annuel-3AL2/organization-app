@@ -12,4 +12,5 @@ buildNumber.properties
 *.log
 *.bin
 
-plugins
+plugins/
+pdf/
