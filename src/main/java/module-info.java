@@ -24,6 +24,7 @@ module com.agirpourtous {
     opens com.agirpourtous.gui;
     opens com.agirpourtous.gui.plugin;
     exports com.agirpourtous.core.models;
+    exports com.agirpourtous.core.pdf;
     exports com.agirpourtous.core.api;
     exports com.agirpourtous.core.api.requests;
     exports com.agirpourtous.core.api.services;

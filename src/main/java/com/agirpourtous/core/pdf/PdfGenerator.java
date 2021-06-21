@@ -23,18 +23,20 @@ public abstract class PdfGenerator {
         this.textFont = FontFactory.getFont(FontFactory.COURIER, 12, BaseColor.BLACK);
     }
 
-    public void generatePdf() throws DocumentException, IOException {
-        PdfWriter.getInstance(document, new FileOutputStream(getFile()));
+    public File generatePdf() throws DocumentException, IOException {
+        File file = getFile();
+        PdfWriter.getInstance(document, new FileOutputStream(file));
         document.open();
         generateDocument();
         document.close();
+        return file;
     }
 
-    public void generateDocument() throws DocumentException {
-        generateDocument(this.document);
+    public Document generateDocument() throws DocumentException {
+        return generateDocument(this.document);
     }
 
-    protected abstract void generateDocument(Document document) throws DocumentException;
+    protected abstract Document generateDocument(Document document) throws DocumentException;
 
     private File getFile() throws IOException {
         File file = new File("./pdf/details_pdf.pdf");
