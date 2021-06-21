@@ -14,17 +14,26 @@ module com.agirpourtous {
     requires org.reactivestreams;
     requires com.fasterxml.jackson.core;
     requires org.controlsfx.controls;
+    requires org.pf4j;
     requires com.fasterxml.jackson.databind;
     requires java.logging;
+    requires itextpdf;
 
     opens com.agirpourtous.core.models;
     opens com.agirpourtous.core.api.requests;
     opens com.agirpourtous.gui;
+    opens com.agirpourtous.gui.plugin;
     exports com.agirpourtous.core.models;
+    exports com.agirpourtous.core.pdf;
     exports com.agirpourtous.core.api;
     exports com.agirpourtous.core.api.requests;
     exports com.agirpourtous.core.api.services;
+    exports com.agirpourtous.cli;
+    exports com.agirpourtous.cli.menus;
+    exports com.agirpourtous.cli.menus.list;
+    exports com.agirpourtous.cli.menus.forms;
     exports com.agirpourtous.gui;
+    exports com.agirpourtous.gui.plugin;
     exports com.agirpourtous.gui.controllers;
     exports com.agirpourtous.gui.controllers.elements;
     exports com.agirpourtous.gui.controllers.popups;
