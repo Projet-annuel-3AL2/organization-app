@@ -24,7 +24,7 @@ public class PasswordRecoveryController extends Controller {
     public void send() {
         if (passwordField.getText().equals(confirmPasswordField.getText()) && passwordField.getText().length() >= 7) {
             client.getAuthService()
-                    .resetPassword(new ResetPasswordRequest(tokenField.getText(), passwordField.getText()))
+                    .resetPassword(tokenField.getText(), new ResetPasswordRequest(passwordField.getText()))
                     .doOnSuccess(res -> Platform.runLater(() -> new ConnexionController(this)))
                     .subscribe();
         }

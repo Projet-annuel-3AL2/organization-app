@@ -4,6 +4,7 @@ import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.forms.AuthForm;
 import com.agirpourtous.cli.menus.forms.ForgotPasswordForm;
 import com.agirpourtous.cli.menus.forms.ResetPasswordForm;
+import com.agirpourtous.core.api.requests.ResetPasswordRequest;
 
 public class AuthMenu extends Menu {
 
@@ -38,8 +39,9 @@ public class AuthMenu extends Menu {
             @Override
             public void execute() {
                 try {
+                    ResetPasswordRequest resetPasswordRequest = new ResetPasswordForm().askEntries();
                     launcher.getClient().getAuthService()
-                            .resetPassword(new ResetPasswordForm().askEntries())
+                            .resetPassword(resetPasswordRequest.getToken(), resetPasswordRequest)
                             .doOnTerminate(() -> launcher.setActiveMenu(new AuthMenu(launcher)))
                             .block();
                 } catch (Exception ignored) {
