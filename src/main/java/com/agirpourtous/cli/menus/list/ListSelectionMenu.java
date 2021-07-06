@@ -2,7 +2,6 @@ package com.agirpourtous.cli.menus.list;
 
 import com.agirpourtous.cli.CLILauncher;
 import com.agirpourtous.cli.menus.Menu;
-import com.agirpourtous.core.models.Entity;
 
 public abstract class ListSelectionMenu extends Menu {
 

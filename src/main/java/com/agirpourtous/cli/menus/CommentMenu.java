@@ -5,7 +5,7 @@ import com.agirpourtous.cli.menus.forms.AddCommentForm;
 import com.agirpourtous.core.api.requests.AddCommentRequest;
 import com.agirpourtous.core.models.Comment;
 
-public class CommentMenu extends Menu{
+public class CommentMenu extends Menu {
     public CommentMenu(CLILauncher launcher, Comment comment) {
         super(launcher, "Menu de gestion d'un commentaire");
         addAction(new Action("Modifier le commentaire") {
