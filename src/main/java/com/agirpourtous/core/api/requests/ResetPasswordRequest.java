@@ -7,9 +7,8 @@ public class ResetPasswordRequest implements Request {
     private String password;
     private String token;
 
-    public ResetPasswordRequest(String password, String token) {
+    public ResetPasswordRequest(String password) {
         this.password = password;
-        this.token = token;
     }
 
     public ResetPasswordRequest() {

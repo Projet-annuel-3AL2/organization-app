@@ -53,4 +53,9 @@ public class User extends Entity {
     public String getMail() {
         return mail;
     }
+
+    @Override
+    public String toString() {
+        return "" + username +", " + lastname + ", " + firstname + ", '" + mail;
+    }
 }

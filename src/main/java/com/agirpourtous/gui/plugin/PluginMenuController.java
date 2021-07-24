@@ -24,7 +24,7 @@ public class PluginMenuController extends Popup {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
         for (GuiPluginController controller : pluginManager.getExtensions(GuiPluginController.class)) {
-            controller.display(this, pluginList);
+            controller.display(this.controller, pluginList);
         }
     }
 }

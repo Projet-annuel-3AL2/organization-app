@@ -1,6 +1,7 @@
 package com.agirpourtous.gui.plugin;
 
 import com.agirpourtous.Main;
+import com.agirpourtous.gui.controllers.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -22,7 +23,7 @@ public abstract class GuiPluginController implements ExtensionPoint {
     Label nameLabel;
     @FXML
     ImageView imageView;
-    PluginMenuController controller;
+    Controller controller;
     Pane parent;
 
     public GuiPluginController(Image image, String name) {
@@ -30,7 +31,7 @@ public abstract class GuiPluginController implements ExtensionPoint {
         this.name = name;
     }
 
-    public void display(PluginMenuController controller, Pane parent) throws IOException {
+    public void display(Controller controller, Pane parent) throws IOException {
         this.controller = controller;
         this.parent = parent;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/elements/plugin_element.fxml"));
@@ -49,5 +50,9 @@ public abstract class GuiPluginController implements ExtensionPoint {
                 start();
             }
         }
+    }
+
+    public Controller getController() {
+        return controller;
     }
 }
